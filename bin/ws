@@ -2,36 +2,37 @@
 # bin/ws — workstream tool: render the DAG from GitHub Issues; claim/release node leases;
 #           lint readiness; self-healing flip-gate.
 #
-# WHY (Operator-directed, 2026-07-07, four falsification rounds): (1) the ledger is minimal —
-#   node details live on GitHub Issues, the single source of truth; (2) the view is GENERATED
-#   on the fly — no committed copy drifts; (3) concurrent-thread-execution invariant (DYAD.md
-#   #5): threads work in parallel across branches without collision — leases; (4) node-lifecycle
-#   invariant (WS-NL, #14): status:ready MEANS headless-dispatchable to a sub-agent — enforced
-#   by lint (structure), the claim gate, and the Actions flip-gate (self-healing).
+# WHY (Operator-directed, 2026-07-07, five falsification rounds): (1) minimal ledger — node
+#   details live on GitHub Issues, the single source of truth; (2) views are GENERATED on the
+#   fly — no committed copy drifts; (3) concurrent-thread-execution invariant (DYAD.md #5):
+#   parallel threads, no node collision — leases; (4) node-lifecycle invariant (#14):
+#   status:ready MEANS headless-dispatchable — lint + claim gate + Actions flip-gate;
+#   (5) stream labels (#15): node identity = issue #, grouping = ws:<stream> labels
+#   (ws:substrate · ws:process · ws:curriculum), titles are free text — native filtering.
 #
-# Node contract (one issue per workstream, labeled `ws`, title "WS…: <name>"):
+# Node contract (one issue per node, labeled `ws` + one `ws:<stream>`):
 #   labels    — machine state: exactly one status:* of proposed|ready|in-progress|blocked|
 #               elicit|operator|horizon; CLOSED renders as done. Queryable; never in body.
 #               Lifecycle (third #5 invariant — Sense closes only by Operator confirmation):
 #               new nodes enter status:proposed (the body IS the intent playback); the Operator
 #               closes Sense (ready-flip, or a d-land directive the Agent records); claim
 #               refuses any node not ready.
-#   body      — REQUIRED for ready (WS-NL readiness contract): **Intent** · **Acceptance
+#   body      — REQUIRED for ready (readiness contract, #14): **Intent** · **Acceptance
 #               criteria** · **Context** (pointers; no chat-only knowledge) · **Delivery**
 #               (branch, evidence, release path) · resolved **Elicit** · **Depends-on:** all
 #               refs CLOSED ("—" = none; use **Relates:** for non-execution links).
 #   comments  — the lease journal: `CLAIM branch=<b> ts=<utc>` opens; `RELEASE`/`YIELD` close.
 #
 # Lint proves STRUCTURE; semantic sufficiency stays with the Operator's flip. The lease
-# protocol's no-CAS race window is documented at `claim` below — narrowed by read-back,
-# deterministic earliest-claim-wins, adequate at dyad scale.
+# protocol's no-CAS race window: claim-comment + read-back, deterministic earliest-claim-wins,
+# millisecond window — adequate at dyad scale, named rather than hidden.
 #
 # Usage:  bin/ws                                   # render DAG + pointers + elicit queue
-#         bin/ws claim WS3 [branch]               # lease a ready node (lints first)
-#         bin/ws release WS3 [--done | --status <s>]
-#         bin/ws lint  <WS-id|#N|N>               # readiness contract check (network)
+#         bin/ws claim <#N|N> [branch]            # lease a ready node (lints first)
+#         bin/ws release <#N|N> [--done | --status <s>]
+#         bin/ws lint  <#N|N>                     # readiness contract check (network)
 #         bin/ws lint  --fixture <file> [--deps open|closed]   # offline, for criteria/
-#         bin/ws gate  <N>                        # flip-gate: revert non-compliant ready
+#         bin/ws gate  <#N|N>                     # flip-gate: revert non-compliant ready
 set -euo pipefail
 
 MY_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -67,25 +68,22 @@ def section_text(body, name):
     return (rest[: nxt.start()] if nxt else rest).strip()
 
 def nodes():
+    """All ws-labeled issues, keyed by issue number (identity = #N; title is free text, #15)."""
     issues = gh("issue", "list", "--label", "ws", "--state", "all", "--limit", "200",
                 "--json", "number,title,state,url,body,labels", parse=True)
-    out = {}
-    for i in sorted(issues, key=lambda x: x["number"]):
-        m = re.match(r"(WS[\w-]+):", i["title"])
-        if m:
-            out[m.group(1)] = i
-    return out
+    return {i["number"]: i for i in sorted(issues, key=lambda x: x["number"])}
 
 def resolve(ns, key):
-    """Accept 'WS-X', '#14', or '14'."""
-    if key in ns:
-        return key, ns[key]
-    k = key.lstrip("#")
-    if k.isdigit():
-        for ws, i in ns.items():
-            if i["number"] == int(k):
-                return ws, i
-    sys.exit(f"ws: unknown node '{key}'")
+    k = str(key).lstrip("#")
+    if k.isdigit() and int(k) in ns:
+        return int(k), ns[int(k)]
+    sys.exit(f"ws: unknown node '{key}' (nodes are ws-labeled issues, addressed by number)")
+
+def stream_of(i):
+    for l in i["labels"]:
+        if l["name"].startswith("ws:"):
+            return l["name"].split(":", 1)[1]
+    return "-"
 
 def status_of(i):
     if i["state"] == "CLOSED":
@@ -113,7 +111,7 @@ def active_leases(number):
 def now():
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-# --- readiness lint (WS-NL, #14) -------------------------------------------------------------
+# --- readiness lint (#14) --------------------------------------------------------------------
 
 def open_elicit(body):
     e = field(body, "Elicit")
@@ -154,77 +152,71 @@ def lint_report(label, misses):
 
 def render():
     ns = nodes()
-    by_num = {i["number"]: ws for ws, i in ns.items()}
     print("# WORKSTREAMS — generated view (source of truth: GitHub Issues; do not edit)\n")
     print("```mermaid\ngraph LR")
-    for ws, i in ns.items():
-        print(f'  {ws}["{ws} · {status_of(i)}"]')
-    for ws, i in ns.items():
+    for n, i in ns.items():
+        print(f'  N{n}["#{n} · {status_of(i)}"]')
+    for n, i in ns.items():
         for d in re.findall(r"#(\d+)", field(i["body"], "Depends-on")):
-            if int(d) in by_num:
-                print(f"  {by_num[int(d)]} --> {ws}")
+            if int(d) in ns:
+                print(f"  N{d} --> N{n}")
     print("```\n")
-    print("| id | workstream | status | node |")
-    print("|----|------------|--------|------|")
+    print("| node | title | stream | status |")
+    print("|------|-------|--------|--------|")
     elicits = []
-    for ws, i in ns.items():
+    for n, i in ns.items():
         st = status_of(i)
         if st == "in-progress":
-            leases = active_leases(i["number"])
+            leases = active_leases(n)
             st = f"in-progress @ {', '.join(leases) or '??'}"
-        title = i["title"].split(":", 1)[1].strip()
-        print(f"| {ws} | {title} | {st} | [#{i['number']}]({i['url']}) |")
+        print(f"| [#{n}]({i['url']}) | {i['title']} | {stream_of(i)} | {st} |")
         e = open_elicit(i["body"])
         if e and i["state"] != "CLOSED":
-            elicits.append((ws, i["number"], e))
+            elicits.append((n, e))
     if elicits:
         print("\n## Elicit queue (Operator-only knowledge)\n")
-        for ws, n, e in elicits:
-            print(f"- **{ws}** (#{n}): {e}")
+        for n, e in elicits:
+            print(f"- **#{n}**: {e}")
 
-def claim(ws_id, branch):
+def claim(key, branch):
     protected = subprocess.run([os.path.dirname(GH) + "/_dyad-rt", "protected"],
                                capture_output=True, text=True).stdout.strip() or "main"
     if not branch or branch == protected:
         sys.exit(f"ws claim: refusing lease for branch '{branch}' — work happens on working branches.")
-    ns = nodes()
-    ws_id, i = resolve(ns, ws_id)
+    n, i = resolve(nodes(), key)
     st = status_of(i)
     if st != "ready":
-        sys.exit(f"ws claim: {ws_id} is '{st}', not 'ready' — not claimable (collision guard).")
+        sys.exit(f"ws claim: #{n} is '{st}', not 'ready' — not claimable (collision guard).")
     misses = lint_misses(i["body"], live_dep_state)
     if misses:
-        sys.exit(f"ws claim: {ws_id} refused by readiness lint (WS-NL): " + "; ".join(misses))
-    n = str(i["number"])
-    if active_leases(i["number"]):
-        sys.exit(f"ws claim: {ws_id} already has an active lease — not claimable (collision guard).")
-    gh("issue", "comment", n, "--body", f"CLAIM branch={branch} ts={now()}")
-    gh("issue", "edit", n, "--add-label", "status:in-progress", "--remove-label", "status:ready")
-    leases = active_leases(i["number"])          # read-back: did we race?
+        sys.exit(f"ws claim: #{n} refused by readiness lint (#14): " + "; ".join(misses))
+    if active_leases(n):
+        sys.exit(f"ws claim: #{n} already has an active lease — not claimable (collision guard).")
+    gh("issue", "comment", str(n), "--body", f"CLAIM branch={branch} ts={now()}")
+    gh("issue", "edit", str(n), "--add-label", "status:in-progress", "--remove-label", "status:ready")
+    leases = active_leases(n)                    # read-back: did we race?
     earliest = min(leases, key=leases.get) if leases else None
     if earliest != branch:
-        gh("issue", "comment", n, "--body", f"YIELD branch={branch} ts={now()} (lost race to {earliest})")
-        print(f"ws claim: lost race for {ws_id} to '{earliest}' — yielded.", file=sys.stderr)
+        gh("issue", "comment", str(n), "--body", f"YIELD branch={branch} ts={now()} (lost race to {earliest})")
+        print(f"ws claim: lost race for #{n} to '{earliest}' — yielded.", file=sys.stderr)
         sys.exit(2)
-    print(f"ws claim: {ws_id} leased to branch '{branch}' (#{n}).")
+    print(f"ws claim: #{n} leased to branch '{branch}'.")
 
-def release(ws_id, args):
-    ns = nodes()
-    ws_id, i = resolve(ns, ws_id)
-    n = str(i["number"])
+def release(key, args):
+    n, i = resolve(nodes(), key)
     branch = os.environ.get("WS_CUR_BRANCH", "")
-    leases = active_leases(i["number"])
+    leases = active_leases(n)
     if branch not in leases:
-        sys.exit(f"ws release: no active lease for branch '{branch}' on {ws_id} (active: {list(leases) or 'none'}).")
-    gh("issue", "comment", n, "--body", f"RELEASE branch={branch} ts={now()}")
+        sys.exit(f"ws release: no active lease for branch '{branch}' on #{n} (active: {list(leases) or 'none'}).")
+    gh("issue", "comment", str(n), "--body", f"RELEASE branch={branch} ts={now()}")
     if "--done" in args:
-        gh("issue", "edit", n, "--remove-label", "status:in-progress")
-        gh("issue", "close", n)
-        print(f"ws release: {ws_id} done and closed (#{n}).")
+        gh("issue", "edit", str(n), "--remove-label", "status:in-progress")
+        gh("issue", "close", str(n))
+        print(f"ws release: #{n} done and closed.")
     else:
         new = args[args.index("--status") + 1] if "--status" in args else "ready"
-        gh("issue", "edit", n, "--add-label", f"status:{new}", "--remove-label", "status:in-progress")
-        print(f"ws release: {ws_id} lease ended, status:{new} (#{n}).")
+        gh("issue", "edit", str(n), "--add-label", f"status:{new}", "--remove-label", "status:in-progress")
+        print(f"ws release: #{n} lease ended, status:{new}.")
 
 def lint_cmd(args):
     if args and args[0] == "--fixture":
@@ -234,26 +226,25 @@ def lint_cmd(args):
             deps = args[args.index("--deps") + 1]
         dep_state = (lambda n: "CLOSED") if deps == "closed" else (lambda n: "OPEN")
         sys.exit(lint_report(args[1], lint_misses(body, dep_state)))
-    ws_id, i = resolve(nodes(), args[0])
-    sys.exit(lint_report(ws_id, lint_misses(i["body"], live_dep_state)))
+    n, i = resolve(nodes(), args[0])
+    sys.exit(lint_report(f"#{n}", lint_misses(i["body"], live_dep_state)))
 
 def gate(key):
     """Self-healing flip-gate: a status:ready node failing lint is reverted to proposed."""
-    ws_id, i = resolve(nodes(), key)
+    n, i = resolve(nodes(), key)
     if i["state"] == "CLOSED" or status_of(i) != "ready":
-        print(f"ws gate: {ws_id} is '{status_of(i)}' — nothing to gate.")
+        print(f"ws gate: #{n} is '{status_of(i)}' — nothing to gate.")
         return
     misses = lint_misses(i["body"], live_dep_state)
     if not misses:
-        print(f"ws gate: {ws_id} passes — ready stands.")
+        print(f"ws gate: #{n} passes — ready stands.")
         return
-    n = str(i["number"])
-    gh("issue", "edit", n, "--add-label", "status:proposed", "--remove-label", "status:ready")
-    gh("issue", "comment", n, "--body",
-       "⛔ readiness flip-gate (WS-NL, #14): reverted ready → proposed — the readiness contract is not met:\n"
+    gh("issue", "edit", str(n), "--add-label", "status:proposed", "--remove-label", "status:ready")
+    gh("issue", "comment", str(n), "--body",
+       "⛔ readiness flip-gate (#14): reverted ready → proposed — the readiness contract is not met:\n"
        + "\n".join(f"- {m}" for m in misses)
        + "\n\nFix the node body (and close open dependencies), then re-flip.")
-    print(f"ws gate: {ws_id} reverted ready → proposed ({len(misses)} misses; self-healed).")
+    print(f"ws gate: #{n} reverted ready → proposed ({len(misses)} misses; self-healed).")
 
 argv = sys.argv[1:]
 if not argv:
