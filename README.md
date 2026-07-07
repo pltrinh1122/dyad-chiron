@@ -58,6 +58,12 @@ sources used below: **Operator-directed** (explicit instruction),
   raw `git` (the launcher wires `core.hooksPath` here). Survives gate-off;
   `--no-verify` is the one visible escape. *Provenance: ported from dyad-aule,
   same directive as `bin/`.*
+- **`.github/workflows/`** — repo automation: `node-lint.yml`, the readiness
+  flip-gate — a node labeled `status:ready` that fails the WS-NL readiness
+  contract is self-healed back to `status:proposed` with a comment naming the
+  misses. Policy single-homed in `bin/ws gate`; the workflow is trigger +
+  transport. *Provenance: WS-NL node #14, Operator-proposed and d-sense
+  ratified 2026-07-07.*
 - **`check`** + **`criteria/`** — the acceptance-criteria runner: each
   capability deposits executable criteria; `./check` grounds them all.
   Earnedness (chiron's craft value) made computational — a claim without a
