@@ -1,0 +1,63 @@
+name: activity-board
+# The Activity Board Observe channel (#13). Interim ratified surface (fallback (a)): a PINNED
+# GitHub issue titled "Activity Board" whose body IS `bin/ws board` output. This workflow is
+# TRIGGER + TRANSPORT only — the render policy (columns, cards, legend, generated marker) single-
+# homes in `bin/ws board`; here we just regenerate and publish. Zero provisioning: runs on the
+# built-in github.token. The premium Projects v2 surface (Q3) is a follow-on that needs an
+# Operator-provisioned project-scoped token (see the #13 delivery report).
+#
+# WHY the triggers (#13 Q5, Operator-ratified): issue/label events re-render within one run
+# (any ws-node state change) · workflow_dispatch for on-demand · a daily schedule is the
+# drift-healing backstop that heals a missed event.
+on:
+  issues:
+    types: [opened, closed, reopened, deleted, edited, labeled, unlabeled]
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * *"   # daily backstop (drift-healer for any missed event)
+
+permissions:
+  issues: write
+  contents: read
+
+concurrency:
+  group: activity-board
+  cancel-in-progress: false
+
+jobs:
+  render:
+    # Loop-guard: editing/labeling the board issue itself fires issues events — never chase our
+    # own tail. (For workflow_dispatch/schedule github.event.issue is null, so this is true.)
+    if: github.event.issue.title != 'Activity Board'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: render + publish the Activity Board (interim pinned issue)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: "Activity Board"
+        run: |
+          set -euo pipefail
+          # policy single-homed in bin/ws; every line below is transport only.
+          body="$(bin/ws board)"
+
+          n="$(bin/gh issue list --state open --search "in:title \"$TITLE\"" \
+                 --json number,title -q ".[] | select(.title==\"$TITLE\") | .number" | head -n1)"
+
+          if [ -z "$n" ]; then
+            url="$(bin/gh issue create --title "$TITLE" --body "$body")"
+            n="${url##*/}"
+            id="$(bin/gh issue view "$n" --json id -q .id)"
+            # pin it so it's the Operator's at-a-glance Observe channel (best-effort: max 3 pins).
+            bin/gh api graphql -f query='mutation($id:ID!){pinIssue(input:{issueId:$id}){issue{number}}}' \
+              -f id="$id" || echo "note: could not pin #$n (repo may already have 3 pinned issues)"
+            echo "created + pinned Activity Board -> #$n"
+          else
+            cur="$(bin/gh issue view "$n" --json body -q .body)"
+            if [ "$cur" = "$body" ]; then
+              echo "Activity Board #$n already current — no edit (nothing drifted)."
+            else
+              printf '%s' "$body" | bin/gh issue edit "$n" --body-file -
+              echo "regenerated Activity Board -> #$n"
+            fi
+          fi
