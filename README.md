@@ -61,9 +61,19 @@ sources used below: **Operator-directed** (explicit instruction),
   pattern, pre-committed to by DYAD.md ("cheap enforcing checks … per aule's
   `criteria/` pattern").*
 
+- **`dialectic/`** — live contests: open questions under stress-test; a record
+  moves to `reflect/` when the question earns its answer. First artifact:
+  `interaction-model.md` (PROPOSED). *Provenance: ontology #7, DYAD.md; dir
+  created on first artifact, as the ontology prescribes.*
+- **`WORKSTREAMS.md`** — the durable DAG + status ledger: single home for
+  cross-session work state (intent, acceptance criteria, dependencies, status
+  per workstream). *Provenance: Operator-directed multi-workstream interaction
+  model (2026-07-07); ledger format Agent-elected, see
+  `dialectic/interaction-model.md`.*
+
 Future artifact-kinds per ontology #7 (created on first artifact, not before):
-`dialectic/` (live contests) and the **curriculum home** (planned as a separate,
-substrate-agnostic repo — Agent-elected default pending Operator ratification).
+the **curriculum home** (planned as a separate, substrate-agnostic repo —
+Agent-elected default pending Operator ratification).
 
 ## Naming decisions (worked examples of the provenance invariant)
 
