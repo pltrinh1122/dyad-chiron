@@ -104,7 +104,16 @@ the exact shortcut the craft_invariant forbids.
 1. WIP-N = 3 — right ceiling, or different?
 2. Primitive set (direct/steer/ratify/falsify ∥ propose/report/elicit/deliver) —
    too heavy, too light, or wrong cuts?
-3. Ledger home: root `WORKSTREAMS.md` (elected — one file, visible, cheap) vs. a
-   `workstreams/` dir per-stream (scales, but over-built today)?
-4. Elicit-queueing: batched on the ledger and raised at checkpoints, vs.
-   interrupt-immediately per question?
+3. ~~Ledger home~~ — **RESOLVED by Operator falsification (2026-07-07), two
+   rounds:** node details live on GitHub Issues (existing cloud-durable
+   infrastructure, one node per workstream:
+   `github.com/pltrinh1122/dyad-chiron/issues`); the ledger is a **derived
+   view generated on the fly by `bin/ws`** — no committed copy exists to drift
+   (single-home). Portability note: the model's portable contract is "durable
+   node records + a derivable DAG view"; GitHub Issues is this dyad's elected
+   *binding* (routed via the `bin/gh` wrapper), swappable per substrate. The
+   session-absent test correspondingly gains a cloud-reachability component —
+   an elected trade-off: repo-alone gives the mechanism (`bin/ws`), the cloud
+   holds the state.
+4. Elicit-queueing: batched on the node's `Status:` field and raised at
+   checkpoints, vs. interrupt-immediately per question?

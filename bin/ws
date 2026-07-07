@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# bin/ws — render the workstream DAG + pointers on the fly from GitHub Issues.
+#
+# WHY (Operator-directed, 2026-07-07): "WORKSTREAMS.md should be minimum, perhaps just the DAG
+#   and pointers to actual node details. node details should leverage existing cloud durable
+#   infrastructure like GitHub Issues" … "in fact WORKSTREAMS.md could potentially be generated
+#   on the fly based on the gh-issue node information." So: issues are the SINGLE HOME of node
+#   details (intent, acceptance criteria, Depends-on, status, provenance); this tool derives the
+#   view — no committed copy exists to drift (single-home discipline, DYAD.md ontology #7).
+#
+# Node contract (what bin/ws parses from each issue titled "WS…: <name>"):
+#   **Depends-on:** #k, #j     — the DAG edges (— or absent = root)
+#   **Status:** <word …>       — nuance beyond open/closed; CLOSED renders as "done"
+#
+# Usage:  bin/ws                     # render markdown to stdout
+#         bin/ws > /tmp/ws.md        # snapshot if a file is ever wanted (not committed)
+set -euo pipefail
+
+MY_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_SLUG="${DYAD_WS_REPO:-pltrinh1122/dyad-chiron}"
+
+# Route through the guarded wrapper (read-only call; keeps the sandbox invariant uniform).
+# NB: JSON travels as argv, not stdin — the heredoc already claims stdin for the program text.
+json_data="$("$MY_BIN/gh" issue list -R "$REPO_SLUG" --state all --limit 200 \
+  --json number,title,state,url,body)"
+python3 - "$json_data" <<'PY'
+import json, re, sys
+
+issues = sorted(json.loads(sys.argv[1]), key=lambda i: i["number"])
+
+def field(body, name):
+    m = re.search(rf"\*\*{name}:\*\*\s*(.+)", body or "")
+    return m.group(1).strip() if m else ""
+
+nodes = {}  # number -> (ws-id, issue)
+for i in issues:
+    m = re.match(r"(WS[\w-]+):", i["title"])
+    if m:
+        nodes[i["number"]] = (m.group(1), i)
+
+print("# WORKSTREAMS — generated view (source of truth: GitHub Issues; do not edit)\n")
+print("```mermaid")
+print("graph LR")
+for n, (ws, i) in nodes.items():
+    label = "done" if i["state"] == "CLOSED" else (field(i["body"], "Status").split(" ")[0].rstrip(";,—-") or "open")
+    print(f'  {ws}["{ws} · {label}"]')
+for n, (ws, i) in nodes.items():
+    for d in re.findall(r"#(\d+)", field(i["body"], "Depends-on")):
+        d = int(d)
+        if d in nodes:
+            print(f"  {nodes[d][0]} --> {ws}")
+print("```\n")
+print("| id | workstream | status | node |")
+print("|----|------------|--------|------|")
+for n, (ws, i) in nodes.items():
+    status = "done" if i["state"] == "CLOSED" else (field(i["body"], "Status") or "open")
+    title = i["title"].split(":", 1)[1].strip()
+    print(f"| {ws} | {title} | {status} | [#{n}]({i['url']}) |")
+PY

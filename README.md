@@ -50,6 +50,8 @@ sources used below: **Operator-directed** (explicit instruction),
     `check` skips `_`-prefixed criteria helpers).
   - `bin/git` · `bin/gh` — physical wrappers routing mutations through the
     enforcer (Execution Sandbox Invariant): the friendly early steering vector.
+  - `bin/ws` — renders the workstream DAG from GitHub Issues (see workstream
+    nodes below).
 - **`.githooks/`** — `pre-commit` + `pre-push`: the hard floor, firing even on
   raw `git` (the launcher wires `core.hooksPath` here). Survives gate-off;
   `--no-verify` is the one visible escape. *Provenance: ported from dyad-aule,
@@ -65,11 +67,15 @@ sources used below: **Operator-directed** (explicit instruction),
   moves to `reflect/` when the question earns its answer. First artifact:
   `interaction-model.md` (PROPOSED). *Provenance: ontology #7, DYAD.md; dir
   created on first artifact, as the ontology prescribes.*
-- **`WORKSTREAMS.md`** — the durable DAG + status ledger: single home for
-  cross-session work state (intent, acceptance criteria, dependencies, status
-  per workstream). *Provenance: Operator-directed multi-workstream interaction
-  model (2026-07-07); ledger format Agent-elected, see
-  `dialectic/interaction-model.md`.*
+- **workstream nodes — [GitHub Issues](https://github.com/pltrinh1122/dyad-chiron/issues)**
+  — single home for cross-session work state: one issue per workstream
+  (intent, acceptance criteria, `Depends-on:` edges, status, provenance).
+  `bin/ws` renders the DAG + pointer view on the fly; no committed
+  `WORKSTREAMS.md` exists to drift. *Provenance: Operator-directed
+  (2026-07-07, two falsification rounds — "minimum … pointers to actual node
+  details … leverage existing cloud durable infrastructure like GitHub
+  Issues" / "generated on the fly"); see `dialectic/interaction-model.md`
+  fork 3.*
 
 Future artifact-kinds per ontology #7 (created on first artifact, not before):
 the **curriculum home** (planned as a separate, substrate-agnostic repo —
