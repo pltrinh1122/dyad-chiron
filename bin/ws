@@ -1,59 +1,175 @@
 #!/usr/bin/env bash
-# bin/ws — render the workstream DAG + pointers on the fly from GitHub Issues.
+# bin/ws — workstream tool: render the DAG from GitHub Issues; claim/release node leases.
 #
-# WHY (Operator-directed, 2026-07-07): "WORKSTREAMS.md should be minimum, perhaps just the DAG
-#   and pointers to actual node details. node details should leverage existing cloud durable
-#   infrastructure like GitHub Issues" … "in fact WORKSTREAMS.md could potentially be generated
-#   on the fly based on the gh-issue node information." So: issues are the SINGLE HOME of node
-#   details (intent, acceptance criteria, Depends-on, status, provenance); this tool derives the
-#   view — no committed copy exists to drift (single-home discipline, DYAD.md ontology #7).
+# WHY (Operator-directed, 2026-07-07, three falsification rounds): (1) the ledger is minimal —
+#   DAG + pointers; node details live on existing cloud-durable infrastructure (GitHub Issues);
+#   (2) the view is GENERATED on the fly — issues are the single home, no committed copy drifts;
+#   (3) concurrent-thread-execution invariant (DYAD.md #5): threads work in parallel across
+#   branches WITHOUT collision — a node in-progress must not be grabbed by another thread.
 #
-# Node contract (what bin/ws parses from each issue titled "WS…: <name>"):
-#   **Depends-on:** #k, #j     — the DAG edges (— or absent = root)
-#   **Status:** <word …>       — nuance beyond open/closed; CLOSED renders as "done"
+# Node contract (one issue per workstream, labeled `ws`, title "WS…: <name>"):
+#   labels    — machine state: exactly one status:* of ready|in-progress|blocked|elicit|
+#               operator|horizon; CLOSED renders as done. Queryable; never encoded in body.
+#   body      — **Intent** · **Acceptance criteria** · **Depends-on:** #k, #j (DAG edges) ·
+#               **Elicit:**/**Note:** (content) · **Provenance:**
+#   comments  — the lease journal: `CLAIM branch=<b> ts=<utc>` opens a lease;
+#               `RELEASE branch=<b> …` / `YIELD branch=<b> …` closes it.
 #
-# Usage:  bin/ws                     # render markdown to stdout
-#         bin/ws > /tmp/ws.md        # snapshot if a file is ever wanted (not committed)
+# The lease protocol (claim): node must be status:ready with no active lease → post CLAIM
+#   comment → swap label to status:in-progress → READ BACK: if an earlier active claim by
+#   another branch exists, we lost the race — post YIELD, restore label, exit 2. HONESTY:
+#   GitHub has no compare-and-swap, so this is not a perfect lock; comments are server-ordered,
+#   the earliest-active-claim-wins tie-break is deterministic, and the window is milliseconds —
+#   adequate at dyad scale, named here rather than hidden.
+#
+# Branch = thread identity: one claimed node ↔ one working branch (single-writer per node;
+#   parallelism happens ACROSS nodes). Claiming from `main` is refused.
+#
+# Usage:  bin/ws                          # render DAG + pointers + elicit queue (markdown)
+#         bin/ws claim WS3 [branch]      # lease a ready node (default: current branch)
+#         bin/ws release WS3 [--done | --status <ready|blocked|elicit>]   # end the lease
 set -euo pipefail
 
 MY_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_SLUG="${DYAD_WS_REPO:-pltrinh1122/dyad-chiron}"
+export WS_GH="$MY_BIN/gh"
+export WS_REPO="${DYAD_WS_REPO:-pltrinh1122/dyad-chiron}"
+export WS_CUR_BRANCH="$(git -C "$MY_BIN/.." symbolic-ref --quiet --short HEAD 2>/dev/null || echo "")"
 
-# Route through the guarded wrapper (read-only call; keeps the sandbox invariant uniform).
-# NB: JSON travels as argv, not stdin — the heredoc already claims stdin for the program text.
-json_data="$("$MY_BIN/gh" issue list -R "$REPO_SLUG" --state all --limit 200 \
-  --json number,title,state,url,body)"
-python3 - "$json_data" <<'PY'
-import json, re, sys
+exec python3 - "$@" <<'PY'
+import json, os, re, subprocess, sys
+from datetime import datetime, timezone
 
-issues = sorted(json.loads(sys.argv[1]), key=lambda i: i["number"])
+GH, REPO = os.environ["WS_GH"], os.environ["WS_REPO"]
+STATUSES = ["ready", "in-progress", "blocked", "elicit", "operator", "horizon"]
+
+def gh(*args, parse=False):
+    r = subprocess.run([GH, *args, "-R", REPO], capture_output=True, text=True)
+    if r.returncode != 0:
+        sys.stderr.write(r.stderr)
+        sys.exit(1)
+    return json.loads(r.stdout) if parse else r.stdout
 
 def field(body, name):
     m = re.search(rf"\*\*{name}:\*\*\s*(.+)", body or "")
     return m.group(1).strip() if m else ""
 
-nodes = {}  # number -> (ws-id, issue)
-for i in issues:
-    m = re.match(r"(WS[\w-]+):", i["title"])
-    if m:
-        nodes[i["number"]] = (m.group(1), i)
+def nodes():
+    issues = gh("issue", "list", "--label", "ws", "--state", "all", "--limit", "200",
+                "--json", "number,title,state,url,body,labels", parse=True)
+    out = {}
+    for i in sorted(issues, key=lambda x: x["number"]):
+        m = re.match(r"(WS[\w-]+):", i["title"])
+        if m:
+            out[m.group(1)] = i
+    return out
 
-print("# WORKSTREAMS — generated view (source of truth: GitHub Issues; do not edit)\n")
-print("```mermaid")
-print("graph LR")
-for n, (ws, i) in nodes.items():
-    label = "done" if i["state"] == "CLOSED" else (field(i["body"], "Status").split(" ")[0].rstrip(";,—-") or "open")
-    print(f'  {ws}["{ws} · {label}"]')
-for n, (ws, i) in nodes.items():
-    for d in re.findall(r"#(\d+)", field(i["body"], "Depends-on")):
-        d = int(d)
-        if d in nodes:
-            print(f"  {nodes[d][0]} --> {ws}")
-print("```\n")
-print("| id | workstream | status | node |")
-print("|----|------------|--------|------|")
-for n, (ws, i) in nodes.items():
-    status = "done" if i["state"] == "CLOSED" else (field(i["body"], "Status") or "open")
-    title = i["title"].split(":", 1)[1].strip()
-    print(f"| {ws} | {title} | {status} | [#{n}]({i['url']}) |")
+def status_of(i):
+    if i["state"] == "CLOSED":
+        return "done"
+    for l in i["labels"]:
+        if l["name"].startswith("status:"):
+            return l["name"].split(":", 1)[1]
+    return "open"
+
+def active_leases(number):
+    """Replay the lease journal: CLAIM opens, RELEASE/YIELD closes. -> {branch: ts}"""
+    comments = gh("issue", "view", str(number), "--json", "comments", parse=True)["comments"]
+    open_leases = {}
+    for c in comments:
+        m = re.match(r"(CLAIM|RELEASE|YIELD)\s+branch=(\S+)", c["body"])
+        if not m:
+            continue
+        verb, branch = m.groups()
+        if verb == "CLAIM":
+            open_leases.setdefault(branch, c["createdAt"])
+        else:
+            open_leases.pop(branch, None)
+    return open_leases
+
+def now():
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+def render():
+    ns = nodes()
+    by_num = {i["number"]: ws for ws, i in ns.items()}
+    print("# WORKSTREAMS — generated view (source of truth: GitHub Issues; do not edit)\n")
+    print("```mermaid\ngraph LR")
+    for ws, i in ns.items():
+        print(f'  {ws}["{ws} · {status_of(i)}"]')
+    for ws, i in ns.items():
+        for d in re.findall(r"#(\d+)", field(i["body"], "Depends-on")):
+            if int(d) in by_num:
+                print(f"  {by_num[int(d)]} --> {ws}")
+    print("```\n")
+    print("| id | workstream | status | node |")
+    print("|----|------------|--------|------|")
+    elicits = []
+    for ws, i in ns.items():
+        st = status_of(i)
+        if st == "in-progress":
+            leases = active_leases(i["number"])
+            st = f"in-progress @ {', '.join(leases) or '??'}"
+        title = i["title"].split(":", 1)[1].strip()
+        print(f"| {ws} | {title} | {st} | [#{i['number']}]({i['url']}) |")
+        e = field(i["body"], "Elicit")
+        if e and i["state"] != "CLOSED":
+            elicits.append((ws, i["number"], e))
+    if elicits:
+        print("\n## Elicit queue (Operator-only knowledge)\n")
+        for ws, n, e in elicits:
+            print(f"- **{ws}** (#{n}): {e}")
+
+def claim(ws_id, branch):
+    protected = subprocess.run([os.path.dirname(GH) + "/_dyad-rt", "protected"],
+                               capture_output=True, text=True).stdout.strip() or "main"
+    if not branch or branch == protected:
+        sys.exit(f"ws claim: refusing lease for branch '{branch}' — work happens on working branches.")
+    ns = nodes()
+    if ws_id not in ns:
+        sys.exit(f"ws claim: unknown node '{ws_id}'")
+    i = ns[ws_id]
+    st = status_of(i)
+    if st != "ready":
+        sys.exit(f"ws claim: {ws_id} is '{st}', not 'ready' — not claimable (collision guard).")
+    n = str(i["number"])
+    if active_leases(i["number"]):
+        sys.exit(f"ws claim: {ws_id} already has an active lease — not claimable (collision guard).")
+    gh("issue", "comment", n, "--body", f"CLAIM branch={branch} ts={now()}")
+    gh("issue", "edit", n, "--add-label", "status:in-progress", "--remove-label", "status:ready")
+    leases = active_leases(i["number"])          # read-back: did we race?
+    earliest = min(leases, key=leases.get) if leases else None
+    if earliest != branch:
+        gh("issue", "comment", n, "--body", f"YIELD branch={branch} ts={now()} (lost race to {earliest})")
+        print(f"ws claim: lost race for {ws_id} to '{earliest}' — yielded.", file=sys.stderr)
+        sys.exit(2)
+    print(f"ws claim: {ws_id} leased to branch '{branch}' (#{n}).")
+
+def release(ws_id, args):
+    ns = nodes()
+    if ws_id not in ns:
+        sys.exit(f"ws release: unknown node '{ws_id}'")
+    i = ns[ws_id]; n = str(i["number"])
+    branch = os.environ.get("WS_CUR_BRANCH", "")
+    leases = active_leases(i["number"])
+    if branch not in leases:
+        sys.exit(f"ws release: no active lease for branch '{branch}' on {ws_id} (active: {list(leases) or 'none'}).")
+    gh("issue", "comment", n, "--body", f"RELEASE branch={branch} ts={now()}")
+    if "--done" in args:
+        gh("issue", "edit", n, "--remove-label", "status:in-progress")
+        gh("issue", "close", n)
+        print(f"ws release: {ws_id} done and closed (#{n}).")
+    else:
+        new = args[args.index("--status") + 1] if "--status" in args else "ready"
+        gh("issue", "edit", n, "--add-label", f"status:{new}", "--remove-label", "status:in-progress")
+        print(f"ws release: {ws_id} lease ended, status:{new} (#{n}).")
+
+argv = sys.argv[1:]
+if not argv:
+    render()
+elif argv[0] == "claim":
+    claim(argv[1], argv[2] if len(argv) > 2 else os.environ.get("WS_CUR_BRANCH", ""))
+elif argv[0] == "release":
+    release(argv[1], argv[2:])
+else:
+    sys.exit(f"ws: unknown subcommand '{argv[0]}' (usage in header: bin/ws --help = sed -n 2,30p)")
 PY

@@ -67,6 +67,30 @@ never self-ratifies, provenance still grounds every decision.
    is only real once landed at the workstream's single home. (Same portability
    constraint the Operator set for the curriculum: independent of OS and agent.)
 
+## Concurrency across threads (Operator-directed, 2026-07-07 — now an operating-policy invariant)
+
+The Operator elected **concurrent thread execution** as an operational
+invariant (now DYAD.md #5, second invariant): multiple threads work in
+parallel across branches and must never collide on a node — a node
+in-progress is not claimable by a subsequent thread.
+
+Mechanism (implemented in `bin/ws`):
+
+- **Machine state = labels, not body text:** exactly one `status:*` label per
+  open node (`ready · in-progress · blocked · elicit · operator · horizon`);
+  closed = done. Labels are queryable in one call and are the claim gate.
+- **Lease protocol:** `bin/ws claim WS<n> [branch]` — node must be
+  `status:ready` with no active lease → post `CLAIM branch=… ts=…` comment →
+  swap to `status:in-progress` → read back: if an earlier active claim by
+  another branch exists, post `YIELD` and restore (deterministic
+  earliest-claim-wins tie-break). `bin/ws release WS<n> [--done | --status s]`
+  verifies the releasing branch holds the lease.
+- **Branch = thread identity:** one claimed node ↔ one working branch;
+  single-writer per node, parallelism across nodes. WIP-N counts active leases.
+- **Honesty:** GitHub offers no compare-and-swap; the read-back protocol
+  narrows the race to milliseconds and resolves ties deterministically —
+  adequate at dyad scale, documented rather than hidden.
+
 ## Acceptance criteria (how we know the model is agreed and real)
 
 - **AC1 — ledger:** `WORKSTREAMS.md` exists; every active workstream carries

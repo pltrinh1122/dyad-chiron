@@ -104,6 +104,16 @@ surfaced for Operator review, ratified by merge. Carried in artifact headers
 (WHY blocks), commit messages, and `README.md` (the structure's single home;
 coverage enforced by `criteria/readme-structure.sh`).
 
+Second invariant, Operator-elected (2026-07-07, interaction-model dialectic):
+**concurrent thread execution — multiple threads may work in parallel across
+branches, and must never collide on a workstream node.** A node in-progress is
+not claimable by another thread; work on a node happens only under an active
+lease, on that lease's branch (single-writer per node; parallelism across
+nodes). Mechanism: the `bin/ws` lease protocol over GitHub-Issue nodes
+(CLAIM/RELEASE/YIELD journal + `status:*` labels), race-window honestly
+documented in its header. Enforcing criteria wire with the interaction model's
+ratification (`dialectic/interaction-model.md`).
+
 ### Ontology (#7) — starter
 
 Artifact-kinds with single homes (a fact lives in exactly one place;

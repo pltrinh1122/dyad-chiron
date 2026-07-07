@@ -50,8 +50,10 @@ sources used below: **Operator-directed** (explicit instruction),
     `check` skips `_`-prefixed criteria helpers).
   - `bin/git` · `bin/gh` — physical wrappers routing mutations through the
     enforcer (Execution Sandbox Invariant): the friendly early steering vector.
-  - `bin/ws` — renders the workstream DAG from GitHub Issues (see workstream
-    nodes below).
+  - `bin/ws` — workstream tool: renders the DAG from GitHub Issues, and
+    holds the node **lease protocol** (`claim`/`release`) enforcing the
+    concurrent-thread-execution invariant (DYAD.md #5) — an in-progress node
+    is not claimable by another thread.
 - **`.githooks/`** — `pre-commit` + `pre-push`: the hard floor, firing even on
   raw `git` (the launcher wires `core.hooksPath` here). Survives gate-off;
   `--no-verify` is the one visible escape. *Provenance: ported from dyad-aule,
