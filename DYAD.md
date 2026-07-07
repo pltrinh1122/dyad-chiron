@@ -11,9 +11,11 @@
 - **name:** dyad-chiron — after the Greek trainer of heroes: novices arrive,
   train through practice, and leave as self-sustaining masters. (Working name
   during the DIP was "coach"; settled by rubric after the craft locked.)
-- **birth-hash:** `TODO — recompute after the birth commit`, exactly as
-  `commons/scripts/onboard.py` does: `sha256(<CLAUDE.md content at birth
-  commit> + <commit date, ISO-8601>)`. Never trust a printed value; recompute.
+- **birth-hash:** `sha256:6fdd467c86978ca3397e85047c4a381966d7889aada0b94d030a45b74bc8c057`
+  (birth commit `9bc8d18`). Do not trust this printed value — **recompute** it
+  from this repo: `sha256(<CLAUDE.md content at birth commit> + <commit date,
+  ISO-8601>)`, exactly as `commons/scripts/onboard.py` does. (It was
+  recomputed independently, not copied, before being stored here.)
 
 ## Craft
 
