@@ -90,11 +90,19 @@ Curriculum artifacts get their own home when the first one exists.
 No hats have been worn under real work yet. Codified from practice when run,
 not pre-scripted.
 
-### Operating-policy (#5) — deferred
+### Operating-policy (#5) — first invariant landed; rest deferred
 
 No lived cycles yet; git-workflow, WIP, proactivity set when friction sets
 them. One inherited default until then: work stays durable (commit at natural
 checkpoints); identity acts (birth, merge-to-main) are the Operator's.
+
+First invariant, Operator-elected under real friction (2026-07-07, substrate
+bootstrap): **provenance — every decision/action is grounded: what was
+decided, who elected it (Operator-directed · Agent-elected · inherited), when,
+and from what source.** Agent-elected decisions are falsifiable defaults,
+surfaced for Operator review, ratified by merge. Carried in artifact headers
+(WHY blocks), commit messages, and `README.md` (the structure's single home;
+coverage enforced by `criteria/readme-structure.sh`).
 
 ### Ontology (#7) — starter
 
