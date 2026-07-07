@@ -10,7 +10,7 @@
 #   (5) stream labels (#15): node identity = issue #, grouping = ws:<stream> labels
 #   (ws:substrate · ws:process · ws:curriculum), titles are free text — native filtering.
 #
-# Node contract (one issue per node, labeled `ws` + one `ws:<stream>`):
+# Node contract (one issue per node; membership = exactly one `ws:<stream>` label — no bare marker):
 #   labels    — machine state: exactly one status:* of proposed|ready|in-progress|blocked|
 #               elicit|operator|horizon; CLOSED renders as done. Queryable; never in body.
 #               Lifecycle (third #5 invariant — Sense closes only by Operator confirmation):
@@ -68,10 +68,12 @@ def section_text(body, name):
     return (rest[: nxt.start()] if nxt else rest).strip()
 
 def nodes():
-    """All ws-labeled issues, keyed by issue number (identity = #N; title is free text, #15)."""
-    issues = gh("issue", "list", "--label", "ws", "--state", "all", "--limit", "200",
+    """All nodes, keyed by issue number. Membership = carrying a ws:<stream> label (#15 —
+    no bare marker label; the stream label IS the node marker)."""
+    issues = gh("issue", "list", "--state", "all", "--limit", "200",
                 "--json", "number,title,state,url,body,labels", parse=True)
-    return {i["number"]: i for i in sorted(issues, key=lambda x: x["number"])}
+    return {i["number"]: i for i in sorted(issues, key=lambda x: x["number"])
+            if any(l["name"].startswith("ws:") for l in i["labels"])}
 
 def resolve(ns, key):
     k = str(key).lstrip("#")
