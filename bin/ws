@@ -8,8 +8,11 @@
 #   branches WITHOUT collision — a node in-progress must not be grabbed by another thread.
 #
 # Node contract (one issue per workstream, labeled `ws`, title "WS…: <name>"):
-#   labels    — machine state: exactly one status:* of ready|in-progress|blocked|elicit|
-#               operator|horizon; CLOSED renders as done. Queryable; never encoded in body.
+#   labels    — machine state: exactly one status:* of proposed|ready|in-progress|blocked|
+#               elicit|operator|horizon; CLOSED renders as done. Queryable; never in body.
+#               Lifecycle (third #5 invariant — Sense closes only by Operator confirmation):
+#               new nodes enter status:proposed (the body IS the intent playback); ONLY the
+#               Operator flips proposed -> ready; claim refuses any node not ready.
 #   body      — **Intent** · **Acceptance criteria** · **Depends-on:** #k, #j (DAG edges) ·
 #               **Elicit:**/**Note:** (content) · **Provenance:**
 #   comments  — the lease journal: `CLAIM branch=<b> ts=<utc>` opens a lease;
@@ -40,7 +43,7 @@ import json, os, re, subprocess, sys
 from datetime import datetime, timezone
 
 GH, REPO = os.environ["WS_GH"], os.environ["WS_REPO"]
-STATUSES = ["ready", "in-progress", "blocked", "elicit", "operator", "horizon"]
+STATUSES = ["proposed", "ready", "in-progress", "blocked", "elicit", "operator", "horizon"]
 
 def gh(*args, parse=False):
     r = subprocess.run([GH, *args, "-R", REPO], capture_output=True, text=True)

@@ -114,6 +114,23 @@ nodes). Mechanism: the `bin/ws` lease protocol over GitHub-Issue nodes
 documented in its header. Enforcing criteria wire with the interaction model's
 ratification (`dialectic/interaction-model.md`).
 
+Third invariant — the learning invariant, Operator-proposed, dyadically
+converged (2026-07-07): **intent-alignment before action — Sense closes only
+by Operator confirmation.** A new or redirected intent opens the Sense turns
+of SPAOR (the G0 scaffold, canonical Sense·Plan·Act·Observe·Reflect): the
+Agent plays back its interpretation — the intent as understood, the
+invariants/acceptance-criteria it entails, and the design elections it is
+about to make — and only the Operator's confirmation closes Sense; Plan and
+Act follow Sense-closure. Scope: directive/workstream granularity — within an
+aligned scope (a node whose intent + acceptance criteria the Operator
+ratified), reversible on-branch acts proceed without fresh playback; an
+**unstated design election reopens Sense**. Grounding: `no-self-ratify`
+applied to interpretation — acting on an unratified interpretation is the
+proposer ratifying its own proposal. Evidence + wear-in record:
+`reflect/intent-before-action.md`. Mechanization: new workstream nodes enter
+`status:proposed`; only the Operator flips proposed → ready; the `bin/ws`
+lease refuses any node not ready. Also a curriculum topic (WS6).
+
 ### Ontology (#7) — starter
 
 Artifact-kinds with single homes (a fact lives in exactly one place;

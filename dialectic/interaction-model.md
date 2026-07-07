@@ -91,6 +91,24 @@ Mechanism (implemented in `bin/ws`):
   narrows the race to milliseconds and resolves ties deterministically —
   adequate at dyad scale, documented rather than hidden.
 
+## SPAOR grounding (Operator-framed, 2026-07-07)
+
+The model's primitives are not new machinery — they map onto the form's G0
+execution scaffold (canonical Sense·Plan·Act·Observe·Reflect), per the third
+operating-policy invariant (intent-alignment before action):
+
+- **Sense** — Operator `direct`/`steer` opens it; Agent playback (interpreted
+  intent + invariants + design elections) and `elicit` are the Sense moves;
+  **Operator confirmation closes Sense** — nothing downstream starts before
+  closure. Mechanized: nodes enter `status:proposed` (the node body IS the
+  playback); only the Operator flips proposed → ready.
+- **Plan** — dependency placement on the DAG; electing the working branch.
+- **Act** — `bin/ws claim` (the lease) → work on the claimed branch.
+- **Observe** — `report`/`deliver` with `./check`-style evidence attached.
+- **Reflect** — Operator `falsify`/`ratify`; settled records move to
+  `reflect/`; breaches forge invariants (see
+  `reflect/intent-before-action.md`).
+
 ## Acceptance criteria (how we know the model is agreed and real)
 
 - **AC1 — ledger:** `WORKSTREAMS.md` exists; every active workstream carries
