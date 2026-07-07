@@ -1,38 +1,80 @@
 #!/usr/bin/env bash
-# bin/ws — workstream tool: render the DAG from GitHub Issues; claim/release node leases;
-#           lint readiness; self-healing flip-gate.
+# bin/ws — workstream tool: render the DAG from GitHub Issues; drive the node lifecycle
+#           (converge / dland / claim / release); lint readiness; self-healing flip-gate.
 #
-# WHY (Operator-directed, 2026-07-07, five falsification rounds): (1) minimal ledger — node
-#   details live on GitHub Issues, the single source of truth; (2) views are GENERATED on the
-#   fly — no committed copy drifts; (3) concurrent-thread-execution invariant (DYAD.md #5):
-#   parallel threads, no node collision — leases; (4) node-lifecycle invariant (#14):
-#   status:ready MEANS headless-dispatchable — lint + claim gate + Actions flip-gate;
-#   (5) stream labels (#15): node identity = issue #, grouping = ws:<stream> labels
-#   (ws:substrate · ws:process · ws:curriculum), titles are free text — native filtering.
+# WHY (Operator-directed, 2026-07-07, five falsification rounds + lifecycle ratification #16):
+#   (1) minimal ledger — node details live on GitHub Issues, the single source of truth;
+#   (2) views are GENERATED on the fly — no committed copy drifts; (3) concurrent-thread-
+#   execution invariant (DYAD.md #5): parallel threads, no node collision — leases;
+#   (4) readiness contract (#14): dispose MEANS headless-dispatchable — lint + claim gate +
+#   Actions flip-gate; (5) stream labels (#15): node identity = issue #, grouping =
+#   ws:<stream> labels, titles are free text — native filtering.
+#
+# Lifecycle (ratified #16, 2026-07-07 — statuses ARE the Activity Board lanes, 1:1; the
+# lifecycle is the Operator's at-a-glance command view; attention = clarification + disposition):
+#
+#     clarify → dispose → execute → blocked   (+ done = CLOSED)
+#
+#   clarify  — Sense open; Operator input due. New nodes enter here (the body IS the
+#              intent playback, per DYAD.md #5 third invariant).
+#   dispose  — Sense converged, contract passes; Operator go/no-go due. Also home of pure
+#              Operator-act nodes. clarify → dispose is settable ONLY via the lint-gated
+#              `ws converge` assertion (invariant 1).
+#   execute  — disposition given; agents' hands. dispose → execute IS the disposition
+#              (invariant 2): an Operator label flip, or a d-land directive recorded via
+#              `ws dland`. Lock state on the card: `execute` alone = authorized, awaiting
+#              a thread; `execute` + `lock:<branch>` = in that thread's hands.
+#   blocked  — dependencies unmet; reason on the card (optional **Blocked:** body field,
+#              e.g. "unscheduled"). Blocked bars EXECUTION only — Sense is permeable
+#              (Operator clarification, 2026-07-07): body refinement, elicitation, and
+#              amendments on a blocked node are deliberately allowed; Sense converges while
+#              dependencies clear. Enforced at two points: claim refuses (stage + lint
+#              deps-check), and promotion to dispose is impossible while deps are open.
+#              Known gap: unblocking is manual today; candidate self-heal = the board
+#              sync (#13) auto-promoting blocked nodes whose deps have all closed.
+#
+#   Staleness gate (Operator amendment, 2026-07-07): convergence is TIMESTAMPED — the
+#   CONVERGE journal comment — and is INVALID if any Depends-on ref closed AFTER it
+#   (ground mutated under the convergence). lint reports it; gate and claim self-heal
+#   the node to clarify with a comment naming which dependency moved, for a cheap
+#   re-grounding confirmation (not a full re-Sense). Claim is the last gate before
+#   execution — late-emerging ground mutation is caught there.
+#
+#   d-land on a non-dispose node: state the risk ("Sense not converged") and PROCEED —
+#   warn, not halt (invariant 3, Operator urgency override). Policy point (invariant 2):
+#   disposition flips to standing authorization per stream when the Operator elects it
+#   (Agent self-dispatches on convergence; Operator veto stands) — until then, every
+#   disposition is an Operator turn, and `ws turns` derives the metric: disposition-turns
+#   per node = timestamped `status:execute` label events (Operator flips and recorded
+#   d-land directives both land one) + DISPOSITION journal comments as the directive record.
 #
 # Node contract (one issue per node; membership = exactly one `ws:<stream>` label — no bare marker):
-#   labels    — machine state: exactly one status:* of proposed|ready|in-progress|blocked|
-#               elicit|operator|horizon; CLOSED renders as done. Queryable; never in body.
-#               Lifecycle (third #5 invariant — Sense closes only by Operator confirmation):
-#               new nodes enter status:proposed (the body IS the intent playback); the Operator
-#               closes Sense (ready-flip, or a d-land directive the Agent records); claim
-#               refuses any node not ready.
-#   body      — REQUIRED for ready (readiness contract, #14): **Intent** · **Acceptance
+#   labels    — machine state: exactly one status:* of clarify|dispose|execute|blocked;
+#               CLOSED renders as done. Queryable; never in body. `lock:<branch>` = the
+#               visible lease holder (claim adds, release removes) — a board-visible CACHE;
+#               the CLAIM/RELEASE journal stays authoritative (invariant 4).
+#   body      — REQUIRED for dispose (readiness contract, #14): **Intent** · **Acceptance
 #               criteria** · **Context** (pointers; no chat-only knowledge) · **Delivery**
 #               (branch, evidence, release path) · resolved **Elicit** · **Depends-on:** all
-#               refs CLOSED ("—" = none; use **Relates:** for non-execution links).
-#   comments  — the lease journal: `CLAIM branch=<b> ts=<utc>` opens; `RELEASE`/`YIELD` close.
+#               refs CLOSED ("—" = none; use **Relates:** for non-execution links). Field
+#               markers may carry qualifier text before the colon (defect found live on #14).
+#   comments  — the journal: `CLAIM branch=<b> ts=<utc>` opens a lease; `RELEASE`/`YIELD`
+#               close it; `CONVERGE ts=<utc>` asserts Sense-closure; `DISPOSITION d-land
+#               ts=<utc>` records a directive.
 #
-# Lint proves STRUCTURE; semantic sufficiency stays with the Operator's flip. The lease
+# Lint proves STRUCTURE; semantic sufficiency stays with the Operator's disposition. The lease
 # protocol's no-CAS race window: claim-comment + read-back, deterministic earliest-claim-wins,
 # millisecond window — adequate at dyad scale, named rather than hidden.
 #
-# Usage:  bin/ws                                   # render DAG + pointers + elicit queue
-#         bin/ws claim <#N|N> [branch]            # lease a ready node (lints first)
-#         bin/ws release <#N|N> [--done | --status <s>]
-#         bin/ws lint  <#N|N>                     # readiness contract check (network)
+# Usage:  bin/ws                                   # render DAG + lanes + elicit queue
+#         bin/ws converge <#N|N>                   # Agent asserts Sense converged: clarify → dispose (lint-gated)
+#         bin/ws dland <#N|N> ["<directive>"]      # record a d-land disposition: → execute (warns off-dispose)
+#         bin/ws claim <#N|N> [branch]             # lease an execute node (lints; adds lock:<branch>)
+#         bin/ws release <#N|N> [--done | --status <s>]   # end lease (removes lock:<branch>)
+#         bin/ws lint  <#N|N>                      # readiness contract check (network)
 #         bin/ws lint  --fixture <file> [--deps open|closed]   # offline, for criteria/
-#         bin/ws gate  <#N|N>                     # flip-gate: revert non-compliant ready
+#         bin/ws gate  <#N|N>                      # flip-gate: revert non-compliant dispose → clarify
+#         bin/ws turns <#N|N>                      # disposition-turn metric (timestamped events)
 set -euo pipefail
 
 MY_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -46,6 +88,7 @@ from datetime import datetime, timezone
 
 GH, REPO = os.environ["WS_GH"], os.environ["WS_REPO"]
 REQUIRED_FIELDS = ["Intent", "Acceptance criteria", "Context", "Delivery"]
+STATUSES = ["clarify", "dispose", "execute", "blocked"]   # = board lanes, 1:1 (#16 invariant 5)
 
 def gh(*args, parse=False):
     r = subprocess.run([GH, *args, "-R", REPO], capture_output=True, text=True)
@@ -54,17 +97,31 @@ def gh(*args, parse=False):
         sys.exit(1)
     return json.loads(r.stdout) if parse else r.stdout
 
+def gh_api(path, parse=True):
+    """gh api call (no -R flag — the path names the repo)."""
+    r = subprocess.run([GH, "api", "-H", "Accept: application/vnd.github+json",
+                        "-F", "per_page=100", path], capture_output=True, text=True)
+    if r.returncode != 0:
+        sys.stderr.write(r.stderr)
+        sys.exit(1)
+    return json.loads(r.stdout) if parse else r.stdout
+
+def marker(name):
+    """A **Field:** marker; qualifier text before the colon is tolerated —
+    e.g. **Intent (converged via elicitation, 2026-07-07):** (defect found live on #14)."""
+    return rf"\*\*{name}\b[^:*\n]*:\*\*"
+
 def field(body, name):
-    m = re.search(rf"\*\*{name}:\*\*\s*(.+)", body or "")
+    m = re.search(marker(name) + r"\s*(.+)", body or "")
     return m.group(1).strip() if m else ""
 
 def section_text(body, name):
     """Text from a **Name:** marker to the next field marker / heading / rule; None if absent."""
-    m = re.search(rf"\*\*{name}:\*\*", body or "")
+    m = re.search(marker(name), body or "")
     if not m:
         return None
     rest = (body or "")[m.end():]
-    nxt = re.search(r"\n\*\*[A-Z][a-zA-Z -]*:\*\*|\n#{1,6} |\n---", rest)
+    nxt = re.search(r"\n\*\*[A-Z][^:*\n]*:\*\*|\n#{1,6} |\n---", rest)
     return (rest[: nxt.start()] if nxt else rest).strip()
 
 def nodes():
@@ -88,12 +145,22 @@ def stream_of(i):
     return "-"
 
 def status_of(i):
+    """done = CLOSED; else the status:* label. Exactly one per open node (invariant 5) —
+    zero or several is a visible breach, rendered as-is rather than papered over."""
     if i["state"] == "CLOSED":
         return "done"
+    found = [l["name"].split(":", 1)[1] for l in i["labels"] if l["name"].startswith("status:")]
+    return "+".join(found) if found else "none"
+
+def lock_of(i):
+    """The lock:<branch> label — the board-visible lease holder (cache; journal authoritative)."""
     for l in i["labels"]:
-        if l["name"].startswith("status:"):
+        if l["name"].startswith("lock:"):
             return l["name"].split(":", 1)[1]
-    return "open"
+    return None
+
+def status_labels(i):
+    return [l["name"] for l in i["labels"] if l["name"].startswith("status:")]
 
 def active_leases(number):
     """Replay the lease journal: CLAIM opens, RELEASE/YIELD closes. -> {branch: ts}"""
@@ -141,6 +208,43 @@ def lint_misses(body, dep_state):
 def live_dep_state(n):
     return gh("issue", "view", str(n), "--json", "state", parse=True)["state"]
 
+# --- staleness gate (#16, Operator amendment 2026-07-07) ---------------------------------------
+
+def latest_converge_ts(number):
+    """The latest CONVERGE journal timestamp — convergence is timestamped, not a bare flag."""
+    comments = gh("issue", "view", str(number), "--json", "comments", parse=True)["comments"]
+    ts = None
+    for c in comments:
+        m = re.match(r"CONVERGE ts=(\S+)", c["body"])
+        if m:
+            ts = m.group(1)
+    return ts
+
+def stale_deps(number, body):
+    """Convergence is INVALID if any Depends-on ref closed AFTER the latest CONVERGE ts —
+    ground mutated under the convergence. -> [(dep, closedAt, converge_ts), ...]"""
+    ts = latest_converge_ts(number)
+    if not ts:
+        return []
+    stale = []
+    for d in re.findall(r"#(\d+)", field(body, "Depends-on")):
+        info = gh("issue", "view", d, "--json", "state,closedAt", parse=True)
+        if info["state"] == "CLOSED" and (info.get("closedAt") or "") > ts:
+            stale.append((int(d), info["closedAt"], ts))
+    return stale
+
+def heal_stale(n, i, stale):
+    """Self-heal a stale convergence to clarify, naming which dependency moved."""
+    args = ["issue", "edit", str(n), "--add-label", "status:clarify"]
+    for l in status_labels(i):
+        args += ["--remove-label", l]
+    gh(*args)
+    gh("issue", "comment", str(n), "--body",
+       "⛔ staleness gate (#16): convergence invalidated — ground mutated under it:\n"
+       + "\n".join(f"- dependency #{d} closed {c} AFTER CONVERGE {t}" for d, c, t in stale)
+       + "\n\nReverted to clarify for a cheap re-grounding confirmation (not a full re-Sense), "
+         "then re-assert convergence (`bin/ws converge`).")
+
 def lint_report(label, misses):
     if misses:
         print(f"ws lint: {label} FAILS the readiness contract:")
@@ -168,9 +272,13 @@ def render():
     elicits = []
     for n, i in ns.items():
         st = status_of(i)
-        if st == "in-progress":
-            leases = active_leases(n)
-            st = f"in-progress @ {', '.join(leases) or '??'}"
+        if st == "execute":
+            lock = lock_of(i)
+            st = f"execute @ {lock}" if lock else "execute (awaiting a thread)"
+        elif st == "blocked":
+            reason = field(i["body"], "Blocked")
+            if reason:
+                st = f"blocked ({reason})"
         print(f"| [#{n}]({i['url']}) | {i['title']} | {stream_of(i)} | {st} |")
         e = open_elicit(i["body"])
         if e and i["state"] != "CLOSED":
@@ -180,29 +288,76 @@ def render():
         for n, e in elicits:
             print(f"- **#{n}**: {e}")
 
+def converge(key):
+    """Invariant 1 (#16): clarify → dispose is settable ONLY here — the Agent's lint-gated
+    assertion that Sense has converged and the node meets the readiness contract (#14)."""
+    n, i = resolve(nodes(), key)
+    st = status_of(i)
+    if st != "clarify":
+        sys.exit(f"ws converge: #{n} is '{st}', not 'clarify' — nothing to assert.")
+    misses = lint_misses(i["body"], live_dep_state)
+    if misses:
+        sys.exit(f"ws converge: #{n} refused by readiness lint (#14): " + "; ".join(misses))
+    gh("issue", "comment", str(n), "--body",
+       f"CONVERGE ts={now()} — Sense asserted converged (lint-gated, #16 invariant 1); awaiting disposition.")
+    gh("issue", "edit", str(n), "--add-label", "status:dispose", "--remove-label", "status:clarify")
+    print(f"ws converge: #{n} clarify → dispose — awaiting the Operator's go/no-go.")
+
+def dland(key, text):
+    """Invariant 2 (#16): record a d-land directive — the disposition — and flip to execute.
+    Invariant 3: on a non-dispose node, warn ('Sense not converged') and PROCEED — the
+    Operator's urgency override halts nothing."""
+    n, i = resolve(nodes(), key)
+    if i["state"] == "CLOSED":
+        sys.exit(f"ws dland: #{n} is closed — nothing to dispose.")
+    st = status_of(i)
+    note = ""
+    if st != "dispose":
+        print(f"ws dland: WARNING — #{n} is '{st}', not 'dispose': Sense not converged; "
+              f"proceeding on Operator urgency override (#16 invariant 3).", file=sys.stderr)
+        note = f" (urgency override from '{st}': Sense not converged)"
+    body = f"DISPOSITION d-land ts={now()}{note}" + (f" — {text}" if text else "")
+    gh("issue", "comment", str(n), "--body", body)
+    args = ["issue", "edit", str(n), "--add-label", "status:execute"]
+    for l in status_labels(i):
+        args += ["--remove-label", l]
+    gh(*args)
+    print(f"ws dland: #{n} → execute (disposition recorded).")
+
 def claim(key, branch):
+    """Invariant 4 (#16): claim gates on execute + readiness lint + no active lease.
+    The lease lands a lock:<branch> label — the board-visible holder (cache; the
+    CLAIM/RELEASE journal stays authoritative)."""
     protected = subprocess.run([os.path.dirname(GH) + "/_dyad-rt", "protected"],
                                capture_output=True, text=True).stdout.strip() or "main"
     if not branch or branch == protected:
         sys.exit(f"ws claim: refusing lease for branch '{branch}' — work happens on working branches.")
     n, i = resolve(nodes(), key)
     st = status_of(i)
-    if st != "ready":
-        sys.exit(f"ws claim: #{n} is '{st}', not 'ready' — not claimable (collision guard).")
+    if st != "execute":
+        sys.exit(f"ws claim: #{n} is '{st}', not 'execute' — no disposition given, not claimable (#16 invariant 4).")
     misses = lint_misses(i["body"], live_dep_state)
     if misses:
         sys.exit(f"ws claim: #{n} refused by readiness lint (#14): " + "; ".join(misses))
+    stale = stale_deps(n, i["body"])
+    if stale:                                    # the last gate before execution (#16)
+        heal_stale(n, i, stale)
+        sys.exit(f"ws claim: #{n} refused by the staleness gate (#16) — convergence predates "
+                 f"dependency closure ({', '.join(f'#{d}' for d, _, _ in stale)}); self-healed to clarify.")
     if active_leases(n):
         sys.exit(f"ws claim: #{n} already has an active lease — not claimable (collision guard).")
+    gh("label", "create", f"lock:{branch}", "--color", "FBCA04", "--force",
+       "--description", f"lease held by branch {branch} (visible cache; journal authoritative)")
     gh("issue", "comment", str(n), "--body", f"CLAIM branch={branch} ts={now()}")
-    gh("issue", "edit", str(n), "--add-label", "status:in-progress", "--remove-label", "status:ready")
+    gh("issue", "edit", str(n), "--add-label", f"lock:{branch}")
     leases = active_leases(n)                    # read-back: did we race?
     earliest = min(leases, key=leases.get) if leases else None
     if earliest != branch:
         gh("issue", "comment", str(n), "--body", f"YIELD branch={branch} ts={now()} (lost race to {earliest})")
+        gh("issue", "edit", str(n), "--remove-label", f"lock:{branch}")
         print(f"ws claim: lost race for #{n} to '{earliest}' — yielded.", file=sys.stderr)
         sys.exit(2)
-    print(f"ws claim: #{n} leased to branch '{branch}'.")
+    print(f"ws claim: #{n} leased to branch '{branch}' (lock:{branch}).")
 
 def release(key, args):
     n, i = resolve(nodes(), key)
@@ -211,14 +366,20 @@ def release(key, args):
     if branch not in leases:
         sys.exit(f"ws release: no active lease for branch '{branch}' on #{n} (active: {list(leases) or 'none'}).")
     gh("issue", "comment", str(n), "--body", f"RELEASE branch={branch} ts={now()}")
+    gh("issue", "edit", str(n), "--remove-label", f"lock:{branch}")
     if "--done" in args:
-        gh("issue", "edit", str(n), "--remove-label", "status:in-progress")
+        gh("issue", "edit", str(n), "--remove-label", "status:execute")
         gh("issue", "close", str(n))
         print(f"ws release: #{n} done and closed.")
-    else:
-        new = args[args.index("--status") + 1] if "--status" in args else "ready"
-        gh("issue", "edit", str(n), "--add-label", f"status:{new}", "--remove-label", "status:in-progress")
+    elif "--status" in args:
+        new = args[args.index("--status") + 1]
+        if new not in STATUSES:
+            sys.exit(f"ws release: unknown status '{new}' — lanes are {' | '.join(STATUSES)} (#16 invariant 5).")
+        if new != "execute":
+            gh("issue", "edit", str(n), "--add-label", f"status:{new}", "--remove-label", "status:execute")
         print(f"ws release: #{n} lease ended, status:{new}.")
+    else:
+        print(f"ws release: #{n} lease ended — stays execute (authorized, awaiting a thread).")
 
 def lint_cmd(args):
     if args and args[0] == "--fixture":
@@ -229,28 +390,60 @@ def lint_cmd(args):
         dep_state = (lambda n: "CLOSED") if deps == "closed" else (lambda n: "OPEN")
         sys.exit(lint_report(args[1], lint_misses(body, dep_state)))
     n, i = resolve(nodes(), args[0])
-    sys.exit(lint_report(f"#{n}", lint_misses(i["body"], live_dep_state)))
+    misses = lint_misses(i["body"], live_dep_state)
+    misses += [f"stale convergence: #{d} closed {c} AFTER CONVERGE {t}"
+               for d, c, t in stale_deps(n, i["body"])]
+    sys.exit(lint_report(f"#{n}", misses))
 
 def gate(key):
-    """Self-healing flip-gate: a status:ready node failing lint is reverted to proposed."""
+    """Self-healing flip-gate: a status:dispose node failing lint is reverted to clarify;
+    so is one whose convergence went stale (staleness gate). Execute is NOT lint-gated —
+    disposition is the Operator's, and the urgency override (invariant 3) may legitimately
+    put a non-converged node in agents' hands (claim still runs the staleness gate)."""
     n, i = resolve(nodes(), key)
-    if i["state"] == "CLOSED" or status_of(i) != "ready":
+    if i["state"] == "CLOSED" or status_of(i) != "dispose":
         print(f"ws gate: #{n} is '{status_of(i)}' — nothing to gate.")
+        return
+    stale = stale_deps(n, i["body"])
+    if stale:
+        heal_stale(n, i, stale)
+        print(f"ws gate: #{n} reverted dispose → clarify — stale convergence "
+              f"({', '.join(f'#{d}' for d, _, _ in stale)} closed after CONVERGE; self-healed).")
         return
     misses = lint_misses(i["body"], live_dep_state)
     if not misses:
-        print(f"ws gate: #{n} passes — ready stands.")
+        print(f"ws gate: #{n} passes — dispose stands.")
         return
-    gh("issue", "edit", str(n), "--add-label", "status:proposed", "--remove-label", "status:ready")
+    gh("issue", "edit", str(n), "--add-label", "status:clarify", "--remove-label", "status:dispose")
     gh("issue", "comment", str(n), "--body",
-       "⛔ readiness flip-gate (#14): reverted ready → proposed — the readiness contract is not met:\n"
+       "⛔ readiness flip-gate (#14): reverted dispose → clarify — the readiness contract is not met:\n"
        + "\n".join(f"- {m}" for m in misses)
-       + "\n\nFix the node body (and close open dependencies), then re-flip.")
-    print(f"ws gate: #{n} reverted ready → proposed ({len(misses)} misses; self-healed).")
+       + "\n\nFix the node body (and close open dependencies), then re-assert convergence (`bin/ws converge`).")
+    print(f"ws gate: #{n} reverted dispose → clarify ({len(misses)} misses; self-healed).")
+
+def turns(key):
+    """The disposition-turn metric (#16 invariant 2): every disposition — Operator flip or
+    recorded d-land — lands exactly one timestamped `status:execute` labeled event; DISPOSITION
+    journal comments carry the directive record. Count the events, list both."""
+    n, i = resolve(nodes(), key)
+    events = gh_api(f"repos/{REPO}/issues/{n}/timeline")
+    flips = [e for e in events
+             if e.get("event") == "labeled" and (e.get("label") or {}).get("name") == "status:execute"]
+    comments = gh("issue", "view", str(n), "--json", "comments", parse=True)["comments"]
+    directives = [c for c in comments if re.match(r"DISPOSITION\b", c["body"])]
+    for e in flips:
+        print(f"  disposition (execute-flip)  {e.get('created_at', '?')}  by {(e.get('actor') or {}).get('login', '?')}")
+    for c in directives:
+        print(f"  directive (journal)         {c['createdAt']}  {c['body'].splitlines()[0]}")
+    print(f"ws turns: #{n} disposition-turns = {len(flips)}")
 
 argv = sys.argv[1:]
 if not argv:
     render()
+elif argv[0] == "converge":
+    converge(argv[1])
+elif argv[0] == "dland":
+    dland(argv[1], " ".join(argv[2:]))
 elif argv[0] == "claim":
     claim(argv[1], argv[2] if len(argv) > 2 else os.environ.get("WS_CUR_BRANCH", ""))
 elif argv[0] == "release":
@@ -259,6 +452,8 @@ elif argv[0] == "lint":
     lint_cmd(argv[1:])
 elif argv[0] == "gate":
     gate(argv[1])
+elif argv[0] == "turns":
+    turns(argv[1])
 else:
     sys.exit(f"ws: unknown subcommand '{argv[0]}' — see usage in the file header")
 PY

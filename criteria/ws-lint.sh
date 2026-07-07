@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Acceptance criteria for WS-NL (#14) — ready means headless-dispatchable. The lint is itself
+# Acceptance criteria for WS-NL (#14; lanes per #16) — dispose means headless-dispatchable.
+# The lint is itself
 # held to earnedness: fed counterfeits (each field missing, an open elicit, an open dependency)
 # it must FAIL naming the miss; fed a complete node it must PASS (a lint that fails everything
 # proves nothing). Offline via --fixture; the live gate is proven on the real repo separately.
@@ -30,6 +31,13 @@ PY
   assert "lint fails when '$f' is missing" bash -c '! bin/ws lint --fixture "'"$tmp"'/miss.md"'
   assert "lint names the miss: $f" bash -c 'bin/ws lint --fixture "'"$tmp"'/miss.md" | grep -qF "missing field: '"$f"'"'
 done
+
+# Field markers tolerate qualifier text before the colon (#16 — defect found live: the
+# flip-gate falsely reported "missing field: Intent" on a "**Intent (converged …):**" marker).
+sed -e 's/^\*\*Intent:\*\*/**Intent (converged via 3-round elicitation, 2026-07-07):**/' \
+    -e 's/^\*\*Acceptance criteria:\*\*/**Acceptance criteria (self-judgeable):**/' \
+    "$tmp/good.md" > "$tmp/qualified.md"
+assert "lint tolerates qualifier text before the colon" bin/ws lint --fixture "$tmp/qualified.md"
 
 # An open elicit must fail; a resolved one (good.md) already passed above.
 sed 's/^\*\*Elicit:\*\*.*/**Elicit:** which color should it be?/' "$tmp/good.md" > "$tmp/elicit.md"

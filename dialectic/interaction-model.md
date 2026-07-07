@@ -74,17 +74,27 @@ invariant (now DYAD.md #5, second invariant): multiple threads work in
 parallel across branches and must never collide on a node — a node
 in-progress is not claimable by a subsequent thread.
 
-Mechanism (implemented in `bin/ws`):
+Mechanism (implemented in `bin/ws`; lifecycle ratified on node #16,
+2026-07-07 — statuses are the Activity Board lanes, 1:1, and the Operator's
+at-a-glance command view; attention = clarification + disposition):
 
 - **Machine state = labels, not body text:** exactly one `status:*` label per
-  open node (`ready · in-progress · blocked · elicit · operator · horizon`);
-  closed = done. Labels are queryable in one call and are the claim gate.
-- **Lease protocol:** `bin/ws claim WS<n> [branch]` — node must be
-  `status:ready` with no active lease → post `CLAIM branch=… ts=…` comment →
-  swap to `status:in-progress` → read back: if an earlier active claim by
-  another branch exists, post `YIELD` and restore (deterministic
-  earliest-claim-wins tie-break). `bin/ws release WS<n> [--done | --status s]`
-  verifies the releasing branch holds the lease.
+  open node (`clarify → dispose → execute → blocked`); closed = done. Labels
+  are queryable in one call and are the claim gate. `clarify → dispose` is the
+  Agent's lint-gated `bin/ws converge` assertion; `dispose → execute` IS the
+  Operator's disposition (label flip or recorded d-land via `bin/ws dland` —
+  off-dispose it warns "Sense not converged" and proceeds, the urgency
+  override). Blocked bars execution only — Sense stays permeable, guarded by
+  the staleness gate (convergence is timestamped; a dependency closing after
+  it invalidates it back to clarify).
+- **Lease protocol:** `bin/ws claim <#n> [branch]` — node must be
+  `status:execute` (disposition given), lint-clean, not stale, with no active
+  lease → post `CLAIM branch=… ts=…` comment → add the `lock:<branch>` label
+  (the board-visible holder; the journal stays authoritative) → read back: if
+  an earlier active claim by another branch exists, post `YIELD` and drop the
+  lock (deterministic earliest-claim-wins tie-break). `bin/ws release <#n>
+  [--done | --status s]` verifies the releasing branch holds the lease and
+  removes the lock.
 - **Branch = thread identity:** one claimed node ↔ one working branch;
   single-writer per node, parallelism across nodes. WIP-N counts active leases.
 - **Honesty:** GitHub offers no compare-and-swap; the read-back protocol
@@ -100,14 +110,36 @@ operating-policy invariant (intent-alignment before action):
 - **Sense** — Operator `direct`/`steer` opens it; Agent playback (interpreted
   intent + invariants + design elections) and `elicit` are the Sense moves;
   **Operator confirmation closes Sense** — nothing downstream starts before
-  closure. Mechanized: nodes enter `status:proposed` (the node body IS the
-  playback); only the Operator flips proposed → ready.
+  closure. Mechanized (lifecycle #16): nodes enter `status:clarify` (the node
+  body IS the playback); the Agent asserts convergence via the lint-gated
+  `bin/ws converge` (clarify → dispose); the Operator's disposition (dispose →
+  execute — flip or recorded d-land) is the confirmation that releases work.
 - **Plan** — dependency placement on the DAG; electing the working branch.
 - **Act** — `bin/ws claim` (the lease) → work on the claimed branch.
 - **Observe** — `report`/`deliver` with `./check`-style evidence attached.
 - **Reflect** — Operator `falsify`/`ratify`; settled records move to
   `reflect/`; breaches forge invariants (see
   `reflect/intent-before-action.md`).
+
+## Directive vocabulary: d-sense · d-land (lifecycle #16, 2026-07-07)
+
+- **d-sense** — the elicitation discipline that drives a node's Sense to
+  convergence: rounds of playback + Operator rulings on a `clarify` node;
+  output = a contract-passing body; closure asserted by the Agent via the
+  lint-gated `bin/ws converge` (clarify → dispose). Elicitation-first
+  discipline is Operator-directed (2026-07-07).
+- **d-land** — the Operator's disposition directive: dispose → execute,
+  recorded via `bin/ws dland`. Default mode: execution dispatched to a
+  sub-agent with the node as its sole brief (the node's readiness contract,
+  #14, is the dispatchability claim under live test). On a non-dispose node,
+  d-land is an urgency override: the Agent states the risk ("Sense not
+  converged") and proceeds — warn, not halt (#16 invariant 3).
+- **Deprecation trajectory (ratified intent, #16):** d-land is built to be
+  deprecated — as execution trust is earned (especially sub-agent delegation),
+  disposition flips to standing authorization per stream (the Agent
+  self-dispatches on convergence; the Operator's veto stands). Metric from day
+  one: Operator disposition-turns per node, derivable as timestamped events
+  (`bin/ws turns`).
 
 ## Acceptance criteria (how we know the model is agreed and real)
 

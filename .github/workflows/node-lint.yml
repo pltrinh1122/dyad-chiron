@@ -1,9 +1,11 @@
-# node-lint — the readiness flip-gate (WS-NL, node #14).
+# node-lint — the readiness flip-gate (WS-NL, node #14; lanes per lifecycle #16).
 #
-# WHY (Operator-ratified in d-sense, 2026-07-07): status:ready MEANS headless-dispatchable.
-# A node labeled ready that fails the readiness contract is self-healed: reverted to
-# status:proposed with a comment naming the misses. Policy lives in `bin/ws gate` (single
-# home); this workflow is trigger + transport only.
+# WHY (Operator-ratified in d-sense, 2026-07-07): status:dispose MEANS headless-dispatchable —
+# Sense converged, contract passes, Operator go/no-go due. A node labeled dispose that fails
+# the readiness contract is self-healed: reverted to status:clarify with a comment naming the
+# misses. Execute is not gated — disposition is the Operator's, and the urgency override
+# (#16 invariant 3) may legitimately dispatch a non-converged node. Policy lives in
+# `bin/ws gate` (single home); this workflow is trigger + transport only.
 name: node-lint
 on:
   issues:
@@ -20,7 +22,7 @@ permissions:
 
 jobs:
   gate:
-    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'status:ready'
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'status:dispose'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

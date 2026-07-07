@@ -50,20 +50,24 @@ sources used below: **Operator-directed** (explicit instruction),
     `check` skips `_`-prefixed criteria helpers).
   - `bin/git` · `bin/gh` — physical wrappers routing mutations through the
     enforcer (Execution Sandbox Invariant): the friendly early steering vector.
-  - `bin/ws` — workstream tool: renders the DAG from GitHub Issues, and
-    holds the node **lease protocol** (`claim`/`release`) enforcing the
-    concurrent-thread-execution invariant (DYAD.md #5) — an in-progress node
-    is not claimable by another thread.
+  - `bin/ws` — workstream tool: renders the DAG from GitHub Issues, and is
+    the **lifecycle single-home** (node #16: clarify → dispose → execute →
+    blocked, + done = closed; statuses = Activity Board lanes 1:1) — the
+    lint-gated `converge` assertion, `dland` disposition recording, and the
+    node **lease protocol** (`claim`/`release`, with `lock:<branch>` labels as
+    the board-visible holder cache) enforcing the concurrent-thread-execution
+    invariant (DYAD.md #5) — a leased node is not claimable by another thread.
 - **`.githooks/`** — `pre-commit` + `pre-push`: the hard floor, firing even on
   raw `git` (the launcher wires `core.hooksPath` here). Survives gate-off;
   `--no-verify` is the one visible escape. *Provenance: ported from dyad-aule,
   same directive as `bin/`.*
 - **`.github/workflows/`** — repo automation: `node-lint.yml`, the readiness
-  flip-gate — a node labeled `status:ready` that fails the WS-NL readiness
-  contract is self-healed back to `status:proposed` with a comment naming the
-  misses. Policy single-homed in `bin/ws gate`; the workflow is trigger +
-  transport. *Provenance: WS-NL node #14, Operator-proposed and d-sense
-  ratified 2026-07-07.*
+  flip-gate — a node labeled `status:dispose` that fails the WS-NL readiness
+  contract (or whose convergence went stale) is self-healed back to
+  `status:clarify` with a comment naming the misses. Policy single-homed in
+  `bin/ws gate`; the workflow is trigger + transport. *Provenance: WS-NL node
+  #14, Operator-proposed and d-sense ratified 2026-07-07; lanes per the
+  lifecycle ratified on node #16, same day.*
 - **`check`** + **`criteria/`** — the acceptance-criteria runner: each
   capability deposits executable criteria; `./check` grounds them all.
   Earnedness (chiron's craft value) made computational — a claim without a

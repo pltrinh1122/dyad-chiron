@@ -110,8 +110,9 @@ branches, and must never collide on a workstream node.** A node in-progress is
 not claimable by another thread; work on a node happens only under an active
 lease, on that lease's branch (single-writer per node; parallelism across
 nodes). Mechanism: the `bin/ws` lease protocol over GitHub-Issue nodes
-(CLAIM/RELEASE/YIELD journal + `status:*` labels), race-window honestly
-documented in its header. Enforcing criteria wire with the interaction model's
+(CLAIM/RELEASE/YIELD journal + `status:*` lane labels + `lock:<branch>` holder
+labels — the label is the board-visible cache, the journal stays
+authoritative), race-window honestly documented in its header. Enforcing criteria wire with the interaction model's
 ratification (`dialectic/interaction-model.md`).
 
 Third invariant — the learning invariant, Operator-proposed, dyadically
@@ -127,9 +128,13 @@ ratified), reversible on-branch acts proceed without fresh playback; an
 **unstated design election reopens Sense**. Grounding: `no-self-ratify`
 applied to interpretation — acting on an unratified interpretation is the
 proposer ratifying its own proposal. Evidence + wear-in record:
-`reflect/intent-before-action.md`. Mechanization: new workstream nodes enter
-`status:proposed`; only the Operator flips proposed → ready; the `bin/ws`
-lease refuses any node not ready. Also a curriculum topic (WS6).
+`reflect/intent-before-action.md`. Mechanization (lifecycle ratified on node
+#16, 2026-07-07 — statuses = Activity Board lanes: clarify → dispose → execute
+→ blocked, + done = closed): new workstream nodes enter `status:clarify`; the
+Agent asserts Sense-convergence via the lint-gated `bin/ws converge` (clarify
+→ dispose); dispose → execute IS the Operator's disposition — a label flip or
+a recorded d-land directive; the `bin/ws` claim refuses any node not in
+execute. Also a curriculum topic (WS6).
 
 ### Ontology (#7) — starter
 
