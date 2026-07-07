@@ -99,7 +99,7 @@ def gh(*args, parse=False):
 
 def gh_api(path, parse=True):
     """gh api call (no -R flag — the path names the repo)."""
-    r = subprocess.run([GH, "api", "-H", "Accept: application/vnd.github+json",
+    r = subprocess.run([GH, "api", "--method", "GET", "-H", "Accept: application/vnd.github+json",
                         "-F", "per_page=100", path], capture_output=True, text=True)
     if r.returncode != 0:
         sys.stderr.write(r.stderr)
