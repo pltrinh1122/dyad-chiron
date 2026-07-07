@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# bin/gh — dyad-rt physical wrapper for gh (Execution Sandbox Invariant; dyad-chiron).
+#
+# Routes gh through bin/_dyad-rt (the enforcer) before the real gh. chiron's gh boundary:
+# `gh pr merge` is REFUSED — merge-to-main is the Operator's identity act (DYAD.md
+# operating-policy #5), never the agent's. Everything else (pr create/view/status, issue,
+# auth) is allowed, so real work flows. Policy lives in bin/_dyad-rt — not here.
+#
+# Usage:  bin/gh <any gh args>            # guarded gh
+set -euo pipefail
+
+MY_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PATH="$(echo "$PATH" | sed -e "s|$MY_BIN:||g" -e "s|:$MY_BIN||g" -e "s|^$MY_BIN\$||g")"
+export PATH
+REAL_GH="$(command -v gh)" || { echo "bin/gh: real 'gh' not found after de-shadowing bin/." >&2; exit 127; }
+
+"$MY_BIN/_dyad-rt" check-gh "$@"
+
+exec "$REAL_GH" "$@"

@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+# bin/_dyad-rt — the Dyad Runtime enforcer (dyad-chiron; ported from dyad-aule, re-homed).
+#
+# WHAT: the single home for dyad-chiron's runtime boundary policy. Every guard decision —
+#   "may this git/gh mutation proceed?" — is answered here and NOWHERE else. The .githooks
+#   floor and the bin/git · bin/gh wrappers are thin call sites; this file holds the rule
+#   (single-home / DRY). Change the boundary once, here.
+#
+# WHY (dyad-rt shape inherited aule←cairn; the boundary itself is chiron's own, from
+#   DYAD.md operating-policy #5):
+#   - Execution Sandbox Invariant: the agent never calls raw git/gh; mutations route through
+#     physical ./bin/ wrappers → through this enforcer.
+#   - Builder vs Enforcer Invariant: enforcement lives in a dedicated Enforcer script, never
+#     baked into the tool that does the work. This IS that script.
+#   - chiron's boundary: "work stays durable (commit at natural checkpoints); identity acts
+#     (birth, merge-to-main) are the Operator's" (DYAD.md #5). So: refuse any mutation
+#     targeting main, and refuse `gh pr merge`.
+#
+# EARNEDNESS (chiron's craft value): a guard that is asserted but not wired is conferred,
+#   not earned. This enforcer is proven real by criteria/dyad-rt.sh via ./check, which
+#   drives it and asserts it both DENIES the forbidden mutations AND ALLOWS a working-
+#   branch push (a guard that denies everything proves nothing).
+#
+# Subcommands (all exit 0 = allowed, nonzero = refused; refusals print a steering vector to stderr):
+#   dyad-rt check-branch <branch>       # deny if <branch> is protected (commit target)
+#   dyad-rt check-push  <remote-ref>    # deny if <remote-ref> targets protected (push/force/delete)
+#   dyad-rt check-gh    <gh-args...>    # deny `gh pr merge` (merge-to-main is the Operator's)
+#   dyad-rt protected                   # print the protected branch name (single source)
+set -euo pipefail
+
+# The one protected branch. main is the Operator's (DYAD.md operating-policy #5).
+PROTECTED_BRANCH="${DYAD_RT_PROTECTED_BRANCH:-main}"
+
+deny() {
+  # deny "<what>" "<why>" "<escape/steering>"
+  {
+    echo "🚫 dyad-rt: $1"
+    echo "   why: $2"
+    echo "   → $3"
+  } >&2
+  exit 1
+}
+
+# Normalize a ref to its branch name. Handles "refs/heads/main" and "src:dst" refspecs, but
+# preserves slashes IN the branch name (so "release/main" stays "release/main", NOT "main" —
+# stripping to the last slash would false-positive on any branch ending in "/main").
+_branch_of_ref() {
+  local r="${1##*:}"      # "src:dst" refspec → the destination side
+  echo "${r#refs/heads/}" # drop the refs/heads/ prefix if present
+}
+
+cmd="${1:-}"
+[ "$#" -gt 0 ] && shift || true
+
+case "$cmd" in
+  protected)
+    echo "$PROTECTED_BRANCH"
+    ;;
+
+  check-branch)
+    branch="$(_branch_of_ref "${1:-}")"
+    if [ "$branch" = "$PROTECTED_BRANCH" ]; then
+      deny "commit on '$PROTECTED_BRANCH' refused" \
+           "main is the Operator's — work on a branch (DYAD.md operating-policy #5)" \
+           "switch to a working branch: git switch -c <branch>   (escape: git commit --no-verify)"
+    fi
+    ;;
+
+  check-push)
+    ref="$(_branch_of_ref "${1:-}")"
+    if [ "$ref" = "$PROTECTED_BRANCH" ]; then
+      deny "push to '$PROTECTED_BRANCH' refused" \
+           "merge-to-main is the Operator's identity act (DYAD.md operating-policy #5)" \
+           "push your working branch instead: git push -u origin <branch>   (escape: git push --no-verify)"
+    fi
+    ;;
+
+  check-gh)
+    # Refuse merge-to-main; allow the rest (pr create/view/status, issue, auth, ...).
+    if [ "${1:-}" = "pr" ] && [ "${2:-}" = "merge" ]; then
+      deny "gh pr merge refused" \
+           "merge-to-main is the Operator's identity act, never the agent's (DYAD.md operating-policy #5)" \
+           "leave the PR for the Operator to merge; the agent proposes, the Operator disposes"
+    fi
+    ;;
+
+  ""|-h|--help)
+    sed -n '2,20p' "$0" >&2
+    exit 0
+    ;;
+
+  *)
+    echo "dyad-rt: unknown subcommand '$cmd' (see: dyad-rt --help)" >&2
+    exit 2
+    ;;
+esac

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# check — the acceptance-criteria runner (dyad-chiron; aule's criteria/ pattern, per DYAD.md).
+#
+# Earnedness made computational: each capability deposits its acceptance criteria as an
+# executable file in criteria/; this runner runs them all and fails loud, naming what broke.
+# A claim without a passing check here is conferred, not earned.
+#
+#   ./check            # ground every capability's criteria
+#
+# Exit 0 = earned (all criteria hold); nonzero = NOT earned (something is unverified).
+set -u
+root="$(cd "$(dirname "$0")" && pwd)"
+crit_dir="$root/criteria"
+shopt -s nullglob
+files=("$crit_dir"/[!_]*.sh)   # skip _lib.sh and other _-prefixed helpers
+if [ ${#files[@]} -eq 0 ]; then
+  echo "check: no criteria in $crit_dir — nothing to ground."
+  exit 0
+fi
+fail=0
+for f in "${files[@]}"; do
+  name="$(basename "$f" .sh)"
+  if out="$(bash "$f" 2>&1)"; then
+    echo "PASS  $name"
+    [ -n "$out" ] && echo "$out" | sed 's/^/      /'
+  else
+    fail=1
+    echo "FAIL  $name"
+    echo "$out" | sed 's/^/      /'
+  fi
+done
+echo
+if [ $fail -ne 0 ]; then
+  echo "check: NOT earned — some acceptance criteria failed. Do not trust the claim."
+  exit 1
+fi
+echo "check: earned — all acceptance criteria hold."
