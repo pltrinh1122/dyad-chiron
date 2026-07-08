@@ -76,9 +76,11 @@ sources used below: **Operator-directed** (explicit instruction),
   `criteria/` pattern").*
 
 - **`dialectic/`** — live contests: open questions under stress-test; a record
-  moves to `reflect/` when the question earns its answer. First artifact:
-  `interaction-model.md` (PROPOSED). *Provenance: ontology #7, DYAD.md; dir
-  created on first artifact, as the ontology prescribes.*
+  moves to `reflect/` when the question earns its answer. **Currently holds no
+  live contest** (a legitimate empty-of-contests state per ontology #7) — its
+  first artifact, `interaction-model.md`, earned its answer and moved to
+  `reflect/interaction-model.md` (RATIFIED, audit #3). `dialectic/README.md`
+  records this. *Provenance: ontology #7, DYAD.md.*
 - **workstream nodes — [GitHub Issues](https://github.com/pltrinh1122/dyad-chiron/issues)**
   — single home for cross-session work state: one issue per workstream
   (intent, acceptance criteria, `Depends-on:` edges, status, provenance).
@@ -86,7 +88,7 @@ sources used below: **Operator-directed** (explicit instruction),
   `WORKSTREAMS.md` exists to drift. *Provenance: Operator-directed
   (2026-07-07, two falsification rounds — "minimum … pointers to actual node
   details … leverage existing cloud durable infrastructure like GitHub
-  Issues" / "generated on the fly"); see `dialectic/interaction-model.md`
+  Issues" / "generated on the fly"); see `reflect/interaction-model.md`
   fork 3.*
 
 Future artifact-kinds per ontology #7 (created on first artifact, not before):

@@ -85,16 +85,38 @@ honest defers until real friction sets them (no form ahead of the spine).
 Durable-record root: this repo, external to any curriculum it will produce.
 Curriculum artifacts get their own home when the first one exists.
 
-### Channel discipline (#4) — deferred
+### Channel discipline (#4) — two channels, separated by axis
 
-No hats have been worn under real work yet. Codified from practice when run,
-not pre-scripted.
+Codified from practice (WS-KB #13; interaction-model audit #3, 2026-07-07).
+Two channels, kept on their own axes — *what the Operator consumes* vs. *what
+the Operator is asked to attend*:
 
-### Operating-policy (#5) — first invariant landed; rest deferred
+- **Chat = the alignment channel.** Synchronous convergence (`direct`/`steer`/
+  `falsify`/`ratify` when intent is molten); it costs dyad turns, so it is
+  reserved for work that needs both halves attending. Batched, non-urgent
+  elicitation lives on the node instead (deferred Sense).
+- **Generated views = the observation channel.** The Operator consumes dyad
+  state at high bandwidth for zero dyad turns: `bin/ws`'s generated DAG/pointer
+  render, and the **Observe kanban** (a GitHub Projects v2 board projecting our
+  labels — `Status` = the lifecycle lanes, `Stream` = `ws:<stream>`,
+  `Blocked-by` = open `Depends-on` refs). Self-healing auto-sync is tracked on
+  #25; until it lands the board is a hand-maintained snapshot (honest limit).
 
-No lived cycles yet; git-workflow, WIP, proactivity set when friction sets
-them. One inherited default until then: work stays durable (commit at natural
-checkpoints); identity acts (birth, merge-to-main) are the Operator's.
+**Ledger governance — no deferrals / soon-later.** The board holds every node
+whose **intent is live AND whose existence-premise is valid**; there is no
+"parked"/"deferred" limbo lane. A node becomes **"later" (archived/closed, not
+parked)** only when **(a) its intent goes stale OR (b) its existence-premise is
+invalidated** — both **discovered on contact, never predicted**. Boundary:
+*invalidated ≠ merely unmet* — an unmet precondition keeps a node alive
+(blocked/waiting); only a once-valid premise that became invalid triggers
+archival. This generalizes the #16 convergence-staleness gate from *convergence*
+to *intent + premise*. Full model + trace: `reflect/interaction-model.md`.
+
+### Operating-policy (#5) — four invariants landed; git-workflow deferred
+
+git-workflow set when friction sets it. One inherited default holds throughout:
+work stays durable (commit at natural checkpoints); identity acts (birth,
+merge-to-main) are the Operator's.
 
 First invariant, Operator-elected under real friction (2026-07-07, substrate
 bootstrap): **provenance — every decision/action is grounded: what was
@@ -112,8 +134,9 @@ lease, on that lease's branch (single-writer per node; parallelism across
 nodes). Mechanism: the `bin/ws` lease protocol over GitHub-Issue nodes
 (CLAIM/RELEASE/YIELD journal + `status:*` lane labels + `lock:<branch>` holder
 labels — the label is the board-visible cache, the journal stays
-authoritative), race-window honestly documented in its header. Enforcing criteria wire with the interaction model's
-ratification (`dialectic/interaction-model.md`).
+authoritative), race-window honestly documented in its header. Enforcing
+criteria are wired (`criteria/ws-lifecycle.sh`); the model is ratified at
+`reflect/interaction-model.md` (audit #3, 2026-07-07).
 
 Third invariant — the learning invariant, Operator-proposed, dyadically
 converged (2026-07-07): **intent-alignment before action — Sense closes only
@@ -135,6 +158,18 @@ Agent asserts Sense-convergence via the lint-gated `bin/ws converge` (clarify
 → dispose); dispose → execute IS the Operator's disposition — a label flip or
 a recorded d-land directive; the `bin/ws` claim refuses any node not in
 execute. Also a curriculum topic (WS6).
+
+Fourth invariant — WIP + autonomy boundary, ratified (interaction-model audit
+#3, 2026-07-07): **(a) WIP-N = 3** active workstreams (concurrent leases) as the
+falsifiable default, **marked "elected, not yet earned"** — untested by wear this
+session, it resizes at the first real overload (itself the curriculum rep);
+elicit-blocked nodes don't count against it, and the Operator may resize at will.
+**(b) Autonomy boundary (proactivity):** inside a directed, Sense-closed
+workstream the Agent proceeds on **reversible, on-branch acts without asking**;
+reserved to the Operator are merge-to-main and identity acts (dyad-rt-enforced),
+scope changes, elections of policy/identity, and externally-visible acts — when
+in doubt, propose or elicit, don't act. Full model + design↔as-built trace:
+`reflect/interaction-model.md`.
 
 ### Ontology (#7) — starter
 

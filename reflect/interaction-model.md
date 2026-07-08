@@ -1,10 +1,14 @@
-# dialectic: the multi-workstream interaction model
+# reflection: the multi-workstream interaction model
 
-**Status: PROPOSED** — Agent-elected candidate, awaiting Operator falsification /
-ratification. On ratification + wear-in under real work, the settled parts codify
-into `DYAD.md` #5 (concurrency/WIP, proactivity) and #4 (channel discipline), and
-this record moves to `reflect/` (ontology #7: a dialectic closes when the question
-earns its answer).
+**Status: RATIFIED** — audited against the as-built substrate and Operator-ratified,
+2026-07-07 (audit node #3; d-sense-converged intent + invariants, fork resolutions
+recorded on #3). The audit closes *"built as intended"* only — the model's *efficacy*
+still earns through wear-in, not this audit (audit-bar / no-self-ratify invariants,
+#3). On ratification the settled parts codified into `DYAD.md` #5 (concurrency/WIP,
+proactivity/autonomy-boundary) and #4 (channel discipline), and this record moved
+from `dialectic/` to `reflect/` (ontology #7: a dialectic closes when the question
+earns its answer). The design↔as-built trace table (below) is the audit's evidence;
+`criteria/interaction-model.sh` grounds its now-checkable claims.
 
 **Provenance:** Operator-directed, 2026-07-07 — *"we need to align and agree to an
 interaction model that extends the current operator-agent prompt-response to
@@ -25,11 +29,13 @@ never self-ratifies, provenance still grounds every decision.
 
 ## The model
 
-1. **Workstream** — the durable unit of work, replacing "the current conversation
-   topic". Each carries: intent (problem/goal) · acceptance criteria · execution
-   dependencies · status · working branch · provenance. **Single home:
-   `WORKSTREAMS.md`** (root ledger — the DAG made durable). A turn is not a
-   workstream: one Operator turn may direct, advance, or ratify several; one
+1. **Workstream (node)** — the durable unit of work, replacing "the current
+   conversation topic". Each carries: intent (problem/goal) · acceptance criteria ·
+   execution dependencies (`Depends-on:`) · status · working branch · provenance.
+   **Single home: one GitHub Issue per workstream** (the cloud-durable node record);
+   the DAG/ledger is a **derived view generated on the fly by `bin/ws`** — no
+   committed `WORKSTREAMS.md` exists to drift (fork 3, resolved below). A turn is not
+   a workstream: one Operator turn may direct, advance, or ratify several; one
    workstream spans many turns and sessions.
 
 2. **Interaction primitives** — what each half's messages do (extends, never
@@ -50,10 +56,14 @@ never self-ratifies, provenance still grounds every decision.
    mechanically), scope changes, elections of policy/identity, and
    externally-visible acts. When in doubt: propose or elicit, don't act.
 
-4. **Concurrency (WIP slot of #5):** default **WIP-N = 3** active workstreams
-   (Agent-elected, falsifiable — enough for substrate ∥ curriculum ∥ set-up reps;
-   more risks shallow Validate passes, inverting 1+1=3 to 1+1=1). Workstreams
-   blocked-on-elicit don't count against WIP. The Operator may resize at will.
+4. **Concurrency (WIP slot of #5):** default **WIP-N = 3** active workstreams —
+   ratified 2026-07-07 (fork 1, below) as the falsifiable default **marked "elected,
+   not yet earned"**: this session ran essentially serial, so WIP-N=3 is untested by
+   wear and resizes at the first real overload (which is itself the curriculum rep,
+   "elect your WIP-N by running into overload"). Enough for substrate ∥ curriculum ∥
+   set-up reps; more risks shallow Validate passes, inverting 1+1=3 to 1+1=1.
+   Workstreams blocked-on-elicit don't count against WIP; WIP-N counts active leases.
+   The Operator may resize at will.
 
 5. **Resumability invariant — the session-absent test:** all workstream state
    lives in the repo (ledger + branches + criteria + artifacts), never only in a
@@ -101,6 +111,53 @@ at-a-glance command view; attention = clarification + disposition):
   narrows the race to milliseconds and resolves ties deterministically —
   adequate at dyad scale, documented rather than hidden.
 
+## Channel discipline: alignment vs. observation (codified DYAD.md #4)
+
+Two channels, separated by axis (not by convenience) — surfaced by WS-KB (#13,
+Operator 2026-07-07) and codified into DYAD.md #4 at this ratification:
+
+- **Chat = the alignment channel.** Synchronous convergence: `direct`/`steer`/
+  `falsify`/`ratify` when intent is molten. Costs dyad turns/tokens; reserved for
+  work that actually needs both halves attending.
+- **Generated views = the observation channel.** The Operator consumes dyad state
+  at high bandwidth *without* spending dyad turns — `bin/ws`'s generated DAG/pointer
+  render, and **the Observe kanban** (a GitHub Projects v2 board, built this session
+  — the concrete realization of the "Operator-observable state surfaces" note on
+  #3). The board projects our labels: **`Status` field = the 5 lifecycle lanes** (its
+  columns), **`Stream` field = `ws:<stream>`** (its slice — each stream is its own
+  board), **`Blocked-by` = open `Depends-on` refs**; swimlanes-by-component are
+  deferred ("later", per the governance below). It **supersedes** the interim
+  pinned-issue Markdown mirror (#17). Its self-healing auto-sync (label-change
+  trigger + daily backstop) is **carved to #25**, not yet built — so the board is
+  currently a hand-maintained snapshot (honest limit).
+
+The **deferred-Sense** pattern rides this split: a `status:clarify` node is an open
+Sense container — intent + invariants converge *on the node* (body revisions +
+comments, over the observation channel) instead of consuming chat turns; the
+Operator's disposition remains the closure act. Elicit cadence is keyed to
+intent-state (fork 4, below): synchronous when molten, batched-on-node when
+convergent (the node body's Elicit queue is the batched home).
+
+## Board governance: no-deferrals / soon-later (Operator-ratified 2026-07-07)
+
+The ledger holds **every node whose intent is live AND whose existence-premise is
+valid** — there is no "parked"/"deferred" limbo lane. A node becomes **"later"
+(→ archived/closed, not parked)** only when **(a) its intent goes stale OR (b) its
+existence-conditions are invalidated**. Both are **discovered on contact, never
+predicted** ("we won't know later until it becomes later"). "Soon" is therefore the
+*absence of staleness*, not a promise of speed.
+
+- **Critical boundary — invalidated ≠ merely unmet.** An unmet precondition keeps a
+  node alive (blocked/waiting); only a premise that *was* valid and *became* invalid
+  triggers archival. (This is why #11 was reopened this session: its intent is live
+  and its premise unmet-not-invalidated; the earlier "horizon/unscheduled = later"
+  reading was retired.)
+- **Generalizes the #16 staleness gate** from *convergence* to *intent + premise*: the
+  timestamped-convergence reground (a dep closing after convergence → back to
+  clarify) is the convergence-scoped instance of the same rule.
+- **Enforcement shape (proposed, not built here):** detect-on-touch (re-validate a
+  node's intent/premise when next engaged) + a periodic sweep — never forecast.
+
 ## SPAOR grounding (Operator-framed, 2026-07-07)
 
 The model's primitives are not new machinery — they map onto the form's G0
@@ -122,6 +179,11 @@ operating-policy invariant (intent-alignment before action):
   `reflect/intent-before-action.md`).
 
 ## Directive vocabulary: d-sense · d-land (lifecycle #16, 2026-07-07)
+
+**Audit note (fork 2, resolved):** `d-start` · `d-sense` · `d-land` are directive
+**macros composed from the primitives** (direct + ratify), **not new primitives** —
+this keeps the primitive set (section 2) minimal and closed.
+
 
 - **d-sense** — the elicitation discipline that drives a node's Sense to
   convergence: rounds of playback + Operator rulings on a `clarify` node;
@@ -265,21 +327,48 @@ Learner-dyad skills:
 - each "taught" claim cites: the learner's carve-out node, its flat-split record,
   its passing liveness criterion — earned by real reps, never conferred.
 
+## Design ↔ as-built trace (audit node #3, 2026-07-07)
+
+Every intended-model element mapped to its as-built realization and its grounding (a
+passing `criteria/` check or a demonstrable live mechanism), or marked deferred /
+dropped-with-reason. Conformance is **cited, never conferred** (audit-bar invariant,
+#3). Coverage: **13 elements traced — 0 dropped**; 4 carry an honestly-marked
+deferred component (each with a reason and, where tracked, a successor node).
+
+| # | Intended element | As-built realization | Grounding (file · check) | Status |
+|---|---|---|---|---|
+| 1 | Workstream unit (node) | one GitHub Issue per workstream; `bin/ws` renders the derived DAG/pointer view — no committed `WORKSTREAMS.md` | `README.md` structure entry · `criteria/interaction-model.sh` (no `WORKSTREAMS.md`) | built |
+| 2 | Interaction primitives (direct/steer/ratify/falsify ∥ propose/report/elicit/deliver) | vocabulary held under real use this session; `d-*` are macros, not new primitives | §2 + Directive vocabulary · `criteria/interaction-model.sh` (primitives documented) | built (fork 2 resolved) |
+| 3 | Autonomy boundary (proactivity) | reversible on-branch acts proceed; merge/identity acts Operator-reserved, mechanically enforced | **DYAD.md #5 (codified this node)** · `criteria/dyad-rt.sh` (deny main-mutation, allow working-branch) | built + codified |
+| 4 | Concurrency / lease | `status:*` lane labels + `lock:<branch>` + CLAIM/RELEASE/YIELD journal; single-writer per node | `bin/ws` · **DYAD.md #5 2nd invariant** · `criteria/ws-lifecycle.sh` · proven live on #5 | built |
+| 5 | Resumability (session-absent) | all state in repo + cloud Issue records; `bin/ws` re-derives view | AC2 — verification discipline; efficacy earns at next real session restart | built · **wear-in test pending** (honest limit) |
+| 6 | Substrate shims | model requires none; substrate output is real only once landed at the single home | doctrine (§6) — no mechanism by design | built (as principle) |
+| 7 | SPAOR grounding | primitives map to Sense·Plan·Act·Observe·Reflect; mechanized via lifecycle #16 | **DYAD.md #5 3rd invariant** · `reflect/intent-before-action.md` · `criteria/ws-lifecycle.sh` | built |
+| 8 | Directive vocabulary (d-sense · d-land) | `bin/ws converge` (lint-gated) · `dland` (DISPOSITION journal) · `turns` (metric) | `criteria/ws-lifecycle.sh` (converge/dland/warn-not-halt) · DYAD.md #8 | built |
+| 9 | Resilient execution (carve-out + flat decomposition) | blocking local to finest node; four orthogonal guarantees; carve-out protocol | `reflect/resilient-headless-execution.md` · `criteria/liveness-local.sh` (liveness) · `criteria/axis-separation.sh` | built (liveness) · **integrity = verification discipline, not a hard gate** (honest limit, #20) |
+| 10 | Channel discipline (alignment vs. observation) + Observe kanban | chat = alignment, generated views = observation; Projects v2 board projecting labels | **DYAD.md #4 (codified this node)** · `criteria/interaction-model.sh` | codified · **auto-sync deferred → #25**; board hand-maintained today |
+| 11 | Board governance (no-deferrals / soon-later) | board = live-intent ∧ valid-premise; "later" = intent-stale ∨ premise-invalidated, discovered-not-predicted | §Board governance; generalizes the #16 staleness gate | doctrine landed · **detect-on-touch + sweep enforcement proposed, not built** |
+| 12 | Earnedness close gate | `bin/ws release --done` refuses while any AC box is unchecked | `criteria/earned-done-gate.sh` (#26) | built |
+| 13 | Readiness contract (dispatchability) | node field-presence + dependency lint; the `status:dispose` flip-gate self-heals | `criteria/ws-lint.sh` · `.github/workflows/node-lint.yml` (#14) | built |
+
 ## Acceptance criteria (how we know the model is agreed and real)
 
-- **AC1 — ledger:** `WORKSTREAMS.md` exists; every active workstream carries
-  intent + acceptance criteria + dependencies + status + provenance.
+- **AC1 — ledger:** one GitHub Issue per workstream (no committed `WORKSTREAMS.md`);
+  every active node carries intent + acceptance criteria + dependencies + status +
+  provenance, and `bin/ws` renders the derived DAG/pointer view on the fly.
 - **AC2 — session-absent:** a fresh session picks up an in-flight workstream from
-  the repo alone. Test at the next real session restart, not asserted.
+  the repo (+ the cloud node records) alone. Test at the next real session restart,
+  not asserted.
 - **AC3 — parallel advance:** one Operator turn advances ≥2 workstreams with no
   cross-bleed (each lands on its own branch/commits with its own criteria).
 - **AC4 — floor holds:** zero agent-side merges/identity acts under the model
   (dyad-rt criteria keep proving this).
 - **AC5 — curriculum-ready:** the model is expressible as practice-reps a
   learner-dyad performs to build *its own* interaction model (see below).
-- Enforcement (`criteria/workstreams.sh` — ledger schema + cross-refs) is wired
-  **after** ratification, not before: enforcing an un-agreed model would be form
-  ahead of spine.
+- Enforcement (`criteria/interaction-model.sh` — grounds the model's now-checkable
+  claims: no committed `WORKSTREAMS.md`; primitive/vocab/WIP claims documented where
+  stated; the DYAD.md #4/#5 codifications present) is wired **at** ratification (this
+  audit, #3), not before: enforcing an un-agreed model would be form ahead of spine.
 
 ## Curriculum tie-in (Operator-directed)
 
@@ -297,11 +386,17 @@ Our own build of this model is dog-food rep material (learner #1 = chiron).
 Handing a learner our WIP-N or our ledger as *the answer* would be conferral —
 the exact shortcut the craft_invariant forbids.
 
-## Open forks for the Operator (falsify here)
+## Open forks (all resolved — d-sense #3, elicitation-first, 2026-07-07/08)
 
-1. WIP-N = 3 — right ceiling, or different?
-2. Primitive set (direct/steer/ratify/falsify ∥ propose/report/elicit/deliver) —
-   too heavy, too light, or wrong cuts?
+1. ~~WIP-N = 3~~ — **RESOLVED (ratified as proposed):** WIP-N=3 is the falsifiable
+   default **marked "elected, not yet earned"** — this session ran essentially
+   serial, so it is untested by wear and resizes at the first real overload (itself
+   the curriculum rep "elect your WIP-N by running into overload"). See section 4.
+2. ~~Primitive set~~ (direct/steer/ratify/falsify ∥ propose/report/elicit/deliver) —
+   **RESOLVED (ratified as-is):** the set held under real use this session. Audit
+   note: `d-start`/`d-sense`/`d-land` are directive **macros** composed from the
+   primitives (direct + ratify), **not new primitives** — the set stays minimal (see
+   Directive vocabulary).
 3. ~~Ledger home~~ — **RESOLVED by Operator falsification (2026-07-07), two
    rounds:** node details live on GitHub Issues (existing cloud-durable
    infrastructure, one node per workstream:
@@ -313,5 +408,7 @@ the exact shortcut the craft_invariant forbids.
    session-absent test correspondingly gains a cloud-reachability component —
    an elected trade-off: repo-alone gives the mechanism (`bin/ws`), the cloud
    holds the state.
-4. Elicit-queueing: batched on the node's `Status:` field and raised at
-   checkpoints, vs. interrupt-immediately per question?
+4. ~~Elicit-queueing~~ — **RESOLVED (ratified keyed to intent-state):** synchronous/
+   interrupt when intent is molten (high-bandwidth falsification), batched-on-node
+   when intent is convergent. The node body's Elicit queue is the batched home; chat
+   is the synchronous channel. See Channel discipline.
