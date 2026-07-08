@@ -13,6 +13,13 @@ name: activity-board-project
 # WHY the triggers (mirrors activity-board.yml, #13 Q5): issue/label events re-sync within one run
 # on any ws-node state change · workflow_dispatch for on-demand · a daily schedule is the
 # drift-healing backstop that heals a missed event (the same full re-sync a dispatch runs).
+#
+# KNOWN INTERACTION (auto-add): the project's built-in "Auto-add to project" workflow (enabled)
+# re-adds every edited issue — including non-node ones like the interim pinned "Activity Board"
+# issue — as an unset card. `sync-project` OWNS membership (it adds missing ws nodes and removes
+# non-node cards itself, so auto-add is redundant) and heals these on the next non-board event +
+# the daily backstop. For a strictly clean board, the Operator can disable the two "Auto-add"
+# workflows in the Projects UI (a one-time setup act; the GraphQL API exposes no disable mutation).
 on:
   issues:
     types: [opened, closed, reopened, deleted, edited, labeled, unlabeled]
