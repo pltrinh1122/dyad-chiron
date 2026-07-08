@@ -1,13 +1,27 @@
-# reflections — chiron's session retros (CSS+OR)
+# reflections — chiron's session retros (CSS + SH)
 
-> Chiron's `d-reflect` ledger. Form borrowed from **dyad-bond**'s reflection
-> discipline (`kb/reflection-discipline.md`, CSS+OR — *survives, kb-with-caveat*):
-> **CONTINUE** (a pattern worth keeping — Agent-observed, or **OR** = credited to
-> the *Operator's* conduct) · **START** (an Agent commitment forward) · **STOP** (an
-> Agent failure named and corrected). No ratification ceremony — the retro is
-> durable by being written and committed. The full text is always shown in chat
-> too (presentation ⟂ durability). Reserved word: DYAD.md ontology names our own
-> retro artifacts *reflections* (never "lessons" — that's curriculum vocabulary).
+> Chiron's `d-reflect` ledger. Form adapted from **dyad-bond**'s reflection
+> discipline (`kb/reflection-discipline.md`), with a chiron-local divergence.
+>
+> - **CSS (Agent, on the Agent):** **CONTINUE** (a pattern worth keeping) ·
+>   **START** (a commitment going forward) · **STOP** (a failure named and
+>   corrected).
+> - **SH (Agent, on the Operator — by the Operator's standing permission):** the
+>   Operator invites the Agent to falsify the Operator's *prompting* along two
+>   axes — **intent clarity** (was the intent ambiguous?) and **coherence** (did
+>   the Operator actually mean it?). **Should Hold** = prompting that worked, keep
+>   it; **Should Have** = a prompting miss, flagged. Verbatim-quote-grounded.
+>
+> **Divergence from bond:** bond's OR credits the Operator's conduct as a tag on
+> CONTINUE, and its (candidate) SH is *Operator-authored* self-reflection. Chiron
+> **drops OR** and repurposes **SH** as *Agent-authored feedback on the Operator's
+> prompting, by standing permission* — the covalent move (the Operator opens their
+> prompting to falsification, guarding against the Agent's sycophancy). First real
+> instance of bond's zero-instance SH grammar, evolved on a cross-dyad rub.
+>
+> No ratification ceremony — durable by being written and committed. Full text
+> always shown in chat (presentation ⟂ durability). DYAD.md ontology reserves
+> *reflections* for our retros (never "lessons" — that's curriculum).
 
 ---
 
@@ -18,40 +32,58 @@ built the #26 earnedness gate (PR #27, merged) → falsified the no-deferrals /
 soon-later model → built the Observe kanban (Projects v2) → d-sense #3 (audit
 node, dispatched + verified, PR #28) → d-sense #25 (paused at convergence).
 
-### CONTINUE
-- *(Agent-observed)* **Axis-separation as the first diagnostic.** It located the
-  #13→#18 gap precisely (capability ⟂ deliverable were conflated in the carve-out)
-  and later caught my own #11 over-archival (contingent ≠ stale). Keep reaching
-  for "which orthogonal axes got conflated?" before proposing a fix.
-- *(Agent-observed)* **Elicitation-first d-sense — intent before invariants before
-  design, forks held.** On #3 it surfaced the "audit node" reframe a design-first
-  pass would have skipped straight past. Lead with intent every time.
-- *(OR — Operator)* **Iterative falsification earns the model.** "later" took four
-  Operator passes (contingent → un-disposed → intent-stale → +premise-invalidated
-  → *discovered-not-predicted*); each crisp-but-premature definition I offered got
-  sharpened by a refusal to accept the first plausible frame. The value came from
-  the Operator's cadence, not my first answer. Keep surfacing interpretation *fast
-  precisely so it can be falsified fast.*
-- *(OR — Operator)* **Delete an axis, don't always separate it.** The Operator's
-  "no-deferrals" dissolved my proposed horizon-lane instead of building it. Keep
-  testing whether a proposed mechanism should be *removed* rather than added.
+### CONTINUE *(Agent)*
+- **Axis-separation as the first diagnostic.** It located the #13→#18 gap
+  precisely (capability ⟂ deliverable, conflated in the carve-out) and caught my
+  own #11 over-archival (contingent ≠ stale). Ask "which orthogonal axes got
+  conflated?" before proposing a fix.
+- **Elicitation-first d-sense — intent → invariants → design, forks held.** On #3
+  it surfaced the "audit node" reframe a design-first pass would have skipped.
+- **Test whether a proposed mechanism should be *removed*, not just separated.**
+  My horizon-lane proposal was the wrong shape; deleting the deferred axis beat
+  separating it. Keep the "delete, don't add" option live when designing.
 
-### START
+### START *(Agent)*
 - **Provision sub-agent context via node / pointers / prompt — reserve inline for
-  stated cause.** Saved as a durable feedback memory this session; hold it.
-- **Treat hand-patched drift as a gap signal, not a workflow.** Every time I
-  manually fixed the board this session (#3, #26 cards), that was #25 (auto-sync)
-  announcing itself. Name the gap each time instead of absorbing the toil.
-- **Stamp dates from the actual system clock, and verify dates in delivery
-  review.** (See STOP #3.)
+  stated cause.** (Saved as a durable memory this session.)
+- **Treat hand-patched drift as a gap signal, not a workflow.** Every manual board
+  fix this session (#3, #26 cards) was #25 announcing itself — name the gap.
+- **Stamp dates from the actual clock; verify dates in delivery review.** (STOP #3.)
 
-### STOP
-- **Defaulting to inline execution with a rationalization.** On #3 I chose inline
-  and justified it ("context not durable") — bypassing the dispatch discipline and
-  the deprecation trajectory; the Operator had to correct it. The real fix was
-  provisioning context, not going inline.
-- **Inventing parallel numbering.** My ad-hoc "Move 1/2/3" collided with node
-  numbers and confused the Operator. Refer to nodes; don't mint private schemes.
+### STOP *(Agent)*
+- **Defaulting to inline with a rationalization.** On #3 I chose inline and
+  justified it ("context not durable") — bypassing the dispatch discipline; the
+  Operator corrected it. The fix was provisioning context, not going inline.
+- **Inventing parallel numbering.** "Move 1/2/3" collided with node numbers and
+  confused the Operator. Refer to nodes; don't mint private schemes.
 - **Trusting a sub-agent's factual stamps.** The #3 delivery dated everything
-  2026-07-08 (system date: 2026-07-07); I caught it, but only on a second
-  verification pass. Check dates/provenance in every delivery review.
+  2026-07-08 (actual: 2026-07-07); caught, but only on a second verification pass.
+
+### SH *(Agent on the Operator's prompting — intent clarity · coherence)*
+
+**Should Hold** *(prompting that worked — keep it)*
+- **Scoping your input to what's yours, and handing off the rest.** *"i can only
+  comment on the intent and that is that the board should be automatically updated
+  for any changes to gh-issue states"* (#25) — you named the boundary of your own
+  knowledge and asked me to explain the mechanism instead of bluffing past it.
+  High clarity, high coherence; it kept mechanism forks off your plate.
+- **Falsifying my first plausible answer instead of accepting it.** The whole
+  soon-later sequence — you refused each crisp-but-premature definition I offered.
+  Coherent and deliberate ("gaining clarification through this falsification
+  process"); it's the guard against my sycophancy. Keep doing it.
+- **Interrogating the form itself** — *"any operator reflection in the START and
+  STOP section?"* improved the discipline by questioning it, not just using it.
+
+**Should Have** *(prompting misses — flagged, per your permission)*
+- **Intent clarity:** the soon/later intent arrived under-specified. *"anything
+  later will be archived/closed"* used a *temporal* word for what you ultimately
+  meant as a *staleness/validity* condition — it took four rounds to separate the
+  three senses of "soon" (fast · committed · not-stale). Coherence was fine (you
+  were deliberately discovering it), but naming the axis you were reaching for
+  earlier would have compressed the path.
+- **Coherence (shared-definition gap):** *"let's drop the OR and only keep the
+  SH"* was coherent in your head but assumed a shared definition of "SH" we didn't
+  have — I inherited bond's (Operator-authored self-reflection); you meant a
+  repurposed SH (permission for my feedback on your prompting). I built the wrong
+  scaffold first. One line pinning "SH = you critique my prompting" would have
+  pre-empted the misread.
