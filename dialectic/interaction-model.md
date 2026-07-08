@@ -141,6 +141,130 @@ operating-policy invariant (intent-alignment before action):
   one: Operator disposition-turns per node, derivable as timestamped events
   (`bin/ws turns`).
 
+## Resilient headless execution — carve-out recovery + scope decomposition (#20)
+
+**Provenance:** node #20, converged via d-sense 2026-07-07; four-axis framing,
+continue-all-but-gap-dependent, both-owned flat decomposition, and start-light
+are all Operator-ratified. Doctrine homes here (#3); the lived proof-of-concept
+and the reflection are in `reflect/resilient-headless-execution.md`.
+
+Headless dispatch (d-land's default: a node handed to a sub-agent as its sole
+brief, #16) meets reality — an agent mid-execution discovers a gap the Sense did
+not foresee. The failure mode to kill is **fail-stop or silent-descope**: halting
+the whole delivery on one local blocker, or quietly dropping the blocked part and
+reporting success. The frame: the node DAG is refinable at any time, including
+mid-execution; **blocking is always local to the finest node, never propagated up
+to halt siblings.**
+
+### The four orthogonal guarantees
+
+Per the axis-separation principle (#21 — cited here, *codified there*): four
+independent axes, each with its own lever and its own check — not a ranked list,
+not a single tradeoff.
+
+- **Integrity** (no false 'done') — a carve-out MUST become a tracked node; a
+  delivery cannot close with an un-nodified gap. *Lever:* no-self-ratify on
+  scope. *Check:* dispatching-agent verification at close that all ratified
+  scope is accounted for (verification discipline today, not yet a hard gate —
+  honest limit).
+- **Liveness** (forward momentum) — blocking is local; a blocked node never
+  stalls its siblings. *Lever:* the per-node claim gate. *Check:*
+  `criteria/liveness-local.sh` (blocking one node does not change a sibling's
+  claimability).
+- **Observability** (Operator visibility) — the carved-out gap surfaces on the
+  board the instant it is spun off; the Operator sees it without asking. *Lever:*
+  the gap becomes an issue with a `ws:` label. *Check:* it renders in `bin/ws`
+  (the generated board).
+- **Non-interruption** (agent autonomy) — the agent continues the remainder with
+  no Operator disposition; recovery costs the Operator zero turns. *Lever:* the
+  carve-out protocol is autonomous, on-branch, reversible.
+
+The visibility-vs-autonomy "tension" is a conflation artifact (#21): you see
+everything (observability) and act on nothing (non-interruption) — separate axes.
+
+### Carve-out recovery protocol (reactive)
+
+When a headless agent hits an unexpected gap:
+
+1. **Isolate** the minimal blocked sub-scope — the parts whose correctness
+   depends on the gap, and only those.
+2. **Continue** all work except the gap-dependent parts (integrity wins
+   *locally*, liveness wins *everywhere else* — Operator ruling).
+3. **Spin the gap off** as a tracked node (`bin/gh issue create … --label
+   ws:<stream>,status:clarify`) capturing what was found — never fold it silently
+   back into the parent, never drop it (integrity: no self-ratify on scope).
+4. **Report** both the delivered remainder and the spun-off node.
+
+Autonomous (non-interruption); the spun-off node is visible immediately
+(observability); the gap is nodified, never descoped (integrity). This is exactly
+the recursive test #20 imposes on its own sub-agent.
+
+### Decomposition (proactive) — both-owned, start flat
+
+Large scope is decomposed *before* it blocks, by whoever sees the risk first:
+
+- **Ownership: both.** The Operator decomposes at planning; the Agent proposes a
+  split when it detects unbounded scope at convergence.
+- **Structure: flat.** Split into sibling nodes joined by `Depends-on:` edges;
+  retire the monolith. **No parent/child hierarchy, no board rollup, no aggregate
+  states** — deferred until real friction demands them (don't-over-build, #20).
+  Flat ⇒ each piece is a normal node under the existing lifecycle; the
+  disposition-turn concern is handled by the standing-authorization policy point
+  (#16), not new hierarchy machinery.
+
+### Readiness consideration: "scope bounded enough to dispatch"
+
+A converge-time *consideration* on the readiness discipline (#14): before
+disposing a node for headless dispatch, ask whether its scope is bounded enough
+that a sub-agent can complete it — or whether it should be flat-split first. This
+is honestly a **judgment / prompt, not a hard mechanical lint** (unlike #14's
+field-presence and dependency checks). It lives in the d-sense/converge
+discipline as a question the Agent raises, not a gate the tool enforces; coding
+it as a lint would be false precision.
+
+### Sub-agent dispatch-brief template (single home)
+
+Every headless dispatch carries the carve-out protocol in its brief. Single-homed
+here; reused when dispatching a node to a sub-agent:
+
+> You are a sub-agent of dyad-chiron. Your entire commission is node #\<N\> — its
+> body is your complete brief. This dispatch is context-free by design: the node
+> must be sufficient (the readiness contract, #14, under live test).
+>
+> - Read the node FIRST: `bin/gh issue view <N> --json title,body` and its comments.
+> - Self-claim from your worktree: `bin/ws claim <N>`. If refused, report why and stop.
+> - Work only on your own branch/worktree. Do not touch protected branches; do
+>   not merge (identity acts are the Operator's, dyad-rt-enforced). All git/gh
+>   mutations go through `bin/git` / `bin/gh`.
+> - **Carve-out recovery (if you hit an unexpected gap):** do NOT fail-stop, do
+>   NOT silently descope. Isolate the minimal blocked sub-scope → complete
+>   everything not gap-dependent → spin the gap off as a tracked node (`bin/gh
+>   issue create … --label ws:<stream>,status:clarify`) → report both. (The four
+>   guarantees: integrity · liveness · observability · non-interruption.)
+> - Run `./check` before every commit (must exit 0). Trailer every commit `Node: #<N>`.
+> - When `./check` is earned and pushed: `bin/ws release <N> --done`, then report:
+>   branch, files changed, spun-off nodes, `./check` tail, commit hashes,
+>   deviations/blockers stated plainly.
+
+### Curriculum-module stub
+
+*(Draft stub — migrates to the curriculum home when that repo is ratified; kept
+here so the #20 deliverable is single-homed with its doctrine. Per the fixed
+constraint, the learner-dyad builds its OWN resilience protocol — it does not
+adopt ours.)*
+
+**Module — resilient headless execution + decompose-to-isolate-risk.**
+Learner-dyad skills:
+
+- rep: dispatch one of your own nodes headless; when it hits a gap, run the
+  carve-out (isolate → continue → nodify → report) instead of fail-stopping.
+- rep: take a node you could not dispatch (too big) and flat-split it into
+  siblings + `Depends-on` edges; retire the monolith.
+- rep: prove liveness on your own board — block one node, show a sibling stays
+  claimable (your own `check`-style criterion).
+- each "taught" claim cites: the learner's carve-out node, its flat-split record,
+  its passing liveness criterion — earned by real reps, never conferred.
+
 ## Acceptance criteria (how we know the model is agreed and real)
 
 - **AC1 — ledger:** `WORKSTREAMS.md` exists; every active workstream carries
