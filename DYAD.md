@@ -168,3 +168,47 @@ Added to the form's G0 seed vocabulary:
 - **lesson** — *reserved*: a unit of curriculum, never our own retro notes.
 
 Canonicalized as they stabilize; this stub grows, it does not ossify.
+
+- **axis separation** — the design principle (see *Design principles*):
+  separate orthogonal concerns into independent axes; an apparent tradeoff is
+  often a conflation artifact.
+
+## Design principles
+
+Reflexes distilled from chiron's own practice — realized, not decreed ahead of
+use (the anchor's standard). Loaded every session because each should shape
+every future design decision, the way the invariants shape every action.
+
+### Axis separation
+
+**Separate orthogonal concerns into independent axes; never conflate them.**
+Each concern earns its own representation, mechanism, and check; conflation
+forces false tradeoffs and category errors — one symbol made to carry two
+meanings serves neither cleanly.
+
+**Diagnostic half — an apparent tradeoff is often a conflation artifact.** When
+two goods seem to trade against each other, suspect a hidden conflation:
+surface the orthogonal axes and the tradeoff dissolves. (Worked case:
+visibility-vs-autonomy → "information *to* you" ⟂ "action demanded *of* you" →
+see-everything / act-on-nothing; the tension was an artifact of one word
+carrying both axes.)
+
+Distilled from three lived instances (derivation:
+`reflect/axis-separation.md`):
+
+- **`status:operator` dissolved — actor ≠ stage.** A status lane naming *who
+  acts* had conflated the actor with the workflow stage; separating them left
+  the four pure lanes (clarify · dispose · execute · blocked) and put "whose
+  hands" on its own axis (#16).
+- **`lock:` split from `status:` — holder ≠ stage.** The lease-holder is
+  orthogonal to the lifecycle stage: an execute node is `execute` alone
+  (authorized, awaiting a thread) or `execute` + `lock:<branch>` (in that
+  thread's hands) — two concerns, two label families (#16).
+- **#20's four orthogonal protects — integrity · liveness · observability ·
+  non-interruption.** One "protect" concern pulled apart into four independent
+  axes, each with its own mechanism and check, rather than one flag pretending
+  to guard all four.
+
+Chiron-local for now; flagged as a candidate Commons-form contribution once
+proven across more instances (proposal deferred — see
+`reflect/axis-separation.md`).
