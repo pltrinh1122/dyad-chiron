@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Acceptance criteria for the ratified interaction model (audit node #3, 2026-07-08).
+# Acceptance criteria for the ratified interaction model (audit node #3, 2026-07-07).
 # The audit's own earnedness: a "built as intended" claim without a passing check is conferred,
 # not earned. These pin the model's now-checkable claims — NOT its efficacy (that earns through
 # wear-in, per #3's no-self-ratify invariant). The claims grounded here:

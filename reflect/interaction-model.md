@@ -1,7 +1,7 @@
 # reflection: the multi-workstream interaction model
 
 **Status: RATIFIED** — audited against the as-built substrate and Operator-ratified,
-2026-07-08 (audit node #3; d-sense-converged intent + invariants, fork resolutions
+2026-07-07 (audit node #3; d-sense-converged intent + invariants, fork resolutions
 recorded on #3). The audit closes *"built as intended"* only — the model's *efficacy*
 still earns through wear-in, not this audit (audit-bar / no-self-ratify invariants,
 #3). On ratification the settled parts codified into `DYAD.md` #5 (concurrency/WIP,
@@ -57,7 +57,7 @@ never self-ratifies, provenance still grounds every decision.
    externally-visible acts. When in doubt: propose or elicit, don't act.
 
 4. **Concurrency (WIP slot of #5):** default **WIP-N = 3** active workstreams —
-   ratified 2026-07-08 (fork 1, below) as the falsifiable default **marked "elected,
+   ratified 2026-07-07 (fork 1, below) as the falsifiable default **marked "elected,
    not yet earned"**: this session ran essentially serial, so WIP-N=3 is untested by
    wear and resizes at the first real overload (which is itself the curriculum rep,
    "elect your WIP-N by running into overload"). Enough for substrate ∥ curriculum ∥
@@ -327,7 +327,7 @@ Learner-dyad skills:
 - each "taught" claim cites: the learner's carve-out node, its flat-split record,
   its passing liveness criterion — earned by real reps, never conferred.
 
-## Design ↔ as-built trace (audit node #3, 2026-07-08)
+## Design ↔ as-built trace (audit node #3, 2026-07-07)
 
 Every intended-model element mapped to its as-built realization and its grounding (a
 passing `criteria/` check or a demonstrable live mechanism), or marked deferred /

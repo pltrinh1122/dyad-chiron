@@ -87,7 +87,7 @@ Curriculum artifacts get their own home when the first one exists.
 
 ### Channel discipline (#4) — two channels, separated by axis
 
-Codified from practice (WS-KB #13; interaction-model audit #3, 2026-07-08).
+Codified from practice (WS-KB #13; interaction-model audit #3, 2026-07-07).
 Two channels, kept on their own axes — *what the Operator consumes* vs. *what
 the Operator is asked to attend*:
 
@@ -136,7 +136,7 @@ nodes). Mechanism: the `bin/ws` lease protocol over GitHub-Issue nodes
 labels — the label is the board-visible cache, the journal stays
 authoritative), race-window honestly documented in its header. Enforcing
 criteria are wired (`criteria/ws-lifecycle.sh`); the model is ratified at
-`reflect/interaction-model.md` (audit #3, 2026-07-08).
+`reflect/interaction-model.md` (audit #3, 2026-07-07).
 
 Third invariant — the learning invariant, Operator-proposed, dyadically
 converged (2026-07-07): **intent-alignment before action — Sense closes only
@@ -160,7 +160,7 @@ a recorded d-land directive; the `bin/ws` claim refuses any node not in
 execute. Also a curriculum topic (WS6).
 
 Fourth invariant — WIP + autonomy boundary, ratified (interaction-model audit
-#3, 2026-07-08): **(a) WIP-N = 3** active workstreams (concurrent leases) as the
+#3, 2026-07-07): **(a) WIP-N = 3** active workstreams (concurrent leases) as the
 falsifiable default, **marked "elected, not yet earned"** — untested by wear this
 session, it resizes at the first real overload (itself the curriculum rep);
 elicit-blocked nodes don't count against it, and the Operator may resize at will.
