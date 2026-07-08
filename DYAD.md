@@ -118,6 +118,17 @@ git-workflow set when friction sets it. One inherited default holds throughout:
 work stays durable (commit at natural checkpoints); identity acts (birth,
 merge-to-main) are the Operator's.
 
+**Invariants are grouped by scope, and the grouping is load-bearing.** A
+*cross-cutting* invariant binds every stream; a *workstream-specific* one binds a
+single stream (below, the latter three are all `process`-stream — they are the
+interaction model's own output). The boundary is drawn now so that when DYAD.md
+outgrows its size budget each group lifts out **whole, as its own import** — a
+separate file DYAD.md pulls in by reference, the same point-don't-copy rule the
+ontology already runs. *Marked, not cut:* no split until size actually forces it
+(no form ahead of the spine).
+
+**Cross-cutting invariants**
+
 First invariant, Operator-elected under real friction (2026-07-07, substrate
 bootstrap): **provenance — every decision/action is grounded: what was
 decided, who elected it (Operator-directed · Agent-elected · inherited), when,
@@ -125,6 +136,10 @@ and from what source.** Agent-elected decisions are falsifiable defaults,
 surfaced for Operator review, ratified by merge. Carried in artifact headers
 (WHY blocks), commit messages, and `README.md` (the structure's single home;
 coverage enforced by `criteria/readme-structure.sh`).
+
+**Process-stream (`ws`) invariants** — grouped; the import unit when DYAD.md is
+decomposed. All three are the `process` workstream's output (the interaction
+model); each points to its evidence in `reflect/interaction-model.md`.
 
 Second invariant, Operator-elected (2026-07-07, interaction-model dialectic):
 **concurrent thread execution — multiple threads may work in parallel across
@@ -153,11 +168,18 @@ applied to interpretation — acting on an unratified interpretation is the
 proposer ratifying its own proposal. Evidence + wear-in record:
 `reflect/intent-before-action.md`. Mechanization (lifecycle ratified on node
 #16, 2026-07-07 — statuses = Activity Board lanes: clarify → dispose → execute
-→ blocked, + done = closed): new workstream nodes enter `status:clarify`; the
-Agent asserts Sense-convergence via the lint-gated `bin/ws converge` (clarify
-→ dispose); dispose → execute IS the Operator's disposition — a label flip or
-a recorded d-land directive; the `bin/ws` claim refuses any node not in
-execute. Also a curriculum topic (WS6).
+→ blocked, + done = closed): new workstream nodes enter `status:clarify`.
+**Advancing a node off `clarify` is the Operator's move, made through d-sense
+(their rulings); the Agent runs the lint-gated `bin/ws converge` only to
+*record* a convergence the Operator's d-sense has reached — never to self-drive
+a clarify node** (Operator-directed 2026-07-08, softening the prior wording that
+read as an Agent self-advance; grounded in a lived breach this session —
+`no-self-ratify` applied to Sense-closure: asserting my own convergence is the
+proposer ratifying its own proposal). `dispose → execute` is likewise the
+Operator's disposition — a label flip or a recorded d-land directive; the
+`bin/ws` claim refuses any node not in execute. Symmetry: the Operator disposes
+`clarify` nodes via d-sense and `dispose` nodes via d-land. Also a curriculum
+topic (WS6).
 
 Fourth invariant — WIP + autonomy boundary, ratified (interaction-model audit
 #3, 2026-07-07): **(a) WIP-N = 3** active workstreams (concurrent leases) as the
