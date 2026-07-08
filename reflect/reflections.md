@@ -175,3 +175,81 @@ merged (PR #32 soften-inv-3 + group; PR #36 fifth invariant) → todo #37
   own vocabulary; coherent in your head, but naming whether it's a *quality* or a
   *pointer to a specific peer* would have saved a clarify round. Same shape as
   last session's "soon/later" and "SH" under-specification.
+
+---
+
+## 2026-07-08 (session b) — #25 executed: Projects v2 self-healing sync built, CI-proven, closed
+
+Session arc: `d-start` (goal = complete #25) → probed state, played back intent +
+ACs, surfaced one mechanism I'd dispose (re-point `Depends-on` #18→#34) + one
+Operator-item (retain/retire the interim markdown surface) → **`d-sense: ratify
+(go)`** → recorded convergence + disposition (`ws converge`/`dland`), claimed,
+built `bin/ws sync-project` (GraphQL; resolve-by-title so no magic IDs; lane map;
+done-cap-via-archive; `--fixture` offline + `--plan` live diff) + `activity-board-
+project.yml` + `criteria/activity-board-project.sh` → live-proved drag-revert;
+discovered + documented the auto-add/#33 churn → **PR #39 with an honest 4/6-earned
+checklist**, lease released, node held OPEN (earnedness) → Operator merged → earned
+**AC2 + AC4 on real post-merge CI runs**, gated close (`release --done`, no
+stranded label). One node, opened and closed in a session.
+
+### CONTINUE *(Agent)*
+- **Earnedness enforced against myself, not just claimed.** Held #25 in execute and
+  refused to check AC2/AC4 or close until real post-merge CI runs proved them
+  (runs `28981241179`, `28981203978`), then checked the boxes *with run-ID
+  evidence*. The gate refused `--done` on the two unearned boxes and I let it —
+  the craft value made mechanical in my own conduct, not just in the tooling.
+- **The fifth-invariant division held — mechanisms disposed, only intent+ACs put to
+  you.** Dependency re-point, resolve-by-title, done-cap-via-archive, loop-guard —
+  all mine to settle; the single d-sense ask was intent+ACs. Directly redeems last
+  session's over-consultation STOP.
+- **Never self-advanced the node.** Explicit `d-sense: ratify` *before* `ws
+  converge`; converge only *recorded* your convergence. Redeems last session's
+  self-advance STOP.
+- **Live testing caught the idempotency bug.** Running the sync twice surfaced that
+  archived items were re-archived every run; fixed with `isArchived` tracking.
+  Build-and-probe beat trust-the-first-pass.
+
+### START *(Agent)*
+- **Probe a projection's *steady state* against external actors before calling it
+  clean.** I wrote "board is currently clean" in the PR, but GitHub's built-in
+  auto-add re-injected #33 twice afterward. The immediate post-apply snapshot ≠
+  steady state when another automation writes the same surface. Check for external
+  writers before claiming a stable end-state.
+- **Hold a lease through to *done* when I'll personally close the node — or state
+  why I'm releasing.** (See STOP.)
+
+### STOP *(Agent)*
+- **Released the #25 lease at "branch work pushed," then had to re-claim a
+  merged-and-deleted branch to run the gated close.** The gated `release --done`
+  needs a live lease, but the terminal ACs were only earnable *post-merge* (CI),
+  when the branch was gone. Re-checking-out the local branch worked, but it's a
+  smell — and a *model* observation, not just a personal one: **the lease/close
+  protocol has a gap for nodes whose terminal ACs are CI-proven post-merge — the
+  lease releases at merge, the close needs it back.** Candidate: a close path
+  gated on earnedness that does not require a live lease. Flag for a process node
+  if it recurs.
+- **Mild overclaim — "board is currently clean."** Named above; the fix is the
+  START (probe steady state, including external writers).
+
+### SH *(Agent on the Operator's prompting — intent clarity · coherence)*
+
+**Should Hold** *(prompting that worked — keep it)*
+- **`d-sense: ratify (go)`** — one crisp token closed Sense after the playback,
+  trusting the mechanism-dispositions I'd surfaced without relitigating them. That
+  is the fifth-invariant division working from your side: you disposed intent+ACs
+  and left the mechanisms to me. Highest-leverage prompt of the session.
+- **`i merged PR #39`** — a clean factual handoff that unblocked the CI-proof phase
+  with zero ambiguity about state. You merged the *earned* deliverable after
+  reading the honest earned-vs-pending split, delegating the CI-gated close to me —
+  validating that surfacing honest limits (not overclaiming "done") is the right
+  move. Keep acting on the honest-limits framing.
+
+**Should Have** *(prompting misses — flagged, per your permission)*
+- **This session's prompting was minimal and clean — no new intent-clarity or
+  coherence miss to flag, and I won't manufacture one** (that would be conferral in
+  reverse). The single standing gap is a *recurring carryover*, not new: **`d-reflect`
+  scope is still unwritten.** You said bare `d-reflect`; I read session-wide (the
+  ledger default) — correct, but the convention remains a standing guess, flagged
+  last session too. One line — does `d-reflect` take a scope arg, or is it always
+  session-wide? — settles it. Natural home: **#31** (d-start codification), which is
+  already pinning the directive vocabulary.
