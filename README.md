@@ -57,17 +57,31 @@ sources used below: **Operator-directed** (explicit instruction),
     node **lease protocol** (`claim`/`release`, with `lock:<branch>` labels as
     the board-visible holder cache) enforcing the concurrent-thread-execution
     invariant (DYAD.md #5) — a leased node is not claimable by another thread.
+    It also single-homes both **Observe-channel renders** (DYAD.md #4): `board`
+    (markdown for the interim pinned issue) and `sync-project` (the self-healing
+    one-way sync of the Projects v2 board, #25 — labels canonical, board
+    overwritten to match; `--fixture`/`--plan` prove the policy offline).
 - **`.githooks/`** — `pre-commit` + `pre-push`: the hard floor, firing even on
   raw `git` (the launcher wires `core.hooksPath` here). Survives gate-off;
   `--no-verify` is the one visible escape. *Provenance: ported from dyad-aule,
   same directive as `bin/`.*
-- **`.github/workflows/`** — repo automation: `node-lint.yml`, the readiness
-  flip-gate — a node labeled `status:dispose` that fails the WS-NL readiness
-  contract (or whose convergence went stale) is self-healed back to
-  `status:clarify` with a comment naming the misses. Policy single-homed in
-  `bin/ws gate`; the workflow is trigger + transport. *Provenance: WS-NL node
-  #14, Operator-proposed and d-sense ratified 2026-07-07; lanes per the
-  lifecycle ratified on node #16, same day.*
+- **`.github/workflows/`** — repo automation; each workflow is trigger +
+  transport only, with policy single-homed in `bin/ws`:
+  - `node-lint.yml` — the readiness flip-gate: a node labeled `status:dispose`
+    that fails the WS-NL readiness contract (or whose convergence went stale) is
+    self-healed back to `status:clarify` with a comment naming the misses.
+    Policy in `bin/ws gate`. *Provenance: WS-NL node #14, Operator-proposed and
+    d-sense ratified 2026-07-07; lanes per the lifecycle ratified on node #16.*
+  - `activity-board.yml` — the interim Observe surface (#13 fallback (a)):
+    regenerates a pinned "Activity Board" issue from `bin/ws board`. Runs on the
+    built-in `github.token` (zero provisioning). *Provenance: Activity Board node
+    #13, d-sense ratified 2026-07-07.*
+  - `activity-board-project.yml` — the premium Observe surface (#25): the
+    self-healing one-way sync of the **Projects v2** board via `bin/ws
+    sync-project`. Consumes the Operator-provisioned `DYAD_PROJECT_TOKEN` secret
+    (#34; the built-in token cannot write user ProjectsV2). *Provenance: node
+    #25, carved from #13's capability ⟂ deliverable conflation; d-sense ratified
+    2026-07-08.*
 - **`check`** + **`criteria/`** — the acceptance-criteria runner: each
   capability deposits executable criteria; `./check` grounds them all.
   Earnedness (chiron's craft value) made computational — a claim without a

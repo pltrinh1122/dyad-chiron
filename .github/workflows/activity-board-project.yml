@@ -1,0 +1,56 @@
+name: activity-board-project
+# The Projects v2 Observe surface (#25) — self-healing one-way sync. Labels/issue-state are
+# canonical; this job OVERWRITES the board's Status to match, so any manual card drag is reverted
+# on the next run. This workflow is TRIGGER + TRANSPORT only — the sync policy (lane mapping,
+# ws-only scope, done-cap, resolve-by-title) single-homes in `bin/ws sync-project`; here we just
+# run it. Data has no branch home — pulled from gh-issue state.
+#
+# WHY the token (#34, #18): the built-in github.token cannot write user-owned ProjectsV2, so the
+# sync borrows the Operator-provisioned project-scoped secret DYAD_PROJECT_TOKEN (interim broad
+# token; the durable identity model matures on #18). This is the CI-consumption proof #34 carved
+# onto #25.
+#
+# WHY the triggers (mirrors activity-board.yml, #13 Q5): issue/label events re-sync within one run
+# on any ws-node state change · workflow_dispatch for on-demand · a daily schedule is the
+# drift-healing backstop that heals a missed event (the same full re-sync a dispatch runs).
+#
+# KNOWN INTERACTION (auto-add): the project's built-in "Auto-add to project" workflow (enabled)
+# re-adds every edited issue — including non-node ones like the interim pinned "Activity Board"
+# issue — as an unset card. `sync-project` OWNS membership (it adds missing ws nodes and removes
+# non-node cards itself, so auto-add is redundant) and heals these on the next non-board event +
+# the daily backstop. For a strictly clean board, the Operator can disable the two "Auto-add"
+# workflows in the Projects UI (a one-time setup act; the GraphQL API exposes no disable mutation).
+on:
+  issues:
+    types: [opened, closed, reopened, deleted, edited, labeled, unlabeled]
+  workflow_dispatch:
+  schedule:
+    - cron: "23 6 * * *"   # daily backstop (drift-healer for any missed event)
+
+permissions:
+  contents: read
+
+concurrency:
+  group: activity-board-project
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    # Loop-guard: the sibling markdown board edits the pinned "Activity Board" issue, firing an
+    # issues:edited event — that node is not a ws card, so skip those runs. (For dispatch/schedule
+    # github.event.issue is null, so this is true.)
+    if: github.event.issue.title != 'Activity Board'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: sync the Projects v2 Activity Board (self-healing one-way)
+        env:
+          GH_TOKEN: ${{ secrets.DYAD_PROJECT_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::error::DYAD_PROJECT_TOKEN not set — the project-scoped secret (#34) is required." >&2
+            exit 1
+          fi
+          # policy single-homed in bin/ws; this is transport only.
+          bin/ws sync-project
