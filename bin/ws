@@ -69,6 +69,8 @@
 # Usage:  bin/ws                                   # render DAG + lanes + elicit queue
 #         bin/ws board                             # render the Activity Board (markdown) — the Observe channel (#13)
 #         bin/ws board --fixture <file>            # offline board render from a node-list JSON, for criteria/
+#         bin/ws sync-project [--plan|--dry-run]   # self-heal the Projects v2 board from issue+label state (#25)
+#         bin/ws sync-project --fixture <file>     # offline node→lane mapping, network-free, for criteria/
 #         bin/ws converge <#N|N>                   # Agent asserts Sense converged: clarify → dispose (lint-gated)
 #         bin/ws dland <#N|N> ["<directive>"]      # record a d-land disposition: → execute (warns off-dispose)
 #         bin/ws claim <#N|N> [branch]             # lease an execute node (lints; adds lock:<branch>)
@@ -398,6 +400,197 @@ def board(args):
                "journal stays authoritative)")
     print("\n".join(out))
 
+# --- Activity Board — Projects v2 self-healing sync (#25) --------------------------------------
+# The Projects v2 board is a VIEW-ONLY PROJECTION of issue+label state (#13 Q3): labels stay
+# canonical; every sync OVERWRITES the board's Status to match, so any manual card drag is
+# reverted on the next run (self-healing one-way sync). Sync POLICY single-homes HERE — lane
+# mapping, ws-only scope (#13 Q4), done-cap — mirroring the markdown board's split; the Actions
+# job (activity-board-project.yml) is TRIGGER + TRANSPORT only. Data has NO branch home: pulled
+# from gh-issue state. The board is self-describing — resolved by TITLE under the repo owner,
+# with its Status option-ids read at runtime, so no magic IDs live in code (survives board
+# recreation). Consumes the #34 DYAD_PROJECT_TOKEN secret in CI; a local run uses ambient login.
+
+PROJECT_TITLE = os.environ.get("DYAD_PROJECT_TITLE", "Activity Board")
+
+_ADD_Q = ("mutation($pid:ID!,$cid:ID!){addProjectV2ItemById(input:{projectId:$pid,contentId:$cid})"
+          "{item{id}}}")
+_SET_Q = ("mutation($pid:ID!,$iid:ID!,$fid:ID!,$oid:String!){updateProjectV2ItemFieldValue(input:{"
+          "projectId:$pid,itemId:$iid,fieldId:$fid,value:{singleSelectOptionId:$oid}})"
+          "{projectV2Item{id}}}")
+_DEL_Q = "mutation($pid:ID!,$iid:ID!){deleteProjectV2Item(input:{projectId:$pid,itemId:$iid}){deletedItemId}}"
+_ARCH_Q = "mutation($pid:ID!,$iid:ID!){archiveProjectV2Item(input:{projectId:$pid,itemId:$iid}){item{id}}}"
+_UNARCH_Q = "mutation($pid:ID!,$iid:ID!){unarchiveProjectV2Item(input:{projectId:$pid,itemId:$iid}){item{id}}}"
+
+def gql(query, soft=False, **vars):
+    """A gh GraphQL call. Omitted/None vars are simply not sent (so a nullable $cursor becomes
+    null → first page). soft=True returns None on error instead of exiting (best-effort steps)."""
+    args = [GH, "api", "graphql", "-f", f"query={query}"]
+    for k, v in vars.items():
+        if v is not None:
+            args += ["-f", f"{k}={v}"]
+    r = subprocess.run(args, capture_output=True, text=True)
+    if r.returncode != 0:
+        if soft:
+            return None
+        sys.stderr.write(r.stderr)
+        sys.exit(1)
+    return json.loads(r.stdout)["data"]
+
+def project_resolve():
+    """Resolve the board by TITLE under the repo owner → (project_id, status_field_id,
+    {lane: option_id}). Fails loudly if the board or a lane option is absent — the board's
+    column set is a precondition, not something sync silently invents."""
+    owner = REPO.split("/")[0]
+    q = ('query($login:String!){repositoryOwner(login:$login){... on ProjectV2Owner{'
+         'projectsV2(first:30){nodes{number title id field(name:"Status"){'
+         '... on ProjectV2SingleSelectField{id options{id name}}}}}}}}')
+    data = gql(q, login=owner)
+    projs = ((data.get("repositoryOwner") or {}).get("projectsV2") or {}).get("nodes", [])
+    for p in projs:
+        if p["title"] == PROJECT_TITLE:
+            f = p.get("field") or {}
+            if not f:
+                sys.exit(f"ws sync-project: board '{PROJECT_TITLE}' has no Status single-select field.")
+            opts = {o["name"]: o["id"] for o in f["options"]}
+            missing = [l for l in BOARD_LANES if l not in opts]
+            if missing:
+                sys.exit(f"ws sync-project: Status field is missing lane option(s) {missing}; "
+                         f"add them to '{PROJECT_TITLE}' (columns must be {BOARD_LANES}).")
+            return p["id"], f["id"], opts
+    sys.exit(f"ws sync-project: no ProjectV2 titled '{PROJECT_TITLE}' under '{owner}'.")
+
+def project_items(pid):
+    """Every board item, paged → ({issue_number: (item_id, status, archived)}, [(item_id, archived)]).
+    Issue-content items key by number (membership decided later against the node set); DraftIssue /
+    PullRequest content is never a node, so its item is extraneous outright. `archived` is carried
+    so a re-run does not re-archive (idempotence) and a reopened node can be unarchived."""
+    q = ('query($pid:ID!,$cursor:String){node(id:$pid){... on ProjectV2{items(first:100,after:$cursor){'
+         'pageInfo{hasNextPage endCursor} nodes{id isArchived content{__typename ... on Issue{number}} '
+         'status:fieldValueByName(name:"Status"){... on ProjectV2ItemFieldSingleSelectValue{name}}}}}}}')
+    members, extraneous, cursor = {}, [], None
+    while True:
+        conn = gql(q, pid=pid, cursor=cursor)["node"]["items"]
+        for it in conn["nodes"]:
+            c = it.get("content") or {}
+            st = (it.get("status") or {}).get("name")
+            arch = bool(it.get("isArchived"))
+            if c.get("__typename") == "Issue" and "number" in c:
+                members[c["number"]] = (it["id"], st, arch)
+            else:
+                extraneous.append((it["id"], arch))
+        if conn["pageInfo"]["hasNextPage"]:
+            cursor = conn["pageInfo"]["endCursor"]
+        else:
+            return members, extraneous
+
+def desired_lane(i):
+    """The board lane a node projects to: a clean single status:* (or done=CLOSED). A zero/multi
+    status:* breach has no clean lane → None (Status left unset, surfaced — never guessed; the
+    detection of that breach is #30's axis)."""
+    st = status_of(i)
+    return st if st in BOARD_LANES else None
+
+def sync_plan(ns, members, extraneous):
+    """The reconcile plan — pure given (node set, live board snapshot). ws-only scope (#13 Q4):
+    any board item not backing a current ws node is removed; done beyond DONE_CAP (most-recent by
+    closedAt) is archived, keeping the done lane bounded exactly like the markdown board caps it."""
+    desired = {n: desired_lane(i) for n, i in ns.items()}
+    done_ranked = sorted([n for n, l in desired.items() if l == "done"],
+                         key=lambda n: ns[n].get("closedAt") or "", reverse=True)
+    cap_archive = set(done_ranked[DONE_CAP:])
+    add, setl, unarchive, archive, breach = [], [], [], [], []
+    for n, i in ns.items():
+        lane = desired[n]
+        item = members.get(n)                 # (item_id, status, archived) or None
+        if lane is None:
+            breach.append(n)                  # a live node with no clean lane — leave it, surface it
+            continue
+        if n in cap_archive:                  # done beyond cap → belongs archived (not on active board)
+            if item and not item[2]:
+                archive.append((n, item[0]))
+            continue
+        if item is None:                      # active node not yet on the board
+            add.append((n, lane))
+        elif item[2]:                         # active node whose item is archived (e.g. reopened) → restore
+            unarchive.append((n, item[0], lane))
+        elif item[1] != lane:                 # only mutate on real drift → clean diff, fewer calls
+            setl.append((n, item[0], lane))
+    remove = [(num, members[num][0]) for num in members if num not in ns] \
+             + [(None, iid) for iid, arch in extraneous if not arch]   # archived non-node = already off-board
+    return {"add": add, "set": setl, "unarchive": unarchive,
+            "archive": archive, "remove": remove, "breach": breach}
+
+def _plan_total(plan):
+    return sum(len(plan[k]) for k in ("add", "set", "unarchive", "archive", "remove"))
+
+def print_plan(plan):
+    if _plan_total(plan) == 0 and not plan["breach"]:
+        print("ws sync-project: board already current — nothing to reconcile.")
+        return 0
+    for n, lane in plan["add"]:
+        print(f"  + add       #{n} → {lane}")
+    for n, _, lane in plan["set"]:
+        print(f"  ~ status    #{n} → {lane}")
+    for n, _, lane in plan["unarchive"]:
+        print(f"  ↥ unarchive #{n} → {lane} (node active again)")
+    for num, _ in plan["remove"]:
+        print(f"  - remove    {('#' + str(num)) if num else 'non-issue item'} (not a ws node)")
+    for n, _ in plan["archive"]:
+        print(f"  ⤓ archive   #{n} (done beyond cap {DONE_CAP})")
+    for n in plan["breach"]:
+        print(f"  ⚠ breach    #{n}: no clean status:* lane — Status left unset (detection = #30)")
+    print(f"ws sync-project: {_plan_total(plan)} change(s) planned"
+          + (f", {len(plan['breach'])} breach(es)" if plan["breach"] else "") + ".")
+    return 0
+
+def project_apply(pid, fid, opts, plan):
+    for n, lane in plan["add"]:
+        cid = gh("issue", "view", str(n), "--json", "id", parse=True)["id"]
+        iid = gql(_ADD_Q, pid=pid, cid=cid)["addProjectV2ItemById"]["item"]["id"]
+        gql(_SET_Q, pid=pid, iid=iid, fid=fid, oid=opts[lane])
+        print(f"  + #{n} → {lane}")
+    for n, iid, lane in plan["set"]:
+        gql(_SET_Q, pid=pid, iid=iid, fid=fid, oid=opts[lane])
+        print(f"  ~ #{n} → {lane}")
+    for n, iid, lane in plan["unarchive"]:
+        gql(_UNARCH_Q, pid=pid, iid=iid)
+        gql(_SET_Q, pid=pid, iid=iid, fid=fid, oid=opts[lane])
+        print(f"  ↥ #{n} → {lane}")
+    for num, iid in plan["remove"]:
+        gql(_DEL_Q, pid=pid, iid=iid)
+        print(f"  - removed {('#' + str(num)) if num else 'non-issue item'}")
+    for n, iid in plan["archive"]:
+        ok = gql(_ARCH_Q, soft=True, pid=pid, iid=iid)
+        print(f"  ⤓ archived #{n}" if ok else f"  (note: could not archive #{n} — may already be archived)")
+
+def sync_project(args):
+    """Self-healing one-way sync of the Projects v2 board (#25). `--fixture <json>` maps a node
+    list to lanes offline (network-free, for criteria/); `--plan`/`--dry-run` prints the live
+    reconcile diff without mutating (AC: provable by local-run diff); bare form applies it."""
+    if args and args[0] == "--fixture":
+        issues = json.load(open(args[1]))
+        ns = {i["number"]: i for i in sorted(issues, key=lambda x: x["number"])
+              if any(l["name"].startswith("ws:") for l in i.get("labels", []))}
+        for n, i in ns.items():
+            lane = desired_lane(i)
+            print(f"  #{n} → {lane if lane else '⚠ breach (no clean status:* lane)'}")
+        print(f"ws sync-project --fixture: {len(ns)} ws-node(s) mapped.")
+        return
+    ns = nodes()
+    pid, fid, opts = project_resolve()
+    members, extraneous = project_items(pid)
+    plan = sync_plan(ns, members, extraneous)
+    if args and args[0] in ("--plan", "--dry-run"):
+        sys.exit(print_plan(plan))
+    if _plan_total(plan) == 0:
+        print(f"ws sync-project: board '{PROJECT_TITLE}' already current — nothing drifted.")
+    else:
+        print(f"ws sync-project: reconciling {_plan_total(plan)} change(s) on '{PROJECT_TITLE}'…")
+        project_apply(pid, fid, opts, plan)
+    for n in plan["breach"]:
+        print(f"  ⚠ breach #{n}: no clean status:* lane — Status left unset (detection = #30).")
+    print("ws sync-project: done.")
+
 def converge(key):
     """Invariant 1 (#16): clarify → dispose is settable ONLY here — the Agent's lint-gated
     assertion that Sense has converged and the node meets the readiness contract (#14)."""
@@ -571,6 +764,8 @@ if not argv:
     render()
 elif argv[0] == "board":
     board(argv[1:])
+elif argv[0] == "sync-project":
+    sync_project(argv[1:])
 elif argv[0] == "converge":
     converge(argv[1])
 elif argv[0] == "dland":

@@ -99,8 +99,11 @@ the Operator is asked to attend*:
   state at high bandwidth for zero dyad turns: `bin/ws`'s generated DAG/pointer
   render, and the **Observe kanban** (a GitHub Projects v2 board projecting our
   labels — `Status` = the lifecycle lanes, `Stream` = `ws:<stream>`,
-  `Blocked-by` = open `Depends-on` refs). Self-healing auto-sync is tracked on
-  #25; until it lands the board is a hand-maintained snapshot (honest limit).
+  `Blocked-by` = open `Depends-on` refs). Self-healing auto-sync landed on #25
+  (`bin/ws sync-project` + `.github/workflows/activity-board-project.yml`):
+  labels stay canonical and any manual card drag is reverted on the next sync.
+  The CI path proves out on the first post-merge Actions run (the secret is
+  live, #34); the local sync is demonstrated (drag-revert, `--plan` diff).
 
 **Ledger governance — no deferrals / soon-later.** The board holds every node
 whose **intent is live AND whose existence-premise is valid**; there is no
