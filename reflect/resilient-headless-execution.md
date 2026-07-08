@@ -3,7 +3,7 @@
 **Provenance:** node #20, converged via d-sense 2026-07-07 (Operator-directed:
 headless-recovery + decomposition). The doctrine — the four orthogonal
 guarantees, the carve-out recovery protocol, flat decomposition, the dispatch
-brief — homes in `dialectic/interaction-model.md` (#3). This artifact is the
+brief — homes in `reflect/interaction-model.md` (#3). This artifact is the
 *why* and the lived proof-of-concept; it moves here per ontology #7 (a record
 lands in `reflect/` once the question has earned its answer).
 
@@ -98,7 +98,7 @@ rollup, no aggregate states, until real friction demands them (start-light,
 
 ## Curriculum tie
 
-A module (stubbed in `dialectic/interaction-model.md`): the learner-dyad builds
+A module (stubbed in `reflect/interaction-model.md`): the learner-dyad builds
 its *own* resilience protocol — dispatch a node headless, run a carve-out on a
 real gap, flat-split a too-big node, and prove liveness on its own board with its
 own criterion. Per the fixed constraint, the coach never runs the carve-out *for*
