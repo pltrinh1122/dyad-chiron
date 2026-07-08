@@ -99,11 +99,21 @@ the Operator is asked to attend*:
   state at high bandwidth for zero dyad turns: `bin/ws`'s generated DAG/pointer
   render, and the **Observe kanban** (a GitHub Projects v2 board projecting our
   labels — `Status` = the lifecycle lanes, `Stream` = `ws:<stream>`,
-  `Blocked-by` = open `Depends-on` refs). Self-healing auto-sync landed on #25
-  (`bin/ws sync-project` + `.github/workflows/activity-board-project.yml`):
-  labels stay canonical and any manual card drag is reverted on the next sync.
-  The CI path proves out on the first post-merge Actions run (the secret is
-  live, #34); the local sync is demonstrated (drag-revert, `--plan` diff).
+  `Blocked-by` = open `Depends-on` refs). Self-healing auto-sync landed and
+  closed on #25 (`bin/ws sync-project` + `.github/workflows/activity-board-project.yml`):
+  labels stay canonical, any manual card drag is reverted on the next sync, and
+  both trigger paths are CI-proven (an issue-event run and a backstop/dispatch
+  run each self-healed an induced drag). Consumes the #34 project-scoped secret.
+
+**Presentation invariant — link every addressable reference (Operator-elected
+2026-07-08).** When presenting a PR, GitHub issue/node, or artifact in chat,
+include its hyperlink — not a bare `#41` or `PR #40`. The link is the Operator's
+one-click bridge from the alignment channel to the artifact; a bare reference
+costs a lookup the Operator should never have to do. Generalizes to any
+externally-addressable reference the Operator may want to open (Actions runs,
+commits). It governs *chat output*, so it is held by discipline, not by `./check`
+(there is no repo artifact to gate). Grounded in lived friction — references
+presented without their links this session.
 
 **Ledger governance — no deferrals / soon-later.** The board holds every node
 whose **intent is live AND whose existence-premise is valid**; there is no
