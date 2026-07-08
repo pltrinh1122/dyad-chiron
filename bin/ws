@@ -72,10 +72,14 @@
 #         bin/ws converge <#N|N>                   # Agent asserts Sense converged: clarify → dispose (lint-gated)
 #         bin/ws dland <#N|N> ["<directive>"]      # record a d-land disposition: → execute (warns off-dispose)
 #         bin/ws claim <#N|N> [branch]             # lease an execute node (lints; adds lock:<branch>)
-#         bin/ws release <#N|N> [--done | --status <s>]   # end lease (removes lock:<branch>)
+#         bin/ws release <#N|N> [--done | --status <s>]   # end lease (removes lock:<branch>);
+#                                                  #   --done is earnedness-gated (#26): refused unless every
+#                                                  #   acceptance criterion is a checked task-list box
 #         bin/ws lint  <#N|N>                      # readiness contract check (network)
 #         bin/ws lint  --fixture <file> [--deps open|closed]   # offline, for criteria/
 #         bin/ws gate  <#N|N>                      # flip-gate: revert non-compliant dispose → clarify
+#         bin/ws earned <#N|N>                     # dry-run the close gate (#26): clear to --done?
+#         bin/ws earned --fixture <file>           # offline, for criteria/
 #         bin/ws turns <#N|N>                      # disposition-turn metric (timestamped events)
 set -euo pipefail
 
@@ -209,6 +213,30 @@ def lint_misses(body, dep_state):
 
 def live_dep_state(n):
     return gh("issue", "view", str(n), "--json", "state", parse=True)["state"]
+
+# --- earnedness gate on close (#26) ------------------------------------------------------------
+
+def unmet_acceptance(body):
+    """Closing a node is a claim — 'its acceptance criteria were earned' — so `release --done`
+    must find them enumerated as a task list with every box checked (#13 breach: closed done
+    with criteria the shipped surface could not satisfy; the Operator had to ask, not see).
+    Returns a refusal string, or None when the node is clear to close. Evidences *enumerated
+    disposition* of each criterion, not the *truth* of each — the full coach-absent check stays
+    NOT_YET_WIRED (proxies are evidence, never closure)."""
+    section = section_text(body, "Acceptance criteria")
+    if section is None:
+        return "no **Acceptance criteria** section — a done claim cannot be evidenced."
+    boxes = re.findall(r"^[ \t]*[-*][ \t]+\[([ xX])\][ \t]*(.+?)[ \t]*$", section, re.M)
+    if not boxes:
+        return ("**Acceptance criteria** carries no task-list checkboxes — render each criterion "
+                "as `- [ ] …` so `done` is evidenced box-by-box, never conferred.")
+    unmet = [txt for mark, txt in boxes if mark == " "]
+    if unmet:
+        listed = "\n".join(f"      - [ ] {t}" for t in unmet)
+        return (f"{len(unmet)} acceptance criterion(s) unmet — closing would confer what was not "
+                f"earned:\n{listed}\n    Carve-out: move the unmet criteria to a successor node "
+                f"(Depends-on this one), then close only the earned remainder.")
+    return None
 
 # --- staleness gate (#16, Operator amendment 2026-07-07) ---------------------------------------
 
@@ -447,12 +475,16 @@ def release(key, args):
     leases = active_leases(n)
     if branch not in leases:
         sys.exit(f"ws release: no active lease for branch '{branch}' on #{n} (active: {list(leases) or 'none'}).")
+    if "--done" in args:                       # earnedness gate (#26) — check BEFORE any mutation
+        refusal = unmet_acceptance(i["body"])   # so a refusal leaves the lease fully intact
+        if refusal:
+            sys.exit(f"ws release: refusing to close #{n} — {refusal}\n  (lease intact — nothing changed.)")
     gh("issue", "comment", str(n), "--body", f"RELEASE branch={branch} ts={now()}")
     gh("issue", "edit", str(n), "--remove-label", f"lock:{branch}")
     if "--done" in args:
         gh("issue", "edit", str(n), "--remove-label", "status:execute")
         gh("issue", "close", str(n))
-        print(f"ws release: #{n} done and closed.")
+        print(f"ws release: #{n} done and closed — all acceptance criteria checked.")
     elif "--status" in args:
         new = args[args.index("--status") + 1]
         if new not in STATUSES:
@@ -519,6 +551,21 @@ def turns(key):
         print(f"  directive (journal)         {c['createdAt']}  {c['body'].splitlines()[0]}")
     print(f"ws turns: #{n} disposition-turns = {len(flips)}")
 
+def earned_cmd(args):
+    """Dry-run the earnedness close gate (#26): is this node clear for `release --done`?
+    Exit 0 = every acceptance criterion is a checked box (clear to close); nonzero = refused,
+    with the reason. `--fixture <file>` runs the gate on a body file offline (criteria hook,
+    mirrors `lint --fixture`). The same `unmet_acceptance` powers the real close in release()."""
+    if args and args[0] == "--fixture":
+        body = open(args[1]).read()
+    else:
+        n, i = resolve(nodes(), args[0])
+        body = i["body"]
+    refusal = unmet_acceptance(body)
+    if refusal:
+        sys.exit(f"ws earned: NOT clear to close — {refusal}")
+    print("ws earned: clear to close — all acceptance criteria checked.")
+
 argv = sys.argv[1:]
 if not argv:
     render()
@@ -538,6 +585,8 @@ elif argv[0] == "gate":
     gate(argv[1])
 elif argv[0] == "turns":
     turns(argv[1])
+elif argv[0] == "earned":
+    earned_cmd(argv[1:])
 else:
     sys.exit(f"ws: unknown subcommand '{argv[0]}' — see usage in the file header")
 PY
