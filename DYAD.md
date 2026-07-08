@@ -112,7 +112,7 @@ invalidated** — both **discovered on contact, never predicted**. Boundary:
 archival. This generalizes the #16 convergence-staleness gate from *convergence*
 to *intent + premise*. Full model + trace: `reflect/interaction-model.md`.
 
-### Operating-policy (#5) — four invariants landed; git-workflow deferred
+### Operating-policy (#5) — five invariants landed; git-workflow deferred
 
 git-workflow set when friction sets it. One inherited default holds throughout:
 work stays durable (commit at natural checkpoints); identity acts (birth,
@@ -157,13 +157,16 @@ Third invariant — the learning invariant, Operator-proposed, dyadically
 converged (2026-07-07): **intent-alignment before action — Sense closes only
 by Operator confirmation.** A new or redirected intent opens the Sense turns
 of SPAOR (the G0 scaffold, canonical Sense·Plan·Act·Observe·Reflect): the
-Agent plays back its interpretation — the intent as understood, the
-invariants/acceptance-criteria it entails, and the design elections it is
-about to make — and only the Operator's confirmation closes Sense; Plan and
-Act follow Sense-closure. Scope: directive/workstream granularity — within an
+Agent plays back its interpretation — the intent as understood and the
+invariants/acceptance-criteria it entails (design elections it is about to
+make are surfaced for *visibility*, not for disposition — see the fifth
+invariant) — and only the Operator's confirmation *of intent + invariants*
+closes Sense; Plan and Act follow Sense-closure. Scope: directive/workstream granularity — within an
 aligned scope (a node whose intent + acceptance criteria the Operator
 ratified), reversible on-branch acts proceed without fresh playback; an
-**unstated design election reopens Sense**. Grounding: `no-self-ratify`
+unstated design election reopens Sense **only when it turns on an intent or
+invariant that is unclear or insufficient** — a pure mechanism the Agent
+disposes itself (fifth invariant). Grounding: `no-self-ratify`
 applied to interpretation — acting on an unratified interpretation is the
 proposer ratifying its own proposal. Evidence + wear-in record:
 `reflect/intent-before-action.md`. Mechanization (lifecycle ratified on node
@@ -192,6 +195,23 @@ reserved to the Operator are merge-to-main and identity acts (dyad-rt-enforced),
 scope changes, elections of policy/identity, and externally-visible acts — when
 in doubt, propose or elicit, don't act. Full model + design↔as-built trace:
 `reflect/interaction-model.md`.
+
+Fifth invariant — disposition scope, Operator-directed (2026-07-08):
+**Operator disposition is scoped to intent and invariants; mechanisms are the
+Agent's to dispose.** When the Operator disposes a node (d-sense on
+intent/invariants, d-land to execute), they rule on *what* is wanted and *what
+must hold* — never *how*. Design elections and mechanisms (which artifact, which
+structure, where a check homes, which dependency shape) are the Agent's to
+dispose autonomously, surfaced for *visibility*, never requiring Operator
+disposition — **unless the intent and/or invariants they turn on are unclear or
+insufficient**, the sole case that escalates a mechanism back to the Operator
+(`no-self-ratify`: the Agent cannot resolve an ambiguous *intent* by fiat, but
+an unambiguous intent's mechanism is not the Operator's to adjudicate). Sharpens
+the third invariant's playback (confirm intent + invariants, not the mechanism
+list) and completes the fourth's autonomy boundary from the disposition side.
+Grounded in lived over-consultation this session — mechanism forks (where a
+lint homes, which node absorbs a criterion) were put to Operator disposition
+when they were the Agent's to settle. Evidence: `reflect/interaction-model.md`.
 
 ### Ontology (#7) — starter
 
