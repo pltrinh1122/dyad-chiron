@@ -83,6 +83,7 @@
 #         bin/ws earned <#N|N>                     # dry-run the close gate (#26): clear to --done?
 #         bin/ws earned --fixture <file>           # offline, for criteria/
 #         bin/ws turns <#N|N>                      # disposition-turn metric (timestamped events)
+#         bin/ws attend                            # Classification O — the Operator's attention read model (#47): Eisenhower quadrants over the claimable queue
 set -euo pipefail
 
 MY_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -759,6 +760,144 @@ def earned_cmd(args):
         sys.exit(f"ws earned: NOT clear to close — {refusal}")
     print("ws earned: clear to close — all acceptance criteria checked.")
 
+# --- Classification O — the Operator's attention read model (#47) ------------------------------
+# WHAT: `ws attend` — a GENERATED VIEW that ranks the claimable queue into Eisenhower quadrants so
+#       the Operator can triage toward the telos at a glance. The CQRS read/query projection of
+#       reflect/decision-architecture.md (model O); model A (the write/execution side) is the follow-on.
+# WHO ELECTED IT: Operator-directed via node #47 — d-sense rulings A3·B1·C1, 2026-07-09.
+# WHY: "what should I attend to now, to best move the telos?" was un-answerable at a glance — the
+#       ledger/DAG carried the signal but nothing projected it. Per the three rulings:
+#   C1 (eligibility) — show ONLY Operator-turn ∧ actionable = open nodes with status ∈ {clarify,
+#       dispose}. execute (Agent-turn), blocked (not actionable) and closed are excluded.
+#   A3 (importance) — DAG-criticality × telos-lever, COMBINED: criticality = position on the
+#       curriculum spine to the #11 summit + transitive unblock-count; lever weights it so
+#       enabling-only nodes rank below telos-bearing ones on the same path.
+#   B1 (render) — Eisenhower QUADRANTS, not a scalar. importance/urgency each bucketed hi/lo on
+#       ordinal cutoffs; important∧urgent surfaced first. NO fabricated numeric priority is emitted
+#       (earnedness: marginal learning-turns aren't cardinally measurable — stay ordinal).
+# INVARIANTS:
+#   §4.2 single-source — a pure PROJECTION of the write model (issues/labels/journal/DAG). No stored
+#       priority; every signal is recomputed here at render time from the live ledger.
+#   §4.1 freshness — RECOMPUTE-ON-READ *is* the freshness guarantee: computed fresh on every
+#       invocation, it cannot be stale. If a node's own convergence went stale (a Depends-on closed
+#       after its CONVERGE — the #16 signal), that is surfaced in its row.
+
+CURRICULUM_SPINE = [4, 5, 8, 6, 9, 10, 11]         # #4→#5→#8→#6→#9→#10→#11; #11 = the graduation summit
+LEVER_WEIGHT = {"efficacy": 4, "turn-reduction": 3, "graduation": 2, "enabling": 1}   # by directness (A3)
+
+def lever_of(i):
+    """The telos-lever:* facet (A3 write-model tag) — which telos mechanism the node pulls, or None."""
+    for l in i["labels"]:
+        if l["name"].startswith("telos-lever:"):
+            return l["name"].split(":", 1)[1]
+    return None
+
+def attend(args):
+    """Classification O (#47): recompute the attention read model fresh from the live ledger and
+    render it as Eisenhower quadrants. Projection-only — nothing is stored (§4.2); recompute-on-read
+    is the freshness guarantee (§4.1)."""
+    ns = nodes()
+    open_ns = {n: i for n, i in ns.items() if i["state"] != "CLOSED"}
+
+    # Depends-on DAG over the OPEN set (blocking/unblock pressure lives among open nodes).
+    deps = {n: [int(d) for d in re.findall(r"#(\d+)", field(i["body"], "Depends-on"))
+                if int(d) in open_ns] for n, i in open_ns.items()}
+    direct_dependents = {n: [m for m, ds in deps.items() if n in ds] for n in open_ns}
+
+    def downstream(n, seen):
+        for m in direct_dependents.get(n, []):
+            if m not in seen:
+                seen.add(m)
+                downstream(m, seen)
+        return seen
+
+    # C1 eligibility filter — Operator-turn ∧ actionable only.
+    attention = {n: i for n, i in open_ns.items() if status_of(i) in ("clarify", "dispose")}
+
+    rows = []
+    for n, i in attention.items():
+        lever = lever_of(i)
+        lw = LEVER_WEIGHT.get(lever, LEVER_WEIGHT["enabling"])   # untagged → enabling weight (falsifiable default)
+        on_spine = n in CURRICULUM_SPINE
+        unblock = len(downstream(n, set()))                     # transitive open nodes downstream of n
+        blocking = len(direct_dependents[n])                    # open nodes directly waiting on n
+        # A3 importance = DAG-criticality × lever, combined. dagc = spine position + unblock reach;
+        # importance = lever_weight × (1 + dagc) so off-spine importance comes from the lever (dagc=0 →
+        # importance = lever_weight), and on a shared path the lever multiplies criticality (enabling < telos-bearing).
+        dagc = unblock + (2 if on_spine else 0)
+        importance = lw * (1 + dagc)
+        # urgency = blocking-count + staleness. Staleness (#16) only applies to a CONVERGED node
+        # (dispose); a clarify node has no convergence to invalidate, so we skip the network probe.
+        stale = stale_deps(n, i["body"]) if status_of(i) == "dispose" else []
+        urgency = blocking + (1 if stale else 0)
+        rows.append({"n": n, "i": i, "lever": lever, "on_spine": on_spine,
+                     "unblock": unblock, "blocking": blocking, "stale": stale,
+                     "importance": importance, "urgency": urgency})
+
+    # B1 ordinal buckets. importance hi = telos-bearing / DAG-critical (> the enabling floor of 1);
+    # urgency hi = the node blocks ≥1 open node or its convergence is stale. Cutoffs are ordinal —
+    # no scalar priority is emitted; the composite integers only bucket and order, they are never printed.
+    def imp_hi(r):
+        return r["importance"] > 1
+    def urg_hi(r):
+        return r["urgency"] >= 1
+
+    quadrants = [
+        ("🔴 important · urgent — attend first", lambda r: imp_hi(r) and urg_hi(r)),
+        ("🟠 important · not urgent — schedule", lambda r: imp_hi(r) and not urg_hi(r)),
+        ("🟡 not important · urgent — delegate/dispatch", lambda r: not imp_hi(r) and urg_hi(r)),
+        ("⚪ not important · not urgent — someday", lambda r: not imp_hi(r) and not urg_hi(r)),
+    ]
+
+    out = ["# ATTEND — Classification O, the Operator's attention read model (generated view)", ""]
+    out.append("> generated — a PROJECTION of the write model (issues · labels · journal · DAG); "
+               "nothing stored (§4.2). Recomputed fresh on every `bin/ws attend`, so it cannot be "
+               "stale (§4.1 freshness = recompute-on-read).")
+    out.append("> **C1** shows only `Operator-turn ∧ actionable` (status clarify/dispose); "
+               "execute/blocked/closed are excluded. **A3** importance = DAG-criticality × telos-lever "
+               "(combined). **B1** Eisenhower quadrants, ordinal — no scalar priority.")
+    out.append("")
+    if not attention:
+        out.append("_(attention queue empty — no open clarify/dispose nodes needing the Operator.)_")
+        print("\n".join(out))
+        return
+
+    def row_line(r):
+        n, i = r["n"], r["i"]
+        bits = [f"**[#{n}]({i['url']})** {i['title']}"]
+        bits.append(f"`{status_of(i)}`")
+        bits.append(f"lever: {r['lever'] or '—(untagged→enabling)'}")
+        if r["on_spine"]:
+            bits.append("on curriculum spine→#11")
+        if r["unblock"]:
+            bits.append(f"unblocks {r['unblock']} downstream")
+        if r["blocking"]:
+            bits.append(f"blocks {r['blocking']} open")
+        if r["stale"]:
+            bits.append("⚠ convergence STALE (dep closed after CONVERGE — re-ground)")
+        return "- " + " · ".join(bits)
+
+    for title, pred in quadrants:
+        cell = [r for r in rows if pred(r)]
+        # order within the cell by importance then urgency then node — ordinal, scores never printed
+        cell.sort(key=lambda r: (-r["importance"], -r["urgency"], r["n"]))
+        out.append(f"## {title}  ({len(cell)})")
+        out.extend(row_line(r) for r in cell) if cell else out.append("_(none)_")
+        out.append("")
+
+    out.append("## Legend")
+    out.append("- **importance** (A3) = DAG-criticality × telos-lever, combined: criticality = "
+               "curriculum-spine position toward the #11 summit + transitive unblock reach; the "
+               "`telos-lever` facet (efficacy > turn-reduction > graduation > enabling) weights it, "
+               "so enabling-only nodes rank below telos-bearing ones on the same path.")
+    out.append("- **urgency** = open nodes directly blocked on this node + staleness (a convergence "
+               "invalidated by a dependency that closed after it, #16).")
+    out.append("- **ordinal only** — quadrants, never a fabricated numeric score: marginal "
+               "learning-turns are not cardinally measurable (earnedness).")
+    out.append("- lever tags are **falsifiable read-model defaults** surfaced for Operator review "
+               "(CLASSIFY journal comments carry each rationale), not authoritative.")
+    print("\n".join(out))
+
 argv = sys.argv[1:]
 if not argv:
     render()
@@ -782,6 +921,8 @@ elif argv[0] == "turns":
     turns(argv[1])
 elif argv[0] == "earned":
     earned_cmd(argv[1:])
+elif argv[0] == "attend":
+    attend(argv[1:])
 else:
     sys.exit(f"ws: unknown subcommand '{argv[0]}' — see usage in the file header")
 PY
