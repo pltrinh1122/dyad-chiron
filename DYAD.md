@@ -99,7 +99,14 @@ the Operator is asked to attend*:
   state at high bandwidth for zero dyad turns: `bin/ws`'s generated DAG/pointer
   render, and the **Observe kanban** (a GitHub Projects v2 board projecting our
   labels — `Status` = the lifecycle lanes, `Stream` = `ws:<stream>`,
-  `Blocked-by` = open `Depends-on` refs). Self-healing auto-sync landed and
+  `Blocked-by` = open `Depends-on` refs). The `Stream` axis carries the **domain**
+  only — four streams: `ws:curriculum` (what the learner works through) ·
+  `ws:harness` (delivers/measures the learner's practice) · `ws:process` (how
+  chiron's own dyad works) · `ws:substrate` (model-agnostic runtime floor). Reach
+  rides a separate `dest:commons` tag, mode is unlabeled. Full model (the 2×2, the
+  three axes, the discriminators): `reflect/ws-domain-classification.md`
+  (Operator-dispositioned 2026-07-09, node #43 — single-home: this points, does not
+  copy). Self-healing auto-sync landed and
   closed on #25 (`bin/ws sync-project` + `.github/workflows/activity-board-project.yml`):
   labels stay canonical, any manual card drag is reverted on the next sync, and
   both trigger paths are CI-proven (an issue-event run and a backstop/dispatch
