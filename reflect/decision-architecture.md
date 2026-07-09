@@ -32,8 +32,19 @@ The dyad is Operator + Agent; each half owns one decision, and the two interlock
 | decider · moment | Operator · triage-time | Chiron · execution-time |
 | question | *what do I turn to, toward the telos?* | *how do I execute & allocate?* |
 | lifecycle side | `clarify → dispose` (Sense + go/no-go) | `execute` |
-| primary fields | `telos-lever` · `urgency` → derived `priority` | `reversibility` · `authority` · `context-sufficiency` · `independence` · `risk` |
-| output | ranked + disposed nodes | proceed/escalate · inline/dispatch · parallel/serial · rigor |
+| primary fields | `telos-lever` → **`importance`** (primary sort); **`stagnation`** = anti-starvation floor (secondary) | `reversibility` · `authority` · `context-sufficiency` · `independence` · `risk` |
+| output | **importance-ranked** + disposed nodes | proceed/escalate · inline/dispatch · parallel/serial · rigor |
+
+> **Read-model ordering (Operator-refined 2026-07-09, #52 — retires the earlier `urgency`/Eisenhower framing).**
+> The read model orders by **`importance`** (telos-criticality × `telos-lever`, with the internal
+> unblock-count folded in — counted once), rendered as a **single descending list, not a 2×2**.
+> **`stagnation`** (`now − last-*step*` = last-meaningful-activity gap) is a **secondary, anti-starvation
+> *floor*** — past a soft threshold a node is flagged `⏳ stagnant` and surfaced for a step *regardless of
+> its importance rank*; it is a flag/callout, **never blended into a scalar** with importance. The retired
+> `urgency`/Eisenhower 2×2 failed because its axes were not independent (a structurally-empty quadrant) and
+> its blocking-count merely re-measured importance's unblock pressure (double-count). **Terminology:**
+> `stagnation` (last-step inactivity, anti-starvation) is **distinct from the #16 staleness gate**
+> (convergence invalidated by ground-mutation) and from total-age/"staleness" (total inactivity).
 
 CQRS points that constrain the design:
 
@@ -164,4 +175,5 @@ self-ratify vs earned (D3) · telos count (D4) · attend-next (D0, the top-level
 - `activity` — **narrowed, not evicted**: D4 (telos metric) reads `build`-vs-`operate`
   (is-rep), *not* `maintain`. The consumer sets the grain.
 - `priority` (D0) — the top-level need; a **read-model projection** (model O), the first
-  deliverable (#47).
+  deliverable (#47). Its ordering is **importance-primary + `stagnation` (anti-starvation) secondary**
+  (Operator-refined 2026-07-09, #52) — the `urgency`/Eisenhower framing is retired (see §1's ordering note).
