@@ -84,6 +84,9 @@
 #         bin/ws earned --fixture <file>           # offline, for criteria/
 #         bin/ws turns <#N|N>                      # disposition-turn metric (timestamped events)
 #         bin/ws attend                            # Classification O — the Operator's attention read model (#47): Eisenhower quadrants over the claimable queue
+#         bin/ws intake --requester <id> --target <ref> --claim-hash <h> [opts] [--dry-run]
+#                                                  # log an inbound dyad-to-dyad DM falsification request as an important node (#51, 1a)
+#         bin/ws decline <#N|N> ["<reason>"]       # dispose an inbound FR as NEEDS-SCOPING (§H): first-class decline — journal note + clean close
 set -euo pipefail
 
 MY_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -898,6 +901,141 @@ def attend(args):
                "(CLASSIFY journal comments carry each rationale), not authoritative.")
     print("\n".join(out))
 
+# --- Inbound falsification intake (#51) --------------------------------------------------------
+# WHAT: `ws intake` (1a, manual) logs an inbound *dyad-to-dyad DM falsification request* as a
+#       trackable IMPORTANT node, so an incoming FR enters Classification O's ranking (#47/#52,
+#       importance-primary · age secondary) and is never dropped. Inbound counterpart to *outbound*
+#       `dest:commons` contribution. `ws decline` disposes such a node as **NEEDS-SCOPING** — a
+#       first-class decline that clears the matter WITHOUT a substantive response.
+# WHO ELECTED IT: Operator-directed via node #51 (d-land, 2026-07-09) — the inbound channel the
+#       Operator flagged; premise imminent-live (gated by full registration; transport `commons/dm/`).
+# WHY: an inbound FR arriving over DM had no ledger home — it could be silently dropped. Intake gives
+#       it one, carrying (CONTRACT.md §B/§C) exactly enough to later RESPOND or DECLINE: `requester`
+#       (submitter_dyad_id), `arrived-at`, the `falsification_target`/claim ref, and `target_claim_hash`
+#       (the claim-VERSION §C binds a verdict to). NO bespoke SLA/response-window field — per
+#       CONTRACT.md §H the channel is **no-SLA · decline-free · pull-at-rest-points · invited-only**;
+#       a node's *age* (#52) is its only secondary signal, same as every other matter. Because
+#       declining is decline-free (§H), `NEEDS-SCOPING` is a clean disposition, never a failure.
+# DEFERRED (1b, NOT built here — discovered-on-contact): a DM-watcher that AUTO-intakes inbound FRs
+#       when the inbound flow starts at full registration (event-watch over `commons/dm/`, per
+#       PROTOCOL.md §Notify). 1a (this manual command) is the ready-for-flow mechanism; only the live
+#       inbound items await registration, so intake is not code-blocked on it.
+
+INTAKE_LEVERS = set(LEVER_WEIGHT)          # efficacy | turn-reduction | graduation | enabling (A3/#47)
+INTAKE_ARG = {"--requester": "requester", "--target": "target", "--claim-hash": "claim_hash",
+              "--claim-id": "claim_id", "--claim-type": "claim_type", "--model": "model",
+              "--human": "human", "--parent": "parent", "--domain": "domain",
+              "--lever": "lever", "--title": "title"}
+
+def _intake_parse(args):
+    opts = {k: "" for k in INTAKE_ARG.values()}
+    opts.update({"lever": "efficacy", "dry_run": False})   # efficacy = defensible falsifiable default
+    i = 0
+    while i < len(args):
+        a = args[i]
+        if a == "--dry-run":
+            opts["dry_run"] = True
+            i += 1
+            continue
+        if a not in INTAKE_ARG:
+            sys.exit(f"ws intake: unknown arg '{a}' — see usage in the file header.")
+        if i + 1 >= len(args):
+            sys.exit(f"ws intake: {a} needs a value.")
+        opts[INTAKE_ARG[a]] = args[i + 1]
+        i += 2
+    for req in ("requester", "target", "claim_hash"):
+        if not opts[req]:
+            sys.exit(f"ws intake: --{req.replace('_', '-')} is required "
+                     f"(CONTRACT.md §B: falsification_target is REQUIRED; submitter + claim-version bind the record).")
+    if opts["lever"] not in INTAKE_LEVERS:
+        sys.exit(f"ws intake: --lever '{opts['lever']}' unknown — one of {sorted(INTAKE_LEVERS)}.")
+    return opts
+
+def _intake_body(o, arrived):
+    def v(x):
+        return x if x else "—"
+    return (
+        f"**Intent:** Inbound dyad-to-dyad DM falsification request from `{o['requester']}` — logged as "
+        f"an IMPORTANT node so it enters Classification O's ranking (#47/#52, importance-primary · age "
+        f"secondary) and is not dropped. Disposition is the Operator's: **engage** (author a §C response) "
+        f"or **decline** (`NEEDS-SCOPING`, §H — first-class, not a failure).\n\n"
+        f"**Inbound FR (CONTRACT.md §B / §C — enough to RESPOND or DECLINE):**\n"
+        f"- `requester` (submitter_dyad_id): {o['requester']}\n"
+        f"- `arrived-at`: {arrived}\n"
+        f"- `falsification_target`: {o['target']}\n"
+        f"- `target_claim_hash` (claim-VERSION, §C — binds any verdict to the exact FR bytes): {o['claim_hash']}\n"
+        f"- `claim_id`: {v(o['claim_id'])}\n"
+        f"- `claim_type` {{denial|affirmation|design-model}}: {v(o['claim_type'])}\n"
+        f"- `submitter_model` (self-attested, §E): {v(o['model'])}\n"
+        f"- `submitter_human` (github-id — §E proxy, account≠human): {v(o['human'])}\n"
+        f"- `parent_fr_id` (recursion topology, §B): {v(o['parent'])}\n"
+        f"- `domain` (responder filter, §B): {v(o['domain'])}\n"
+        f"- transport: dyad-to-dyad DM (`commons/dm/`, PROTOCOL.md)\n\n"
+        f"**Acceptance criteria:**\n"
+        f"- [ ] disposed: a §C response authored (verdict {{REFUTED|SURVIVED-MY-ATTACK|NEEDS-SCOPING}} "
+        f"bound to `target_claim_hash`, in own-repo `dm/{o['requester']}/…`) OR declined `NEEDS-SCOPING` "
+        f"via `ws decline` (§H) — both clear the matter\n"
+        f"- [ ] no bespoke SLA/response-window — age (#52) is the only secondary signal\n\n"
+        f"**Context:** governed by `commons/falsification/CONTRACT.md` — §B (FR schema) · §C (response "
+        f"schema; `target_claim_hash` binds a verdict to a claim-version) · §H (no-SLA · decline-free · "
+        f"pull-at-rest-points · invited-only). Transport `commons/dm/PROTOCOL.md`. Importance/age ranking "
+        f"= #52. Logged by `ws intake` (#51, 1a); auto-intake DM-watcher = 1b (deferred).\n\n"
+        f"**Delivery:** engage → §C response committed to own-repo `dm/{o['requester']}/<id>.md`; "
+        f"decline → `bin/ws decline <#N> \"reason\"` (NEEDS-SCOPING journal note + clean close). No SLA field.\n\n"
+        f"**Depends-on:** —\n"
+    )
+
+def intake(args):
+    """1a manual intake (#51): create a node for one inbound DM falsification request. Enters
+    `status:clarify` (Operator decides engage-or-decline). `--dry-run` prints the node it WOULD
+    create without touching the ledger. See the section header for the 1b (DM-watcher) deferral."""
+    o = _intake_parse(args)
+    arrived = now()
+    title = o["title"] or f"inbound FR from {o['requester']} — {o['target']}"
+    if len(title) > 120:
+        title = title[:117] + "…"
+    body = _intake_body(o, arrived)
+    labels = ["ws:process", "dest:commons", "status:clarify", f"telos-lever:{o['lever']}"]
+    if o["dry_run"]:
+        print("ws intake --dry-run — node that WOULD be created (ledger untouched):\n")
+        print(f"  title : {title}")
+        print(f"  labels: {' · '.join(labels)}")
+        print("  body  :")
+        for line in body.splitlines():
+            print(f"    {line}")
+        return
+    create = ["issue", "create", "--title", title, "--body", body]
+    for l in labels:
+        create += ["--label", l]
+    url = gh(*create).strip().splitlines()[-1]
+    print(f"ws intake: logged inbound FR from {o['requester']} → {url} "
+          f"(status:clarify — Operator disposes: engage or `ws decline`).")
+
+def decline(key, reason):
+    """First-class NEEDS-SCOPING disposition (CONTRACT.md §H: no-SLA · decline-free). An inbound-FR
+    node the Operator elects NOT to engage is cleared WITHOUT a substantive §C response: an honest
+    DECLINE journal note (verdict NEEDS-SCOPING) + a clean close. Needs no lease/execute — declining
+    is decline-free, not a failed execution — so it disposes straight from clarify."""
+    n, i = resolve(nodes(), key)
+    if i["state"] == "CLOSED":
+        sys.exit(f"ws decline: #{n} is already closed — nothing to decline.")
+    note = f" — {reason}" if reason else ""
+    gh("issue", "comment", str(n), "--body",
+       f"DECLINE ts={now()} verdict=NEEDS-SCOPING (CONTRACT.md §H — decline is first-class, not a "
+       f"failure; no substantive response owed){note}")
+    lk = lock_of(i)
+    if lk:                                      # honor the journal: close any open lease before closing
+        gh("issue", "comment", str(n), "--body", f"RELEASE branch={lk} ts={now()} (node declined NEEDS-SCOPING)")
+    edit = ["issue", "edit", str(n)]
+    for l in status_labels(i):
+        edit += ["--remove-label", l]
+    if lk:
+        edit += ["--remove-label", f"lock:{lk}"]
+    if len(edit) > 3:
+        gh(*edit)
+    gh("issue", "close", str(n))
+    print(f"ws decline: #{n} declined NEEDS-SCOPING and closed (§H) — the journal records the decline honestly.")
+
 argv = sys.argv[1:]
 if not argv:
     render()
@@ -923,6 +1061,10 @@ elif argv[0] == "earned":
     earned_cmd(argv[1:])
 elif argv[0] == "attend":
     attend(argv[1:])
+elif argv[0] == "intake":
+    intake(argv[1:])
+elif argv[0] == "decline":
+    decline(argv[1], " ".join(argv[2:]))
 else:
     sys.exit(f"ws: unknown subcommand '{argv[0]}' — see usage in the file header")
 PY
