@@ -178,12 +178,21 @@ operating-policy invariant (intent-alignment before action):
   `reflect/`; breaches forge invariants (see
   `reflect/intent-before-action.md`).
 
-## Directive vocabulary: d-sense · d-land (lifecycle #16, 2026-07-07)
+## Directive vocabulary: d-sense · d-land · d-start · d-reflect · riff/raff (lifecycle #16, 2026-07-07; completed #31, 2026-07-09)
+
+The vocabulary is **axis-separated within the section** (#21, *codified there*):
+three co-located but non-conflated groups — **lifecycle macros** (act on a node's
+life: sense · land · the session frame) ⟂ **session disciplines** (the open/close
+retro rituals) ⟂ **mode-prefixes** (set the *discussion mode*, not a lifecycle
+action). Co-located so the whole vocabulary reads in one place; separated so the
+categories don't get conflated into one flat list.
 
 **Audit note (fork 2, resolved):** `d-start` · `d-sense` · `d-land` are directive
 **macros composed from the primitives** (direct + ratify), **not new primitives** —
-this keeps the primitive set (section 2) minimal and closed.
+this keeps the primitive set (section 2) minimal and closed. (The **mode-prefixes**
+below are a *distinct* category — see group C — not macros of this kind.)
 
+### A. Lifecycle macros
 
 - **d-sense** — the elicitation discipline that drives a node's Sense to
   convergence: rounds of playback + Operator rulings on a `clarify` node;
@@ -202,6 +211,73 @@ this keeps the primitive set (section 2) minimal and closed.
   self-dispatches on convergence; the Operator's veto stands). Metric from day
   one: Operator disposition-turns per node, derivable as timestamped events
   (`bin/ws turns`).
+- **d-start** — the **Start Session Discipline**: the session-*open* counterpart
+  to `d-reflect`'s *close* (group B). The `{goal/scope}` payload seeds the
+  session **goal-frame** — a channel a hook-fired stand-up could not carry. It
+  reloads the behavioral guards, runs the mechanical probes, reads the live board
+  + resume-pointer + the last reflection's banked **START** commitments, and
+  proposes a Next-Best-Action that **Operator confirmation closes**
+  (intent-before-action, DYAD.md's third invariant). **Mapped** from dyad-bond's
+  `d-start` / `bin/standup.sh`, *not ported* — the protocol is re-derived onto
+  chiron's substrate below. Operator-directed 2026-07-08 (*"reference dyad-bond,
+  incorporate one for ourself"*).
+
+  **How to resume (the d-start runbook):**
+  1. **Anchor** — read `DYAD.md` (the universal instruction layer; the anchor
+     the session re-arms against).
+  2. **Reload the behavioral guards** — re-arm the operating-policy **invariants**
+     and the **axis-separation** discipline (#21); these are the guards every
+     action turns on, so d-start is where they re-arm.
+  3. **Mechanical probes** — **substrate** (runtime floor present) · **durability**
+     (WIP committed/pushed, nothing orphaned) · **anchor-currency** (DYAD.md not
+     drifted from what's loaded) · **`./check`** (acceptance criteria green).
+  4. **Read the live state** — the board (`bin/ws` / `ws attend`) + the
+     **resume-pointer** + the **last reflection's banked STARTs**
+     (`reflect/reflections.md`).
+  5. **Seed the goal-frame** — from the `{payload}` on the `d-start:` directive.
+  6. **Propose an NBA** — a Next-Best-Action the **Operator's confirmation closes**
+     (nothing downstream starts before that closure — intent-before-action).
+
+  **Load-bearing symmetry:** *d-reflect writes STARTs ⟂ d-start reads them* — the
+  session-close ritual banks forward commitments that the next session-open ritual
+  consumes; the two disciplines are the write/read ends of one channel.
+
+  **Axis-separation divergence from dyad-bond:** chiron reads **two separated
+  sources** — the board (`bin/ws`, live in-flight state) ⟂ the reflections' STARTs
+  (banked commitments) — and therefore needs **no `carry-forward.md`**. Bond
+  conflates in-flight work + session hand-off in one ledger (`carry-forward.md`);
+  chiron keeps those axes apart (live board vs. banked STARTs), so the hand-off
+  ledger dissolves. This is *why* d-start is mapped, not ported.
+
+  **Spine deferred (earnedness / no-form-ahead-of-spine):** a **mechanical spine**
+  (`ws start` / `bin/standup`) is **explicitly deferred** — d-start is hand-run as
+  prose until hand-running proves friction that a script would remove. Bond's
+  `d-start : standup.sh` symmetry is the *referenced form*, not a commitment to
+  port the mechanism.
+
+### B. Session disciplines
+
+- **d-reflect** — the **Session-Close Discipline**. Its home is
+  **[`reflect/reflections.md`](./reflections.md)** — CSS + SH, including the
+  2026-07-09 **evidence-bar + no-miss default** (a Should-Have must clear a
+  verbatim-quote-AND-concrete-cost bar; "no miss this session" is a first-class
+  expected default). *Point, don't copy:* the discipline lives there; this is the
+  vocabulary entry that points to it. **Settled scope (Operator-ratified
+  2026-07-09):** **session-wide by default**; `d-reflect: #N` = reflect on that
+  node's arc specifically.
+
+### C. Mode-prefixes
+
+A **distinct category** — these set the *discussion mode* (how the Agent should
+carry the exchange), **not** a lifecycle action on a node, and are **not** macros
+composed from direct + ratify. (Operator-coined + ratified 2026-07-09.)
+
+- **`riff:`** — **diverge**: explore the space, over-generate, expose tensions,
+  hold forks open, end open. Do **not** steer toward convergence or force a
+  decision. (Read-only exploration to inform a riff is never gated.)
+- **`raff:`** — **converge**: steer toward convergence, recommend, and drive to a
+  pick/decision (crisp forks are fine here). Naming the mode prevents both failure
+  modes — premature convergence killing a riff, endless divergence wasting a raff.
 
 ## Resilient headless execution — carve-out recovery + scope decomposition (#20)
 
