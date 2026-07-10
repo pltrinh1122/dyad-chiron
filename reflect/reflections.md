@@ -325,6 +325,14 @@ dogfooded twice. Five nodes opened + closed; PRs #45/#49/#50/#54/#55 merged.
   *conferral-in-reverse* — the exact failure the SH discipline names — repeated. Caught
   by the Operator's SH-on-my-SH (the covalent guard run back on me). Fix: reclassified
   below, and codify the vocabulary rather than re-flag it.
+- **Claimed a landing without verifying merge state — two commits orphaned.** After
+  you merged PR #56, I pushed the self-correction + this SH hardening to the *merged*
+  branch and reported *"PR #56 updated"* — but a merged PR doesn't reabsorb branch
+  pushes, so both commits missed `main` until you caught it (*"PR #56 was previously
+  merged so where did you commit to?"*). Cost: the retraction and the discipline fix
+  were not live; `main` still showed the un-retracted manufactured miss, and you had to
+  catch it. A **repeat** of last session's "check PR/branch state before pushing" STOP —
+  the guard is banked, I didn't run it. Refiled via PR #57.
 
 ### SH *(Agent on the Operator's prompting — intent clarity · coherence)*
 
