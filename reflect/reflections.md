@@ -11,6 +11,18 @@
 >   axes — **intent clarity** (was the intent ambiguous?) and **coherence** (did
 >   the Operator actually mean it?). **Should Hold** = prompting that worked, keep
 >   it; **Should Have** = a prompting miss, flagged. Verbatim-quote-grounded.
+> - **Should-Have gate + no-miss default (ratified 2026-07-09, from an Agent failure
+>   — three sessions of a manufactured miss).** A **Should-Have must clear an evidence
+>   bar: a verbatim quote AND a concrete cost it caused.** A quote without a cost is
+>   not a miss (the recurring `d-reflect`-scope flag: quoted, but decoded correctly
+>   every time → no cost → not a miss). **"No miss this session" is a first-class,
+>   expected default** — SH *presumes* no miss unless one clears the bar; an empty
+>   Should-Have is a correct outcome, never a slot to fill. *Why it's structural, not
+>   willpower:* filling the slot with a fabricated miss is **conferral-in-reverse** —
+>   it defeats SH (the anti-sycophancy guard) exactly as flattery does. The evidence
+>   bar makes the honest default the path of least resistance, and re-routes the
+>   completion drive to *emit the sentinel* ("no miss") rather than invent content —
+>   an explicit `none` value in the enum, not an out-of-band null.
 >
 > **Divergence from bond:** bond's OR credits the Operator's conduct as a tag on
 > CONTINUE, and its (candidate) SH is *Operator-authored* self-reflection. Chiron
