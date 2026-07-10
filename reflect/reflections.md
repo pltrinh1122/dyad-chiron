@@ -253,3 +253,85 @@ stranded label). One node, opened and closed in a session.
   last session too. One line — does `d-reflect` take a scope arg, or is it always
   session-wide? — settles it. Natural home: **#31** (d-start codification), which is
   already pinning the directive vocabulary.
+
+---
+
+## 2026-07-09 — ws:* domain taxonomy → decision architecture (CQRS) → Classification O built
+
+Session arc: riff on `ws-*` workstream tagging → landed the four-domain `ws:*` 2×2
+(#43; #5 conflation split → #44) → riff/raff design of the domain axis (explored
+`type×dest`, then superseded) → surfaced the top-level insight, **decision-first
+classification** (enumerate the decisions the classification drives *before* the
+facets) → codified the **two-classification CQRS decision architecture** + the
+evaluation instrument (#48, `reflect/decision-architecture.md`) → built
+**Classification O**, the attention read model: #47 (C1 filter + importance =
+`telos-lever` × DAG-criticality) → #51 (inbound DM falsification intake —
+`ws intake`/`ws decline`) → #52 (importance-primary + **stagnation** anti-starvation
+ranking; Eisenhower retired). The urgency axis ran a full falsification loop —
+importance-primary → external-SLA → the `commons/falsification/CONTRACT.md` §H
+*no-SLA* contract → landed on **stagnation**. Captured #46 (land-before-pivot),
+dogfooded twice. Five nodes opened + closed; PRs #45/#49/#50/#54/#55 merged.
+
+### CONTINUE *(Agent)*
+- **Read the governing artifact, then let it falsify the plan.** The urgency design
+  bent to one primary source — `commons/falsification/CONTRACT.md` §H ("no SLA,
+  decline-free"). I stopped and surfaced its collision with your ruled Fork 2 rather
+  than converging it, and the contract reshaped the design (→ stagnation). Same
+  *falsify-before-trust* as prior sessions, now against an external spec.
+- **Elicitation-first d-sense held across five nodes** — intent → invariants → held
+  forks, mechanisms disposed for visibility. It surfaced the real fork each time
+  (the #5 conflation-split, `telos-lever` grounding, the age-clock). Only
+  intent/invariant forks went to you (fifth invariant).
+- **Sub-agent dispatch with node-as-sole-brief; verify every build before handoff.**
+  Four builds (#43/#47/#51/#52) dispatched with pointers, each verified live
+  (`ws attend`/`ws intake` run, labels/PR/boxes checked) before I presented. Inline
+  reserved for the #48 codification with *stated cause* (this session's dialogue is
+  not pointer-provisionable). Redeems the standing inline STOP.
+
+### START *(Agent)*
+- **Open the governing contract at first reference, not three turns later.** I read
+  `commons/falsification/CONTRACT.md` only when you pointed at the backlog; its §H
+  would have reshaped Fork 2 two turns earlier. When a fork rests on an external
+  contract/spec, read it at first mention.
+- **Keep a node's acceptance criteria inside that node's own scope.** I folded #52's
+  ranking deliverable into #51's box 2 — a criterion #51 could not earn alone. Catch
+  a cross-node criterion at authoring, not at close.
+
+### STOP *(Agent)*
+- **Mis-scoped #51's box 2** — wrote "ordered by the #52 model" as a #51 acceptance
+  criterion, coupling #51's close to #52's deliverable. The sub-agent correctly left
+  it unchecked (its honest partial); I rescoped and re-checked. Named as the START
+  above; the failure was authoring a criterion across the node boundary.
+
+### SH *(Agent on the Operator's prompting — intent clarity · coherence)*
+
+**Should Hold** *(prompting that worked — keep it)*
+- **Coining `riff:` / `raff:` to name the mode you want.** *"[unlike `riff:` that
+  keeps divergent and doesn't steer towards convergence, `raff:` is steering towards
+  convergence]"* — defining the divergence-vs-convergence mode explicitly stopped me
+  from converging a riff prematurely or diverging a raff endlessly. A genuinely new
+  interaction primitive; candidate for the interaction-model directive vocabulary
+  (with `d-sense`/`d-land`). Highest-leverage prompt of the session.
+- **The decision-first reframe as a self-correction.** *"i've been missing the
+  top-level intent all along - the first step in classification is to enumerate the
+  decisions the classifications exists to drive."* — you reframed the whole thread by
+  naming the missing spec; it resolved the two loose ends (`activity`, `priority`) in
+  one move. Falsifying your own framing, not only mine.
+- **Falsifying my critique with the missing work-category.** *"the implicit SLA of
+  others waiting on us will drive urgency"* — I'd argued urgency was a weak, correlated
+  axis; you showed it was a *missing-work* problem, not a model problem, and flipped my
+  recommendation correctly. The covalent guard against my premature abandonment (I'd
+  withdrawn importance-primary too fast).
+
+**Should Have** *(prompting misses — flagged, per your permission)*
+- **`d-reflect` scope — still unwritten, third session running.** Bare `d-reflect`
+  again; I read session-wide (correct). One line — scope arg, or always session-wide?
+  — settles the standing guess; natural home **#31**. This is now a *pattern*, not a
+  one-off: disposition it, don't re-flag it a fourth time.
+- **Fork 2 ruled before its contract was in view (a *shared* gap).** *"Fork 2:
+  absolute response-window"* was coherent but collided with §H *no-SLA*, which neither
+  of us had opened at ruling time. Mostly my START (read the contract first), flagged
+  as a shared reflex: inbound-channel forks should default to opening the channel's
+  contract before ruling. Otherwise your prompting this session was minimal and
+  high-coherence — the riff/raff, the decision-first reframe, and the SLA
+  falsification were the three highest-leverage moves, and I won't manufacture a miss.
