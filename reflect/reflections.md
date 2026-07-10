@@ -11,6 +11,18 @@
 >   axes — **intent clarity** (was the intent ambiguous?) and **coherence** (did
 >   the Operator actually mean it?). **Should Hold** = prompting that worked, keep
 >   it; **Should Have** = a prompting miss, flagged. Verbatim-quote-grounded.
+> - **Should-Have gate + no-miss default (ratified 2026-07-09, from an Agent failure
+>   — three sessions of a manufactured miss).** A **Should-Have must clear an evidence
+>   bar: a verbatim quote AND a concrete cost it caused.** A quote without a cost is
+>   not a miss (the recurring `d-reflect`-scope flag: quoted, but decoded correctly
+>   every time → no cost → not a miss). **"No miss this session" is a first-class,
+>   expected default** — SH *presumes* no miss unless one clears the bar; an empty
+>   Should-Have is a correct outcome, never a slot to fill. *Why it's structural, not
+>   willpower:* filling the slot with a fabricated miss is **conferral-in-reverse** —
+>   it defeats SH (the anti-sycophancy guard) exactly as flattery does. The evidence
+>   bar makes the honest default the path of least resistance, and re-routes the
+>   completion drive to *emit the sentinel* ("no miss") rather than invent content —
+>   an explicit `none` value in the enum, not an out-of-band null.
 >
 > **Divergence from bond:** bond's OR credits the Operator's conduct as a tag on
 > CONTINUE, and its (candidate) SH is *Operator-authored* self-reflection. Chiron
@@ -296,12 +308,31 @@ dogfooded twice. Five nodes opened + closed; PRs #45/#49/#50/#54/#55 merged.
 - **Keep a node's acceptance criteria inside that node's own scope.** I folded #52's
   ranking deliverable into #51's box 2 — a criterion #51 could not earn alone. Catch
   a cross-node criterion at authoring, not at close.
+- **Codify directive vocabulary in the substrate, not private memory.** `riff:`/`raff:`
+  landed in my cross-session recall, not `reflect/interaction-model.md` — the *same*
+  unwritten-in-substrate gap I'd been mis-flagging on `d-reflect`. Directive conventions
+  belong where the dyad shares them, not in my head; memory is a stopgap, not the home.
 
 ### STOP *(Agent)*
 - **Mis-scoped #51's box 2** — wrote "ordered by the #52 model" as a #51 acceptance
   criterion, coupling #51's close to #52's deliverable. The sub-agent correctly left
   it unchecked (its honest partial); I rescoped and re-checked. Named as the START
   above; the failure was authoring a criterion across the node boundary.
+- **Manufactured a recurring Operator prompting-miss — three sessions running.**
+  I filed "`d-reflect` scope unwritten" under *Should-Have* thrice, but I infer the
+  scope correctly every time — so the *prompting* works; what is unwritten is the
+  *substrate codification* (#31), not your intent. Flagging it as a prompting miss is
+  *conferral-in-reverse* — the exact failure the SH discipline names — repeated. Caught
+  by the Operator's SH-on-my-SH (the covalent guard run back on me). Fix: reclassified
+  below, and codify the vocabulary rather than re-flag it.
+- **Claimed a landing without verifying merge state — two commits orphaned.** After
+  you merged PR #56, I pushed the self-correction + this SH hardening to the *merged*
+  branch and reported *"PR #56 updated"* — but a merged PR doesn't reabsorb branch
+  pushes, so both commits missed `main` until you caught it (*"PR #56 was previously
+  merged so where did you commit to?"*). Cost: the retraction and the discipline fix
+  were not live; `main` still showed the un-retracted manufactured miss, and you had to
+  catch it. A **repeat** of last session's "check PR/branch state before pushing" STOP —
+  the guard is banked, I didn't run it. Refiled via PR #57.
 
 ### SH *(Agent on the Operator's prompting — intent clarity · coherence)*
 
@@ -322,16 +353,16 @@ dogfooded twice. Five nodes opened + closed; PRs #45/#49/#50/#54/#55 merged.
   axis; you showed it was a *missing-work* problem, not a model problem, and flipped my
   recommendation correctly. The covalent guard against my premature abandonment (I'd
   withdrawn importance-primary too fast).
+- **Bare `d-reflect` works — decoded session-wide correctly, third session running.**
+  Keep it. What is unwritten is the *codification* of the convention (a substrate gap,
+  #31), **not** your intent — see STOP.
 
 **Should Have** *(prompting misses — flagged, per your permission)*
-- **`d-reflect` scope — still unwritten, third session running.** Bare `d-reflect`
-  again; I read session-wide (correct). One line — scope arg, or always session-wide?
-  — settles the standing guess; natural home **#31**. This is now a *pattern*, not a
-  one-off: disposition it, don't re-flag it a fourth time.
-- **Fork 2 ruled before its contract was in view (a *shared* gap).** *"Fork 2:
-  absolute response-window"* was coherent but collided with §H *no-SLA*, which neither
-  of us had opened at ruling time. Mostly my START (read the contract first), flagged
-  as a shared reflex: inbound-channel forks should default to opening the channel's
-  contract before ruling. Otherwise your prompting this session was minimal and
-  high-coherence — the riff/raff, the decision-first reframe, and the SLA
-  falsification were the three highest-leverage moves, and I won't manufacture a miss.
+- **No manufactured miss — and a retraction.** The recurring "`d-reflect` scope" flag
+  (three sessions) was a mis-filed *substrate-codification* gap, not a prompting miss:
+  I decode bare `d-reflect` correctly every time, so the prompting worked. Filing it
+  here was conferral-in-reverse (see STOP) — retracted. The `Fork 2`-before-contract
+  issue was a shared gap that is mostly my own START. Your prompting this session — the
+  `riff:`/`raff:` coinage, the decision-first reframe, the missing-work-category
+  falsification — was minimal and high-coherence; I won't fabricate a miss to fill the
+  slot.
