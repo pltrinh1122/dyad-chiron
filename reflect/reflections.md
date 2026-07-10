@@ -366,3 +366,60 @@ dogfooded twice. Five nodes opened + closed; PRs #45/#49/#50/#54/#55 merged.
   `riff:`/`raff:` coinage, the decision-first reframe, the missing-work-category
   falsification — was minimal and high-coherence; I won't fabricate a miss to fill the
   slot.
+
+## 2026-07-10 — #31 landed: the directive vocabulary completed, the "unwritten" flag closed by fixing it
+
+Short close-out arc. Completed and closed **#31** — the full directive vocabulary now
+lives in `reflect/interaction-model.md §Directive vocabulary` (**d-sense · d-land ·
+d-start · d-reflect · riff/raff**), axis-separated into *lifecycle macros* ⟂ *session
+disciplines* ⟂ *mode-prefixes*, with a **"How to resume"** d-start runbook and the
+**d-reflect scope** settled in writing (session-wide default; `d-reflect: #N` = that
+node's arc). Grounded by `criteria/directive-vocabulary.sh` (18 asserts, green under
+`./check`); the private-memory `riff-raff-modes` stopgap retired. This **executed the
+reclassification** the last reflection prescribed: the recurring "`d-reflect` scope
+unwritten" flag was a *substrate-codification gap*, not a prompting miss — so I closed
+it by codifying, not by re-flagging a fourth time. PR #58 merged.
+
+### CONTINUE *(Agent)*
+- **Reclassify-then-fix closed the loop.** Last session I retracted the mis-filed
+  "`d-reflect` scope" prompting-miss and named it a substrate gap (#31); this session I
+  *landed* the fix. The three-session mis-flag → reclassification → codification chain
+  is now closed in-substrate — the flag cannot recur because the thing it pointed at
+  exists. Keep converting recurring "misses" into substrate work when the intent
+  already decodes correctly.
+- **Verify-before-handoff held on the mechanical tail too.** Before claiming #31 done I
+  ran `./check` green, confirmed `### C. Mode-prefixes` and the `criteria/` file were on
+  `main` post-merge, and checked #31's boxes against its actual deliverable — not the
+  claim. The one place I *didn't* pre-verify (which branch `ws release` would act on)
+  is exactly where it broke — see STOP.
+
+### START *(Agent)*
+- **Release on the lease branch, before you leave it.** Run `ws release --done` while
+  still checked out on the lease branch — before any `git checkout main` / branch
+  delete. The lease is keyed to the branch; leaving it first strands the release.
+
+### STOP *(Agent)*
+- **Mis-modeled which branch a `ws` command acts on — branch-state family, twice now.**
+  Closing #31 I stumbled twice on the same root: (a) I set `WS_CUR_BRANCH=… ` inline
+  expecting it to pick the release branch, but the `bin/ws` shim (line 95) *overrides*
+  that env var with the current git branch, so `release` read `main` and found no
+  lease; (b) I'd already `git checkout main` + deleted the lease branch *before*
+  releasing, so even the right branch was gone. Recovered by recreating the branch by
+  name and releasing on it. This is the **same family** as last session's orphaned-commits
+  STOP ("check PR/branch state before pushing") — both are *assuming* which branch a
+  command sees instead of reading it. The banked guard covered `push`; it must generalize
+  to **every branch-scoped `ws`/`git` command**: read the branch the command will
+  actually act on (including the shim's override), don't assume the state you set.
+
+### SH *(Agent on the Operator's prompting — intent clarity · coherence)*
+
+**Should Hold** *(prompting that worked — keep it)*
+- **Crisp token handoffs on a mechanical close.** `d-land: 31` → `Y. ratify.` →
+  `i merged PR#58` — each closed a loop with zero ambiguity and no wasted turn. On a
+  close-out arc where the design is already settled, minimal high-signal handoffs are
+  exactly right; nothing to add.
+
+**Should Have** *(prompting misses — flagged, per your permission)*
+- **No miss this session.** The prompting was minimal, mechanical, and unambiguous — a
+  close-out, not a design turn. Per the no-miss default (ratified 2026-07-09), that is a
+  first-class, expected outcome, not an empty slot to fill. No fabricated miss.
