@@ -10,8 +10,12 @@
 > **Lesson 0 below is the Operator falsifying this document** — and per
 > `no-self-ratify` the coach cannot ratify its own curriculum: it moves to the
 > curriculum home (created at ratification, per ontology #7) only if it
-> survives the Operator's falsification pass and is ratified by merge. First
-> artifact of the `ws:curriculum` stream.
+> survives the Operator's falsification pass and is ratified by merge. The
+> stream's **first committed artifact** — but not its first node: `ws:curriculum`
+> already holds the blocked dyad-setup curriculum chain (#8–#11); this is a
+> second, distinct curriculum (different learner-skill), Relates, not
+> Depends-on. (The initial draft of this block claimed "first of the stream" —
+> falsified by a board probe pre-delivery; corrected. Axis-C material, logged.)
 
 ## 1. Learner, skill, terminal state
 

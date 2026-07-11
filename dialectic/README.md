@@ -8,8 +8,10 @@ is still contested; when the question **earns its answer** it moves to `reflect/
 **Live contests:**
 
 - **`falsification-curriculum.md`** (opened 2026-07-11) — the proposed
-  falsification-mastery curriculum (learning path + assessment), first artifact of
-  the `ws:curriculum` stream. Under stress-test by construction: its Lesson 0 is
+  falsification-mastery curriculum (learning path + assessment), the
+  `ws:curriculum` stream's first committed artifact (node #61; the stream's
+  earlier nodes #8–#11 hold the unbuilt dyad-setup chain). Under stress-test by
+  construction: its Lesson 0 is
   the Operator falsifying the proposal itself. Moves to the curriculum home on
   ratification (`no-self-ratify` — the coach cannot ratify its own curriculum).
 
