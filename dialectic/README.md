@@ -7,6 +7,12 @@ is still contested; when the question **earns its answer** it moves to `reflect/
 
 **Live contests:**
 
+- **`curriculum-evaluation.md`** (opened 2026-07-11) — the proposed L1
+  curriculum-evaluation curriculum for the Operator (form ⟂ content ⟂ economy),
+  node #62; interlocked with the falsification track (shared Lesson-0/E0
+  baseline). Completes the certification loop `no-self-ratify` depends on: a
+  ratifier whose evaluation competence is earned.
+
 - **`falsification-curriculum.md`** (opened 2026-07-11) — the proposed
   falsification-mastery curriculum (learning path + assessment), the
   `ws:curriculum` stream's first committed artifact (node #61; the stream's

@@ -175,6 +175,15 @@ sha256(lesson0-sealed-list) = e7068e86017366e05e934aed96ae6210886cff7a6e34be9505
 Plaintext rides in a collapsed spoiler on the `ws:curriculum` node; revealed
 after your verdicts. Overlap with your chosen targets scores axis A.
 
+**Shared baseline (added same session):** the Operator surfaced a concurrent
+L1 learning need — curriculum-form/content evaluation (`curriculum-evaluation.md`,
+node #62). Lesson 0 therefore doubles as that track's E0 baseline: one pass,
+two scorecards — a falsification baseline (axes A–E) and an evaluation-coverage
+baseline (form ⟂ content ⟂ economy). Zero extra learning-turns. A conflation is
+named rather than hidden: probe severity against *this* document partly depends
+on curriculum-domain knowledge the Operator is only starting to train, so
+axis-A overlap reads against a declared-novice prior, not expert targeting.
+
 ## 8. Forks held for the Operator (intent/invariant only)
 
 1. **Skill scope (intent):** train the Operator-half's falsification only, or
