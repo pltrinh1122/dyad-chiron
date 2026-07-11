@@ -21,6 +21,13 @@
 > material; this skill grows by applying it to curriculum artifacts. §4 E-R2
 > and the §5 path are revised accordingly; external-frameworks reading moves
 > to late-stage, as an attack on an already-earned rubric.
+>
+> **Revision r2 (Operator alignment, 2026-07-11, same session):** shared
+> definition-of-done — *"learning assessment provides readiness criteria for
+> knowledge transfer not actual skills mastery."* Graduation here certifies
+> **readiness to ratify**, never evaluator mastery; see §5 Graduation and the
+> claim-strength ladder at `falsification-curriculum.md` §5 (single home —
+> this points, does not copy).
 
 ## 1. Why this skill is load-bearing
 
@@ -124,7 +131,11 @@ early rep; this track adds only the distillation move.
   two consecutive new specimens force no rubric revision; (b) an evaluation
   of a curriculum **chiron did not author** (external or another dyad's)
   stands up — its defect-list survives the falsification method applied back
-  to it. Thresholds elected, not yet worn.
+  to it. Thresholds elected, not yet worn. Per the shared claim-strength
+  ladder (r2; `falsification-curriculum.md` §5): this certifies **readiness
+  to ratify**, not evaluator mastery — mastery is shown only by the
+  post-graduation ratification record: curricula ratified with this skill
+  holding up under real learner use.
 
 ## 6. The sharpened conflict-of-interest, named
 

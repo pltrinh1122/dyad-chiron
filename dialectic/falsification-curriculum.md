@@ -43,6 +43,16 @@
 > through test *efficiency*, not test *exemption*. Banked evidence is demoted
 > to a prior that sets entry difficulty and can never grant placement; it
 > retains the power to revoke (a live counterexample reopens a module).
+>
+> **Revision r3 (Operator alignment, 2026-07-11, same session):** *"definition
+> of done for curriculum material — learning assessment provides readiness
+> criteria for knowledge transfer not actual skills mastery."* The claim
+> strength of every in-curriculum assessment is capped at **readiness**;
+> mastery is demonstrated only in post-graduation job-turns, outside
+> curriculum scope (`DYAD.md` §Craft: after graduation, turns are job-turns).
+> The draft's graduation section claimed efficacy *at* graduation — an
+> overclaim by exactly that distance; corrected (§4 Graduation, §5
+> claim-strength ladder).
 
 ## 1. Learner, skill, terminal state
 
@@ -172,9 +182,11 @@ first contact with real difficulty (the WIP-N precedent).
   skill includes not spending the turn).
 - **Graduation — the coach-absent window.** K = 3 (default) consecutive
   sessions in which the coach-role authors nothing: pure R3 plus self-authored
-  retro-reps, metrics computed by script, trends holding. Only then may this
-  curriculum claim efficacy — real graduation is the sole certificate
-  (`no-self-ratify`).
+  retro-reps, metrics computed by script, trends holding. Graduation certifies
+  **transfer-readiness, not mastery** (r3): mastery is the sustained falling
+  cost-per-job trend in post-graduation job-turns, outside curriculum scope —
+  and it is that job-record, not the graduation event, which earns this
+  curriculum its efficacy claim (`no-self-ratify`; claim-strength ladder, §5).
 
 ## 5. Assessment model
 
@@ -190,6 +202,25 @@ learner-recomputable. (b) Keys sealed by hash *before* the rep. (c)
 `no-self-ratify`: efficacy claimed only at real graduation. (d) **Telos
 ledger:** learning-turns are counted per lesson; a lesson that spends turns
 without moving a metric is a defect in the curriculum, not in the learner.
+
+**Definition of done — the claim-strength ladder (r3).** Every in-curriculum
+assessment certifies **readiness, never mastery**. What a pass actually
+claims, level by level:
+
+1. a **lesson score** → competence on that item class; readiness for the next
+   lesson;
+2. a **module gate** → readiness for the next module's difficulty;
+3. **graduation** (the coach-absent window) → **transfer-readiness**: the
+   improvement loop observed running without the coach, long enough to
+   predict it holds;
+4. **mastery** — the sustained falling cost-per-job trend in real,
+   post-graduation job-turns — is earned only *outside* the curriculum, in
+   job-space. The same boundary carries the curriculum's own certificate:
+   **efficacy is earned by the graduate's job-record, not by the graduation.**
+
+Curriculum material is **done** when its practice-reps and assessment exist,
+its assessment establishes the readiness criteria for the next stage, and no
+claim anywhere in it exceeds readiness.
 
 **Instrument roles (r2 — axis separation: internal ⟂ ecological validity).**
 Standardized sealed-key batteries earn **placement and module gates**:
