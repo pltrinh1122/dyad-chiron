@@ -16,6 +16,17 @@
 > second, distinct curriculum (different learner-skill), Relates, not
 > Depends-on. (The initial draft of this block claimed "first of the stream" —
 > falsified by a board probe pre-delivery; corrected. Axis-C material, logged.)
+>
+> **Revision r1 (Operator requirement, 2026-07-11, same session):** *"as a
+> learner, i don't want to waste time re-learning knowledge/skills that i've
+> already mastered … i know i'm not a novice learner of the falsification
+> skill, but i don't know where i should start on the learning path."* Stated
+> as intent + invariants (the Operator's requirements form). The draft's F0
+> violated the intent: a full-spectrum baseline re-demonstrates what the
+> reflections ledger already evidences. r1 replaces it with **banked-evidence
+> placement** (§1) + a **gap-targeted baseline** + a **self-correcting entry
+> rule** (§4 F0): lived, verbatim-grounded records count as earned evidence;
+> only unevidenced axes get baseline reps; misplacement costs at most one rep.
 
 ## 1. Learner, skill, terminal state
 
@@ -26,14 +37,34 @@
 - **Skill:** falsification — *subjecting a claim (another's or your own) to
   the cheapest test that could refute it, and updating on the verdict
   honestly.*
-- **Prior (evidence, not placement):** the reflections ledger shows strong
-  artifact-level falsify-before-trust (*"i've merged. falsify."*), refusal of
-  plausible-but-premature answers, self-falsified framings (the decision-first
-  reframe), and counter-falsification of the Agent's critique (the
-  missing-work-category flip). Less evidenced: systematic probe-severity
-  design, explicit verdict/confidence logging, measured calibration,
-  falsification *economy*. This prior shapes seed difficulty only — placement
-  is **earned by F0**, never conferred from the coach's reading.
+- **Banked-evidence placement (r1).** Lived, verbatim-grounded records are
+  *earned* evidence — re-demonstrating them is telos waste. The draft's rule
+  ("placement is earned by F0, never conferred from the coach's reading")
+  conflated two different things the r1 requirement separates: conferral
+  (coach plausibility — still forbidden) vs. **banking** (citing the ledger —
+  admissible). The placement map, per axis, each claim citing its evidence
+  and each **falsifiable** (attack it in Lesson 0 if wrong):
+  - **C — verdict discipline: BANKED.** The SH no-miss default, ratified from
+    a caught conferral-in-reverse (`reflect/reflections.md` §2026-07-09 STOP);
+    refusal of plausible-but-premature definitions (the soon/later rounds,
+    §2026-07-07); SH-on-my-SH catching the manufactured miss. Module F3
+    skipped; its gate criteria stay **watched** on live reps.
+  - **D — self-application: BANKED.** The decision-first reframe (*"i've been
+    missing the top-level intent all along"*, §2026-07-09); this session's
+    novice-evaluator self-falsification (node #62 §1). Module F4 skipped;
+    watched.
+  - **A — target selection: BANKED at single-target** (*"i've merged.
+    falsify."* §2026-07-08; the imprecise-pointer-at-a-real-bug flag);
+    **unevidenced under scarcity/stakes** — no lived instance of a probe
+    budget forcing portfolio choices. Gap axis: F2 runs.
+  - **B — probe design: PARTIALLY banked.** Own decisive probes exist (*"PR
+    #56 was previously merged so where did you commit to?"* §2026-07-09) but
+    most probes in the record are *delegated* — the Operator directs
+    falsification, the Agent designs the probe. Hands-on severity design at
+    2-hop+ is unevidenced. Gap axis: F1 runs, entering at 2-hop difficulty.
+  - **E — economy & calibration: UNGAUGED.** Not unbanked by failure — the
+    instrument (verdict/confidence logging) has never existed, so no evidence
+    *could* be banked. F5 runs; the R3 log starts at Lesson 0.
 - **Terminal state (this curriculum's coach-absent test):** the dyad authors
   its own falsification reps, scores them by substrate script, and its
   **cost-per-detection** and **calibration error** keep improving with
@@ -91,15 +122,26 @@ Every step is a rep (the craft's fixed constraint) — no exposition lessons.
 Gates are thresholds + trends, all **elected, not yet worn**: they resize on
 first contact with real difficulty (the WIP-N precedent).
 
-- **F0 — placement (this session).** Two reps. **Lesson 0:** falsify *this
-  proposal* — live, unseeded; the ratification review the third invariant
-  already requires, converted into a scored rep (zero extra learning-turns).
-  The coach's ranked list of this document's five most load-bearing claims is
-  hash-sealed (§7), so target-selection overlap is scorable after the pass.
-  **Lesson 1:** first R1 sheet (10 claims, k ≤ 2, undisclosed), generated on
-  demand this session. Output: a measured baseline per axis; modules the
-  baseline proves mastered compress or skip — **earned skipping** (telos),
-  never conferred.
+- **F0 — gap-targeted placement (r1; this session).** The full-spectrum
+  baseline is retired: banked axes (§1) are not re-tested. What remains:
+  **Lesson 0** — falsify *this proposal* — live, unseeded; the ratification
+  review the third invariant already requires, converted into a scored rep
+  (zero extra learning-turns), now run **under a probe budget of 5**, which
+  makes the one required pass a severe test of exactly the two gap axes:
+  A-under-scarcity (which five attacks, out of everything attackable?) and
+  hands-on B (you design the probes; delegating one to the Agent is allowed
+  but scores as delegation). The sealed load-bearing list (§7) scores the
+  A-overlap. The **R3 log starts here** (E's instrument, from rep one).
+  **Lesson 1:** first R1 sheet — entering directly at F2 difficulty
+  (scarcity + stakes), per the placement, generated on demand.
+  **Self-correcting entry rule (bounds placement cost):** placement is a
+  falsifiable default validated by the first rep at the placed level — a
+  failed entry rep steps down one level; an aced entry rep at under-budget
+  cost steps up. Misplacement costs at most one rep, so no placement
+  instrument more expensive than that is justified. **Banked-but-watched
+  rule:** a skipped module's gate criteria remain live on every rep; a
+  violation (e.g., one manufactured miss) reopens that module — banking is
+  revocable, like every earned claim.
 - **F1 — probe design (axis B).** R2 series on live artifacts, difficulty
   rising: 1-hop (a label read, a grep) → 2-hop (journal-vs-label
   cross-checks) → semantic (does a `criteria/*.sh` actually assert what its
