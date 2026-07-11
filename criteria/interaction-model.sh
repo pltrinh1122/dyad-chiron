@@ -4,8 +4,9 @@
 # not earned. These pin the model's now-checkable claims — NOT its efficacy (that earns through
 # wear-in, per #3's no-self-ratify invariant). The claims grounded here:
 #   1. the ledger has no committed WORKSTREAMS.md — the single home is GitHub Issues + bin/ws view
-#   2. the model is homed, ratified, and traced at reflect/interaction-model.md; dialectic/ is empty
-#      of contests (a legitimate ontology-#7 state) but self-describing; no stale cross-refs remain
+#   2. the model is homed, ratified, and traced at reflect/interaction-model.md; dialectic/ holds
+#      no stale interaction-model artifact and stays self-describing (every tracked contest
+#      artifact named in its README); no stale cross-refs remain
 #   3. the primitive/vocab/WIP claims are documented where the model states them
 #   4. DYAD.md #4 (channel discipline) and #5 (WIP + autonomy boundary) carry the codified sections
 here="$(cd "$(dirname "$0")" && pwd)"; repo="$(cd "$here/.." && pwd)"
@@ -22,9 +23,15 @@ assert "model homed at reflect/interaction-model.md"  test -f "$model"
 assert "model status is RATIFIED"                     grep -qF 'Status: RATIFIED' "$model"
 assert "model carries the design↔as-built trace"      grep -qF 'Design ↔ as-built trace' "$model"
 assert "model no longer at dialectic/"                bash -c '[ ! -e dialectic/interaction-model.md ]'
-assert "dialectic/README explains the empty-of-contests state" test -f dialectic/README.md
-assert "dialectic/ holds no live-contest artifact" bash -c \
-  '[ "$(git ls-files dialectic/ | grep -vc "^dialectic/README.md$")" -eq 0 ]'
+assert "dialectic/README exists (dir self-describing)" test -f dialectic/README.md
+# Evolved 2026-07-11 (first live contest since the #3 migration): the original assert pinned
+# dialectic/'s point-in-time EMPTINESS — true at the #3 audit, but over-broad: ontology #7 makes
+# dialectic/ THE home for live contests, so a new contest legitimately falsifies it. The claim
+# worth keeping is that the dir stays self-describing: every tracked contest artifact is named
+# in its README. (Agent-disposed mechanism narrowing, fifth invariant; surfaced on node #61.)
+assert "every dialectic/ artifact is named in dialectic/README.md" bash -c \
+  'for f in $(git ls-files dialectic/ | grep -v "^dialectic/README.md$"); do
+     grep -qF "$(basename "$f")" dialectic/README.md || exit 1; done'
 # No tracked file still points at the pre-move path (this criteria file excluded — it names it).
 assert "no stale dialectic/interaction-model.md cross-references" bash -c \
   '! git grep -q "dialectic/interaction-model.md" -- . ":!criteria/interaction-model.sh"'
