@@ -27,6 +27,22 @@
 > placement** (§1) + a **gap-targeted baseline** + a **self-correcting entry
 > rule** (§4 F0): lived, verbatim-grounded records count as earned evidence;
 > only unevidenced axes get baseline reps; misplacement costs at most one rep.
+>
+> **Revision r2 (Operator falsification, 2026-07-11, same session):** *"you're
+> asserting my level based on 'live' output (correlation, not causation) and
+> even if i ratify the correlation, both of us can be wrong about the
+> correlation. the only true causation measure is standardized assessment."*
+> r1's banked placement is **refuted** on the grounds the critique entails:
+> live performance confounds skill with Agent scaffolding and luck; the
+> evidence base is Agent-authored and hit-selected — misses neither half
+> noticed are absent (no denominators); and dyad ratification cannot cure a
+> shared misreading (`no-self-ratify`, generalized to the dyad's reading of
+> its own record). r2: **placement is earned only by standardized
+> assessment** — sealed-key, structurally graded difficulty, full
+> denominators — administered **adaptively** so r1's no-waste intent survives
+> through test *efficiency*, not test *exemption*. Banked evidence is demoted
+> to a prior that sets entry difficulty and can never grant placement; it
+> retains the power to revoke (a live counterexample reopens a module).
 
 ## 1. Learner, skill, terminal state
 
@@ -37,34 +53,23 @@
 - **Skill:** falsification — *subjecting a claim (another's or your own) to
   the cheapest test that could refute it, and updating on the verdict
   honestly.*
-- **Banked-evidence placement (r1).** Lived, verbatim-grounded records are
-  *earned* evidence — re-demonstrating them is telos waste. The draft's rule
-  ("placement is earned by F0, never conferred from the coach's reading")
-  conflated two different things the r1 requirement separates: conferral
-  (coach plausibility — still forbidden) vs. **banking** (citing the ledger —
-  admissible). The placement map, per axis, each claim citing its evidence
-  and each **falsifiable** (attack it in Lesson 0 if wrong):
-  - **C — verdict discipline: BANKED.** The SH no-miss default, ratified from
-    a caught conferral-in-reverse (`reflect/reflections.md` §2026-07-09 STOP);
-    refusal of plausible-but-premature definitions (the soon/later rounds,
-    §2026-07-07); SH-on-my-SH catching the manufactured miss. Module F3
-    skipped; its gate criteria stay **watched** on live reps.
-  - **D — self-application: BANKED.** The decision-first reframe (*"i've been
-    missing the top-level intent all along"*, §2026-07-09); this session's
-    novice-evaluator self-falsification (node #62 §1). Module F4 skipped;
-    watched.
-  - **A — target selection: BANKED at single-target** (*"i've merged.
-    falsify."* §2026-07-08; the imprecise-pointer-at-a-real-bug flag);
-    **unevidenced under scarcity/stakes** — no lived instance of a probe
-    budget forcing portfolio choices. Gap axis: F2 runs.
-  - **B — probe design: PARTIALLY banked.** Own decisive probes exist (*"PR
-    #56 was previously merged so where did you commit to?"* §2026-07-09) but
-    most probes in the record are *delegated* — the Operator directs
-    falsification, the Agent designs the probe. Hands-on severity design at
-    2-hop+ is unevidenced. Gap axis: F1 runs, entering at 2-hop difficulty.
-  - **E — economy & calibration: UNGAUGED.** Not unbanked by failure — the
-    instrument (verdict/confidence logging) has never existed, so no evidence
-    *could* be banked. F5 runs; the R3 log starts at Lesson 0.
+- **Prior, not placement (r2; r1's "banked placement" refuted).** r1 read the
+  reflections ledger as earned placement; the Operator refuted the inference:
+  the ledger is live output — **correlation, not causation**. Performance
+  there confounds skill with Agent scaffolding and luck; the record is
+  Agent-authored and hit-selected (misses neither half noticed are absent —
+  no denominators); and dyad ratification cannot cure a shared misreading
+  (`no-self-ratify`, generalized to the dyad's reading of its own record).
+  **Placement is earned only by the standardized battery (§4 F0).** The
+  ledger evidence is demoted to a **prior** with exactly two powers:
+  1. it sets each axis's *entry difficulty* in the adaptive battery — a wrong
+     prior costs a few items, never a wrong placement. Entry priors: strong
+     on C and D (enter at ceiling difficulty) · moderate, single-target on A
+     · mixed on B (delegated probes dominate the record) · none on E (the
+     instrument never existed);
+  2. it can **revoke**: a violation on any live rep reopens a passed module —
+     revocation by counterexample is causally sound; granting by correlation
+     is not.
 - **Terminal state (this curriculum's coach-absent test):** the dyad authors
   its own falsification reps, scores them by substrate script, and its
   **cost-per-detection** and **calibration error** keep improving with
@@ -122,26 +127,28 @@ Every step is a rep (the craft's fixed constraint) — no exposition lessons.
 Gates are thresholds + trends, all **elected, not yet worn**: they resize on
 first contact with real difficulty (the WIP-N precedent).
 
-- **F0 — gap-targeted placement (r1; this session).** The full-spectrum
-  baseline is retired: banked axes (§1) are not re-tested. What remains:
-  **Lesson 0** — falsify *this proposal* — live, unseeded; the ratification
-  review the third invariant already requires, converted into a scored rep
-  (zero extra learning-turns), now run **under a probe budget of 5**, which
-  makes the one required pass a severe test of exactly the two gap axes:
-  A-under-scarcity (which five attacks, out of everything attackable?) and
-  hands-on B (you design the probes; delegating one to the Agent is allowed
-  but scores as delegation). The sealed load-bearing list (§7) scores the
-  A-overlap. The **R3 log starts here** (E's instrument, from rep one).
-  **Lesson 1:** first R1 sheet — entering directly at F2 difficulty
-  (scarcity + stakes), per the placement, generated on demand.
-  **Self-correcting entry rule (bounds placement cost):** placement is a
-  falsifiable default validated by the first rep at the placed level — a
-  failed entry rep steps down one level; an aced entry rep at under-budget
-  cost steps up. Misplacement costs at most one rep, so no placement
-  instrument more expensive than that is justified. **Banked-but-watched
-  rule:** a skipped module's gate criteria remain live on every rep; a
-  violation (e.g., one manufactured miss) reopens that module — banking is
-  revocable, like every earned claim.
+- **F0 — standardized adaptive placement (r2; this session).**
+  **Lesson 0** keeps three roles — the ratification review (third invariant,
+  zero extra learning-turns), the first E-R2 distillation (rubric v0, node
+  #62), and the start of the R3 log — and, run under its **probe budget of
+  5**, yields a baseline *signal*. What it no longer does is **place**: it is
+  live and unstandardized, exactly the evidence class r2 rules out for
+  placement.
+  **Lesson 1 — the placement battery (promoted).** Per-axis sealed-key item
+  ladders with **structurally defined difficulty** — probe hop-count for B ·
+  budget size and stake spread for A · trap type for C · premise depth for
+  D — administered **adaptively**: each axis enters at its prior's difficulty
+  (§1), steps up on a pass, down on a fail, and stops when the level is
+  bracketed (pass at n, fail at n+1) or the ceiling is held twice. Every item
+  outcome is recorded, hits and misses — **full denominators**. A master
+  exits in a handful of ceiling items; a gap costs items only where it is
+  real — the r1 no-waste intent honored by *test efficiency, not test
+  exemption*. Keys hash-sealed per item block before administration; scoring
+  mechanical. **E is not item-placed**: its baseline is the first R3 log
+  window (calibration cannot be pre-tested; the instrument must run).
+  Named residual (§6): the coach authors the items — mitigated by pre-sealed
+  keys, mechanical scoring, and difficulty defined structurally (hop-count,
+  budget size), never by coach judgment.
 - **F1 — probe design (axis B).** R2 series on live artifacts, difficulty
   rising: 1-hop (a label read, a grep) → 2-hop (journal-vs-label
   cross-checks) → semantic (does a `criteria/*.sh` actually assert what its
@@ -183,6 +190,16 @@ learner-recomputable. (b) Keys sealed by hash *before* the rep. (c)
 `no-self-ratify`: efficacy claimed only at real graduation. (d) **Telos
 ledger:** learning-turns are counted per lesson; a lesson that spends turns
 without moving a metric is a defect in the curriculum, not in the learner.
+
+**Instrument roles (r2 — axis separation: internal ⟂ ecological validity).**
+Standardized sealed-key batteries earn **placement and module gates**:
+controlled difficulty, fixed ground truth, full denominators — the causal
+instrument for *skill possession*. The live R3 log and retro-reps earn
+**transfer and graduation**: does the skill hold in the wild, coach-absent.
+Neither substitutes for the other; live evidence never grants a level
+(correlation), only revokes one (counterexample), and standardized
+assessment carries its own named threats — construct validity,
+teaching-to-the-item — that only the live instrument checks.
 
 **Metric definitions (countable):** detection rate · stake-weighted detection
 · false-refutation count · probe decisiveness · probe cost ·
