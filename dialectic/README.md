@@ -7,6 +7,13 @@ is still contested; when the question **earns its answer** it moves to `reflect/
 
 **Live contests:**
 
+- **`dyad-operation-skillmap.md`** (opened 2026-07-11) — the skill-map for
+  operating a dyad novice→mastery→graduation, the two-axis Operator G0
+  prerequisite model + pre-req assessment, and the substrate-competence model
+  (node #63; Relates #61/#62, and #8–#11 at the setup↔operation seam). Two
+  substrate dispositions Operator-ratified; the rest held as conjecture under
+  Sense.
+
 - **`curriculum-evaluation.md`** (opened 2026-07-11) — the proposed L1
   curriculum-evaluation curriculum for the Operator (form ⟂ content ⟂ economy),
   node #62; interlocked with the falsification track (shared Lesson-0/E0
