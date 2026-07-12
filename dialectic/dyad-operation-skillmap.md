@@ -174,25 +174,20 @@ they verify.
   (`falsification-curriculum.md` §5): this certifies transfer-readiness;
   mastery is the post-graduation job-record.
 
-## 7. Ratified refinements — level ⟂ layer, and competent rejection (Operator `raff:`, 2026-07-11)
+## 7. Applying LY×LV + operation-curriculum principles (Operator `raff:`/`ratify`, 2026-07-11)
 
 From the prioritization-module intake (#64), the Operator raffed: *"we may have
 discerned a misfit for our use of Eisenhower quadrant, but it was only possible
 because we understood its mechanism. a new dyad operator will need to know that
 as well to operate 'efficiently' (not L0) or pre-req."*
 
-- **Two orthogonal axes — do not conflate** (axis separation). The **Layer**
-  axis (§2, SPAOR-phase: Layer 0–4) decomposes *what part of the loop* a skill
-  serves; the **Level** axis (requirement provenance: pre-req · L0-core ·
-  L1-craft — the #62 frame) classifies *why* the skill is required. Every skill
-  has a coordinate on **both**. "Layer 0" (foundational operating knowledge) is
-  **not** "L0" (dyad-core level) — a live terminology hazard, named.
-- **L0/L1 sharpened by efficiency (ratified).** **L0 = operate the dyad *at
-  all*** (run SPAOR, use the primitives); **L1 (craft-entailed) = operate
-  *efficiently*** — toward the telos (minimize learning-turns). Prioritization
-  competence is **L1**: a dyad can operate without it, but not efficiently. This
-  makes L1 the telos-critical level by construction (craft_telos = minimize
-  learning-turns).
+- **The LY (Layer) ⟂ LV (Level) classification is RATIFIED and canonically
+  homed** at [`curriculum-topic-classification.md`](./curriculum-topic-classification.md)
+  (single-home — the definitions, the axes, and the L0/L1 semantics live there;
+  this section only *applies* them to the operation curriculum). The operation
+  skills of §2 sit at **LY = Layer P–4 / cross-cutting**; their **LV** ranges
+  pre-req · L0 · L1 per that grid. Terminology hazard (named there): "Layer 0"
+  (LY) ≠ "L0" (LV).
 - **Competent rejection requires mechanism-comprehension (ratified
   principle).** A model's *misfit* is discernible only if its *mechanism* is
   understood — we retired Eisenhower (#52) precisely because we understood its
@@ -211,9 +206,10 @@ as well to operate 'efficiently' (not L0) or pre-req."*
 
 ## 8. Status — still `clarify` (intent playback for the node)
 
-Ratified so far: the substrate model's two dispositions (§5 a, b), and the four
-refinements of §7 (level ⟂ layer · L0/L1-by-efficiency · competent-rejection ·
-the pre-req↔L1 model-knowledge split). Held as
+Ratified so far: the substrate model's two dispositions (§5 a, b); the LY×LV
+classification + vocabulary (homed at `curriculum-topic-classification.md`); and
+§7's two operation-curriculum principles (competent-rejection · the pre-req↔LV
+model-knowledge split). Held as
 conjecture awaiting Sense: the layer inventory (§2), the two-axis K-prereq
 model and its tensions (§3), the pre-req assessment design and scope frontier
 (§4). Open forks for the Operator (intent/invariant only): the ε-line for

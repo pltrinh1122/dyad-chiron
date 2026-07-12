@@ -5,6 +5,13 @@ open questions held under stress-test. A record lives here only while its questi
 is still contested; when the question **earns its answer** it moves to `reflect/`
 (the settled Reflect output).
 
+**Ratified (co-located during curriculum incubation, not a contest):**
+
+- **`curriculum-topic-classification.md`** — the RATIFIED two-axis classification
+  for curriculum topics: **LY** (layer) ⟂ **LV** (level). Canonical home
+  (Operator-ratified 2026-07-11); the curriculum artifacts apply it. Migrates to the
+  curriculum home when that home is created.
+
 **Live contests:**
 
 - **`dyad-operation-skillmap.md`** (opened 2026-07-11) — the skill-map for
