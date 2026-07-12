@@ -64,6 +64,18 @@
 > measurement), never an assumption — merging the scores would assume the
 > correlation r2 refuted. Codified in §5 (two-score model); r3's ladder
 > re-read as governing claim strength per score.
+>
+> **Revision r5 (Operator-directed falsification against human-learning
+> research, 2026-07-11, same session):** the Operator claimed *"K measures
+> operator wetware ingraining, not dyad … there is a minimum K score for P
+> mastery and graduation because without minimum K wetware ingraining, P is
+> impossible"* and directed: *"falsify with human learning research studies."*
+> Result — **split verdict** (full rep + five sources: §9 Contest log). The
+> minimum-K claim **survives as an acquisition gate for analytic skills** but
+> is **refuted as a universal** (implicit learning) and **contra-indicated at
+> the graduation threshold** (expertise-induced amnesia). Net: the literature
+> *relocates* K_min from the exit gate to the **entry gate**, which is why §4
+> Graduation and §5's two-score consumption rules are revised accordingly.
 
 ## 1. Learner, skill, terminal state
 
@@ -193,10 +205,12 @@ first contact with real difficulty (the WIP-N precedent).
   skill includes not spending the turn).
 - **Graduation — the coach-absent window.** K = 3 (default) consecutive
   sessions in which the coach-role authors nothing: pure R3 plus self-authored
-  retro-reps, metrics computed by script, trends holding. Graduation certifies
-  **transfer-readiness, not mastery** (r3): mastery is the sustained falling
-  cost-per-job trend in post-graduation job-turns, outside curriculum scope —
-  and it is that job-record, not the graduation event, which earns this
+  retro-reps, metrics computed by script, trends holding. **Decided by P at
+  the boundary** (r5): K_min is an entry gate to each module's practice ladder,
+  not re-imposed at ceiling here (expertise-induced amnesia, §9). Graduation
+  certifies **transfer-readiness, not mastery** (r3): mastery is the sustained
+  falling cost-per-job trend in post-graduation job-turns, outside curriculum
+  scope — and it is that job-record, not the graduation event, which earns this
   curriculum its efficacy claim (`no-self-ratify`; claim-strength ladder, §5).
 
 ## 5. Assessment model
@@ -234,10 +248,19 @@ a 5×2 scorecard, never collapsed to a scalar:
   observed K↔P gap per axis is the curriculum's **transfer measurement** —
   observable only because the scores are kept independent.
 
-Consumption: module progression is **K-gated** (with P signals watched);
-graduation requires **both** — K at ceiling on the axes and the P trend
-holding through the coach-absent window; post-graduation mastery (ladder
-rung 4) is a claim in **P-space alone**.
+Consumption (revised r5 — K_min is an **acquisition gate**, not an exit
+gate): module progression is **K-gated at entry** — you cannot proceduralize
+what you never declaratively encoded (Anderson knowledge compilation; §9),
+so a module's practice ladder opens only once its K_min is met. **Graduation
+is decided at the coach-absent boundary by P**, with K **not** re-required at
+ceiling there: expertise-induced amnesia (§9) predicts declarative
+accessibility *falls* as practice mastery rises, so demanding peak-K from
+peak-P performers is contra-indicated. A flat or declining K at high P is the
+**expected signature of proceduralization, not a regression**. Post-graduation
+mastery (ladder rung 4) is a claim in **P-space alone**. Scope condition
+(r5): this K_min-necessity holds because falsification is an **analytic,
+rule-based skill** (articulable probe design + verdict logic) — for
+implicitly-learned perceptual skills the gate would not apply (§9).
 
 **Definition of done — the claim-strength ladder (r3, re-read under r4:
 each rung's claim is made per score, (K, P), never merged).** Every in-curriculum
@@ -326,3 +349,77 @@ Mechanisms disposed by the Agent, surfaced for visibility (fifth invariant):
 homing in `dialectic/` until ratified · sealed-key = sha256 + node spoiler ·
 scoring script homes with the curriculum when it earns its home · all
 thresholds as elected defaults.
+
+## 9. Contest log
+
+The dialectic's point: claims held under stress-test, adjudicated against a
+source, verdicts recorded. First entry is a **delegated probe** (Operator
+directed the target + adjudication standard; Agent designed and ran the
+search) — logged as delegation per the R3 format.
+
+### Rep 1 — "minimum K is necessary for P" (Operator claim, r5)
+
+- **Claim under test (Operator, 2026-07-11):** (i) K measures *operator
+  wetware* ingraining, not the dyad; (ii) *"there is a minimum K score for P
+  mastery and graduation because without minimum K wetware ingraining, P is
+  impossible."*
+- **Adjudication standard (Operator-directed):** human-learning research.
+- **Verdict: SPLIT — survives scoped-and-relocated; refuted as stated.**
+
+**(ii) survives as an acquisition gate for analytic skills.** Three
+independent lines converge that declarative knowledge is the *input* to
+procedural skill:
+- **Anderson, knowledge compilation (ACT-R):** knowledge is *first* encoded
+  declaratively, then compiled into productions through practice —
+  "declarative knowledge serves as the prerequisite for proceduralization."
+  You cannot compile what was never encoded.
+- **Fitts & Posner (1967):** skill acquisition *begins* in a cognitive
+  (declarative) stage — verbal instruction and an explicit mental model —
+  before the associative and autonomous stages.
+- **Kirschner, Sweller & Clark (2006):** novices under minimal guidance
+  (near-zero explicit instruction) learn *less*; guidance's advantage recedes
+  only once prior knowledge supplies "internal" guidance. Minimal-K entry is
+  empirically inferior.
+
+**But refuted as a universal (i.e., "P impossible without K", any skill).**
+- **Reber, implicit learning:** procedural/motor skill is acquired *without
+  awareness and without articulable declarative knowledge* — artificial-grammar
+  learners perform above chance while unable to state the rule. For
+  implicitly-learned skills the minimum-K premise is false. The claim must be
+  **scoped**: it holds for *analytic, rule-based* skills. Falsification is one
+  (probe design and verdict logic are articulable-reasoning operations), so
+  the gate applies *here* — but the proposal must state the scope, not assert
+  the universal.
+
+**And contra-indicated *at the graduation threshold*.**
+- **Expertise-induced amnesia (Montero, Høffding; the Sharapova / ballet-dancer
+  cases):** declarative accessibility *decreases* as expertise rises; the
+  highest-P performers often cannot verbalize their skill. A K-battery
+  demanding peak articulation at the graduation gate would score the best
+  performers *lowest*. So K_min belongs at **entry** (acquisition), not the
+  exit — and a flat/declining K at high P is the *expected* signature of
+  proceduralization, not a regression.
+
+**(i) K = wetware, not dyad: survives as a definition, with a named cost.**
+- **Distributed cognition (Hutchins lineage):** knowledge-in-the-world (notes,
+  scripts, the substrate) genuinely carries cognitive load and enables
+  performance. Defining K as *wetware-only* is coherent, but then K_wetware
+  systematically **under-measures** a substrate-strong dyad's functional
+  capability — so "not dyad" must be paired with the admission that the dyad's
+  *functional* knowledge exceeds the Operator's wetware K, and the minimum that
+  makes P possible is a minimum on *functional* K (wetware + substrate jointly).
+
+**Design impact (r5):** K_min relocated from the graduation threshold to the
+per-module **acquisition gate**; graduation decided by P at the boundary; K
+not re-imposed at ceiling; scope condition (analytic skill) stated;
+EIA-divergence folded into the two-score model as an *expected* trajectory.
+The Operator's core intuition held — there *is* a necessary minimum K — and the
+research sharpened *where* it binds and *for which skills*.
+
+**Sources (verified this session):**
+- Reber — [Implicit learning and tacit knowledge](https://www.semanticscholar.org/paper/Implicit-learning-and-tacit-knowledge-Reber/1a81da7f819466826ccb733156b91612d4fdbdf4); [implicit-learning overview](https://www.sciencedirect.com/topics/social-sciences/implicit-learning)
+- Fitts & Posner three-stage model — [overview](https://sportscienceinsider.com/stages-of-learning/); [APA, modeling the distinct phases](https://www.apa.org/pubs/journals/features/xlm-xlm0000204.pdf)
+- Anderson knowledge compilation (ACT-R) — [proceduralization](http://cognitivemodelinglab.com/index.php/proceduralization/); [ACT-R overview](https://www.instructionaldesign.org/theories/act/)
+- Kirschner, Sweller & Clark (2006) — [Why Minimal Guidance During Instruction Does Not Work (PDF)](https://itgs.ict.usc.edu/papers/Constructivism_KirschnerEtAl_EP_06.pdf)
+- Expertise-induced amnesia — [Høffding & Montero, "Not being there" (PDF)](https://barbaramontero.wordpress.com/wp-content/uploads/2020/03/page-proofmila12260-revised-1.pdf); [analysis of EIA](https://mro.massey.ac.nz/server/api/core/bitstreams/e2fe5ad6-4ced-402d-8e26-0f3fc5a56a80/content)
+- Distributed cognition — [Wikipedia overview](https://en.wikipedia.org/wiki/Distributed_cognition); [tool use as distributed cognition (PMC)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3932548/)
