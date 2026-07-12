@@ -76,6 +76,21 @@
 > the graduation threshold** (expertise-induced amnesia). Net: the literature
 > *relocates* K_min from the exit gate to the **entry gate**, which is why §4
 > Graduation and §5's two-score consumption rules are revised accordingly.
+>
+> **Revision r6 (Operator falsification of r5's scope, 2026-07-11, same
+> session):** *"does our craft_telos scope to just analytic skills?"* No —
+> `DYAD.md` §Craft is **skill-general** (carry a learner-dyad to
+> self-sustaining mastery of *any* skill; the telos minimizes learning-turns
+> without skill-type restriction; the stream already holds the tacit
+> dyad-setup chain #8–#11). r5 over-narrowed: "analytic" is a property of a
+> *skill instance*, not of the assessment architecture. Recast — **K_min is a
+> per-skill parameter** set by the skill's position on the analytic↔implicit
+> axis (high for articulable rule-based skills, ≈0 for implicitly-learned
+> ones per Reber); the K/P architecture is skill-general and already handles
+> implicit skills as its low-K/high-P quadrant. And falsification is itself a
+> **mixed** skill — analytic probe/verdict logic (K-gated) + a tacit
+> "smells-untested" component (P-only) — so even here the gate governs the
+> analytic component, not the whole skill. Full rep: §9 Contest log rep 2.
 
 ## 1. Learner, skill, terminal state
 
@@ -257,10 +272,15 @@ ceiling there: expertise-induced amnesia (§9) predicts declarative
 accessibility *falls* as practice mastery rises, so demanding peak-K from
 peak-P performers is contra-indicated. A flat or declining K at high P is the
 **expected signature of proceduralization, not a regression**. Post-graduation
-mastery (ladder rung 4) is a claim in **P-space alone**. Scope condition
-(r5): this K_min-necessity holds because falsification is an **analytic,
-rule-based skill** (articulable probe design + verdict logic) — for
-implicitly-learned perceptual skills the gate would not apply (§9).
+mastery (ladder rung 4) is a claim in **P-space alone**. Skill-type parameter
+(r6, correcting r5's over-narrowing): K_min is **not** a precondition on the
+architecture but a **per-skill parameter** — its height is set by where the
+skill sits on the analytic↔implicit axis (high for articulable rule-based
+skills; ≈0 for implicitly-learned ones, Reber, §9). The K/P architecture is
+**skill-general** (matching craft_telos, which scopes to no skill type; §9
+rep 2). Falsification is a **mixed** skill — analytic probe/verdict logic
+(K-gated) plus a tacit "smells-untested" component (P-only) — so even here the
+gate governs the analytic component, not the whole skill.
 
 **Definition of done — the claim-strength ladder (r3, re-read under r4:
 each rung's claim is made per score, (K, P), never merged).** Every in-curriculum
@@ -423,3 +443,28 @@ research sharpened *where* it binds and *for which skills*.
 - Kirschner, Sweller & Clark (2006) — [Why Minimal Guidance During Instruction Does Not Work (PDF)](https://itgs.ict.usc.edu/papers/Constructivism_KirschnerEtAl_EP_06.pdf)
 - Expertise-induced amnesia — [Høffding & Montero, "Not being there" (PDF)](https://barbaramontero.wordpress.com/wp-content/uploads/2020/03/page-proofmila12260-revised-1.pdf); [analysis of EIA](https://mro.massey.ac.nz/server/api/core/bitstreams/e2fe5ad6-4ced-402d-8e26-0f3fc5a56a80/content)
 - Distributed cognition — [Wikipedia overview](https://en.wikipedia.org/wiki/Distributed_cognition); [tool use as distributed cognition (PMC)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3932548/)
+
+### Rep 2 — "the K_min gate scopes to analytic skills" (Agent claim r5, Operator-falsified)
+
+- **Claim under test (Agent, r5):** the minimum-K acquisition gate is scoped
+  to *analytic* skills, and falsification qualifies as one.
+- **Adjudication standard (Operator-directed, 2026-07-11):** *"does our
+  craft_telos scope to just analytic skills?"* — test the scope against the
+  governing artifact.
+- **Verdict: REFUTED as over-narrowing.** `DYAD.md` §Craft is skill-general:
+  the **craft** carries a learner-dyad to self-sustaining mastery of *any*
+  skill; **craft_telos** ("minimize the learner-dyad's learning-turns to
+  self-sustaining mastery") names no skill type; the **terminal state** is
+  loop-ownership, skill-blind. Existing proof inside the stream: the
+  dyad-setup curriculum (#8–#11) trains a largely *tacit/procedural* skill,
+  not an analytic one. So "analytic" cannot be an architecture-level scope —
+  it is a property of *this skill instance*.
+- **Design fix (r6):** K_min recast as a **per-skill parameter** on the
+  analytic↔implicit axis (high → analytic, ≈0 → implicit); the K/P
+  architecture declared **skill-general**; falsification re-typed as **mixed**
+  (analytic component K-gated, tacit "smell" component P-only). This also
+  concedes the target the coach flagged at r5's close — falsification is not
+  purely analytic — reached here via the Operator's own probe.
+- **Source (internal governing artifact):** `DYAD.md` §Craft (craft ·
+  craft_telos · terminal state), cross-checked against `ws:curriculum` nodes
+  #8–#11.
