@@ -74,7 +74,45 @@ threshold, or LV itself splitting into two sub-axes — is the one open disposit
 non-blocking. (Same shape as the logic/analytics prereq↔taught seam: a level "or" is
 often two-things-at-two-coordinates.)
 
-## 4. Status
+## 4. Unratified candidate schema fields (Agent-elected — surfaced for review)
+
+Beyond the ratified **LY**/**LV**, the session has used these fields implicitly.
+Each is a **falsifiable default** (provenance invariant: Agent-elected, ratified
+only by the Operator), justified by the **decision it drives** (decision-first,
+`reflect/decision-architecture.md` — a field that drives no decision is cut). The
+schema *as a whole* is unratified; only LY/LV are ratified.
+
+**A. Classification facets** (drive routing · sequencing · instrument choice):
+| field | decision it drives | maturity |
+|---|---|---|
+| **K/P weight** (knowledge-heavy · practice-heavy · mixed) | which instrument (sealed-key battery vs uncoached reps); the (K,P) scorecard shape | high (r4) — strong next-ratify |
+| **analytic ↔ tacit position** | K_min gate height (acquisition gate); whether standardized assessment applies at all | high (r5/r6) — correlated with K/P, kept distinct (skill-nature ⟂ scoring) |
+| **domain-conditionality** (universal · domain-scoped) | applicability per learner-dyad; portability (Commons); admit vs domain-referral | mid (the "Systems(MVC)" tension) |
+| **learner-half** (Operator · Agent · joint-covalent) | who trains it; whether it is a covalent dyad skill | low — flagged, not developed |
+| **build-importance** (telos-lever × population-unlock ÷ build-cost) | curriculum module **build-order** (which to author first — the scope frontier) | mid — *reuses Classification O's importance shape* (`bin/ws attend`) |
+
+**B. Content / structural fields** (what the topic contains):
+| field | decision it drives | maturity |
+|---|---|---|
+| **prereq-DAG edges** (depends-on other topics) | sequencing; entry gates — the curriculum's *own* dependency DAG (DAG-for-dependency applied to curriculum) | high — strong next-ratify (logic⊂analytics⊂systems; mechanism→fit-falsification) |
+| **rep format(s)** (R1 sealed-key · R2 probe-golf · R3 live-log · R4 framing · E-R*) | how the topic is practiced + mechanically scored | high (#61/#62) |
+| **gate / graduation criteria** (thresholds + trends) | progression / module-exit | high |
+| **instrument + claim-strength** (standardized · live · reality-adjudicated; readiness-ladder rung) | what a pass certifies + how measured | high (r2/r3) — depends on the K/P field |
+| **acquisition-route for gaps** ([EXT] · [SUB-G0] · in-curriculum) | routing an unmet topic (admit · redirect · defer) | high (pre-req assessment) — interacts with domain-conditionality |
+
+**C. Meta fields:**
+| field | decision it drives | maturity |
+|---|---|---|
+| **ratification status / provenance** (Agent-elected vs Operator-ratified; who/when/source) | is this row trusted or pending | the provenance invariant, per-topic |
+| **wear-in / stability** (forming · settled) | promote to `DYAD.md` #8? migrate to curriculum home? | the "held until it wears in" pattern |
+
+*Notes:* the schema has internal dependencies (instrument ← K/P; acquisition-route ↔
+domain-conditionality), so it is not a flat record — a candidate for a CQRS-style split
+(routing facets ⟂ content model), mirroring `reflect/decision-architecture.md`'s O/A
+split. Not exhaustive; strongest next-ratify candidates: **K/P weight**, **prereq-DAG
+edges**, **analytic↔tacit**.
+
+## 5. Status
 
 **RATIFIED** (Operator, 2026-07-11): the LY ⟂ LV two-axis classification and the LY/LV
 vocabulary. Held: the LV-cut sharpening (§3 soft edge). Vocabulary stays in this
