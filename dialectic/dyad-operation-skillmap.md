@@ -174,9 +174,46 @@ they verify.
   (`falsification-curriculum.md` §5): this certifies transfer-readiness;
   mastery is the post-graduation job-record.
 
-## 7. Status — still `clarify` (intent playback for the node)
+## 7. Ratified refinements — level ⟂ layer, and competent rejection (Operator `raff:`, 2026-07-11)
 
-Ratified so far: the substrate model's two dispositions (§5 a, b). Held as
+From the prioritization-module intake (#64), the Operator raffed: *"we may have
+discerned a misfit for our use of Eisenhower quadrant, but it was only possible
+because we understood its mechanism. a new dyad operator will need to know that
+as well to operate 'efficiently' (not L0) or pre-req."*
+
+- **Two orthogonal axes — do not conflate** (axis separation). The **Layer**
+  axis (§2, SPAOR-phase: Layer 0–4) decomposes *what part of the loop* a skill
+  serves; the **Level** axis (requirement provenance: pre-req · L0-core ·
+  L1-craft — the #62 frame) classifies *why* the skill is required. Every skill
+  has a coordinate on **both**. "Layer 0" (foundational operating knowledge) is
+  **not** "L0" (dyad-core level) — a live terminology hazard, named.
+- **L0/L1 sharpened by efficiency (ratified).** **L0 = operate the dyad *at
+  all*** (run SPAOR, use the primitives); **L1 (craft-entailed) = operate
+  *efficiently*** — toward the telos (minimize learning-turns). Prioritization
+  competence is **L1**: a dyad can operate without it, but not efficiently. This
+  makes L1 the telos-critical level by construction (craft_telos = minimize
+  learning-turns).
+- **Competent rejection requires mechanism-comprehension (ratified
+  principle).** A model's *misfit* is discernible only if its *mechanism* is
+  understood — we retired Eisenhower (#52) precisely because we understood its
+  quadrant mechanism well enough to see its axes weren't independent. So the
+  operation curriculum must teach the **mechanisms** of relevant models
+  (including ones the dyad does *not* adopt) as the substrate for
+  fit-falsification. Rejecting a model you don't understand is **cargo-cult
+  rejection — as unearned as cargo-cult adoption.**
+- **The pre-req↔L1 split for model-knowledge** (same seam as logic/analytics,
+  §3-I.2): *generic model-mechanism literacy* (recognize and reason about
+  common prioritization frameworks) is **pre-req** (Axis-I foundations);
+  *falsify-model-fit-to-telos + our ratified importance×stagnation model* is
+  **L1** (taught by #64). Mechanism-comprehension (pre-req) **enables**
+  fit-falsification (L1) — the "or" in the Operator's "L1 or pre-req" dissolves:
+  it is *both*, at their respective levels.
+
+## 8. Status — still `clarify` (intent playback for the node)
+
+Ratified so far: the substrate model's two dispositions (§5 a, b), and the four
+refinements of §7 (level ⟂ layer · L0/L1-by-efficiency · competent-rejection ·
+the pre-req↔L1 model-knowledge split). Held as
 conjecture awaiting Sense: the layer inventory (§2), the two-axis K-prereq
 model and its tensions (§3), the pre-req assessment design and scope frontier
 (§4). Open forks for the Operator (intent/invariant only): the ε-line for
