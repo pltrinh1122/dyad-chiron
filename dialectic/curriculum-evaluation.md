@@ -28,6 +28,15 @@
 > **readiness to ratify**, never evaluator mastery; see §5 Graduation and the
 > claim-strength ladder at `falsification-curriculum.md` §5 (single home —
 > this points, does not copy).
+>
+> **Revision r3 (Operator alignment, 2026-07-11, same session):** shared
+> two-score model — knowledge mastery (assessment) ⟂ practice mastery (reps
+> without coaching), independent scores per `falsification-curriculum.md` §5
+> (r4 there; single home). Here: K = seeded-specimen batteries and the
+> frameworks attack; P = uncoached live evaluations — of which the
+> external-specimen graduation condition (§5b) and the post-graduation
+> ratification record are the pure cases. The rubric's coverage is K;
+> whether you wield it unprompted on a live proposal is P.
 
 ## 1. Why this skill is load-bearing
 

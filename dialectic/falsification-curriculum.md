@@ -53,6 +53,17 @@
 > The draft's graduation section claimed efficacy *at* graduation — an
 > overclaim by exactly that distance; corrected (§4 Graduation, §5
 > claim-strength ladder).
+>
+> **Revision r4 (Operator alignment, 2026-07-11, same session):** *"knowledge
+> mastery (assessment) and practice mastery (reps without coaching) are
+> independent scores."* Axis separation applied to mastery itself: every
+> score in this curriculum is a **(K, P) pair**, never a scalar — K earned
+> only by standardized assessment, P earned only by uncoached reps; neither
+> substitutes for the other. Independence is *measurement* independence: the
+> K↔P relationship is an empirical output (the observed gap IS the transfer
+> measurement), never an assumption — merging the scores would assume the
+> correlation r2 refuted. Codified in §5 (two-score model); r3's ladder
+> re-read as governing claim strength per score.
 
 ## 1. Learner, skill, terminal state
 
@@ -203,7 +214,33 @@ learner-recomputable. (b) Keys sealed by hash *before* the rep. (c)
 ledger:** learning-turns are counted per lesson; a lesson that spends turns
 without moving a metric is a defect in the curriculum, not in the learner.
 
-**Definition of done — the claim-strength ladder (r3).** Every in-curriculum
+**Two independent mastery scores (r4 — axis separation applied to mastery).**
+Every skill axis (A–E) carries a **(K, P) score pair**, tracked separately —
+a 5×2 scorecard, never collapsed to a scalar:
+
+- **K — knowledge mastery.** Earned *only* by standardized assessment (the
+  sealed-key batteries): controlled difficulty, fixed ground truth, full
+  denominators. K can be fully earned inside the curriculum — assessment is
+  its complete instrument.
+- **P — practice mastery.** Earned *only* by **reps without coaching**: the
+  R3 live log during real (non-curriculum) work, self-initiated retro-reps,
+  and the coach-absent windows. A coached rep never moves P, however well it
+  goes; a battery ace never moves P either. In-curriculum P data is therefore
+  sparse by construction — P accrues mostly in job-space, which is exactly
+  where the terminal claim lives.
+- **No substitution, either direction.** High-K/low-P is the transfer gap
+  (knows, doesn't deploy); low-K/high-P is tacit skill (deploys, can't
+  articulate — fine for the job, blind for self-diagnosis and teaching). The
+  observed K↔P gap per axis is the curriculum's **transfer measurement** —
+  observable only because the scores are kept independent.
+
+Consumption: module progression is **K-gated** (with P signals watched);
+graduation requires **both** — K at ceiling on the axes and the P trend
+holding through the coach-absent window; post-graduation mastery (ladder
+rung 4) is a claim in **P-space alone**.
+
+**Definition of done — the claim-strength ladder (r3, re-read under r4:
+each rung's claim is made per score, (K, P), never merged).** Every in-curriculum
 assessment certifies **readiness, never mastery**. What a pass actually
 claims, level by level:
 
