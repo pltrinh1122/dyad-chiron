@@ -280,7 +280,11 @@ skills; ≈0 for implicitly-learned ones, Reber, §9). The K/P architecture is
 **skill-general** (matching craft_telos, which scopes to no skill type; §9
 rep 2). Falsification is a **mixed** skill — analytic probe/verdict logic
 (K-gated) plus a tacit "smells-untested" component (P-only) — so even here the
-gate governs the analytic component, not the whole skill.
+gate governs the analytic component, not the whole skill. **Sequence ≠ scope
+(r7):** dyad work *skews* analytic, so building the analytic machinery first
+is well-prioritized — but that is a *sequencing* decision, not a *scope* one;
+the architecture stays skill-general because the telos-critical skills
+(loop-ownership, trust-calibration, taste) are substantially tacit (§9 rep 3).
 
 **Definition of done — the claim-strength ladder (r3, re-read under r4:
 each rung's claim is made per score, (K, P), never merged).** Every in-curriculum
@@ -468,3 +472,58 @@ research sharpened *where* it binds and *for which skills*.
 - **Source (internal governing artifact):** `DYAD.md` §Craft (craft ·
   craft_telos · terminal state), cross-checked against `ws:curriculum` nodes
   #8–#11.
+
+### Rep 3 — "most dyad interaction and skills are analytical" (Operator claim, r7)
+
+- **Claim under test (Operator, 2026-07-11):** the curriculum's scope is to
+  help a dyad operate with increasing mastery, and *"most dyad interaction and
+  skills are analytical in nature"* — read as: the analytic focus is not a
+  real narrowing.
+- **Adjudication standard:** this dyad's own logged practice
+  (`reflect/reflections.md`) + `DYAD.md` §Craft; the right population for a
+  claim about *dyad* skills is the dyad's record, not generic literature.
+- **Verdict: PARTIALLY SURVIVES — directionally true, strong form refuted.**
+  (Noted for verdict integrity: rep 1 and rep 2 both ended in revision; the
+  pull to make rep 3 a third dramatic refutation is resisted — the honest
+  outcome is a split, per axis C.)
+
+**Survives.** Dyad work is language-mediated and reasoning-heavy; *relative to
+embodied/perceptual-motor domains* (surgery, tennis) it genuinely skews
+analytic. The analytic component is real and large, so building the analytic
+machinery **first** is well-prioritized, not wasted.
+
+**Refuted (the strong form — "analytic enough to scope the architecture to
+analytic").** Four grounds:
+- **Artifact ≠ skill.** The claim reads the analytic *outputs* of dyad work
+  (classifications, criteria, designs — all written, hence analytic-looking)
+  as the *skills* that produce them. But this dyad's ledger credits its
+  highest-leverage moves to **tacit** competence: *"flagging on instinct and
+  letting me falsify to the real locus"*, the *imprecise-pointer-that-hit-a-
+  real-bug*, the decision-first reframe's *"i've been missing the top-level
+  intent all along."* Timing, taste, and knowing-which-fork are not rule
+  applications.
+- **Frequency ≠ leverage.** "Most" counts skills by frequency; the telos is
+  *self-sustaining* mastery = **loop-ownership** (reflect → extract-lesson →
+  reuse). Owning that loop — noticing what to extract, calibrating trust,
+  sensing drift — is a substantially *tacit* meta-skill. The non-analytic
+  minority may be the telos-critical part.
+- **Selection bias (rep-1 denominator problem, reprised).** "Dyad work looks
+  analytic" is inferred from the *written* record, which over-represents
+  articulable work precisely because tacit skill resists articulation
+  (expertise-induced amnesia, rep 1). We are sampling the population of dyad
+  skills through a filter biased toward the analytic.
+- **The flagship is mixed.** Falsification itself — this curriculum's skill —
+  was re-typed *mixed* at r6; its most-praised instances in this dyad's record
+  are the *tacit* "smell" moves, not the rule-following ones.
+- **Secondary:** the interpretation *"operate with increasing mastery"* softly
+  under-reads the craft's terminal state (*self-sustaining* mastery,
+  coach-absent loop-ownership) — and the dropped word is exactly the tacit
+  meta-skill the main claim would exclude.
+
+- **Design impact (r7):** the architecture **stays skill-general** (r6
+  vindicated, not reverted). The Operator's valid intuition is rehomed as
+  **sequence, not scope**: analytic-first is a legitimate *ordering* of what to
+  build; it is not license to *bound* the architecture to analytic skills.
+  Sequence ⟂ scope — an axis-separation move.
+- **Source (internal):** `reflect/reflections.md` (CONTINUE/SH entries crediting
+  tacit moves) · `DYAD.md` §Craft (terminal state = loop-ownership).
