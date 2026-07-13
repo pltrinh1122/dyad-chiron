@@ -115,29 +115,58 @@ Run these five on any proposed delivery (this is the tool the Operator asked for
 5. **Assessment valid *and* honest?** Measures the objective; claims only what it
    earned (readiness vs mastery).
 
-## 7. Reframe — chiron's output is a pedagogy engine (Operator-elected, 2026-07-11)
+## 7. North-star — the dyad-primer (Operator-confirmed, 2026-07-11)
 
-> Operator: *"dyad-chiron's output is a pedagogy platform (or engine) that can be
-> leveraged by other dyad to aid in the efficient learning process of the operator."*
+Sense-closed after a four-point playback. chiron's output is a **pedagogy engine**;
+its deployed instance is a **dyad-primer** — an embedded pedagogy-execution
+capability in every dyad the Operator operates, after Stephenson's *Young Lady's
+Illustrated Primer*. This **elevates** the locked craft (`DYAD.md` §Craft): the
+object is not one curriculum but the engine that produces and delivers curricula,
+reusable across dyads for efficient operator-learning.
 
-An **elevation** of the locked craft (`DYAD.md` §Craft — *"developing
-practice-curriculum that carries a learner-dyad … to self-sustaining mastery"*):
-the object is not one curriculum but the **engine** that produces and delivers
-curricula, **reusable by other dyads** to make **their operator's learning
-efficient**. Implications:
-- **Retroactively coherent** with this session's outputs: we have been building
-  *generalizable machinery* (the LY×LV classification, the topic schema, the K/P
-  assessment architecture, the pre-req model) — platform components, not a single
-  curriculum. The reframe names why.
-- **Beneficiary sharpened:** the *operator-half* of other dyads; **"efficient"** =
-  the craft_telos (minimize learning-turns). Telos-consistent.
-- **Raises the efficacy bar:** a *platform* is proven by *many* dyads' efficient
-  operator-learning — a stronger coach-absent test than one curriculum's graduation.
-  Connects to external graduation (#11) and the Commons distribution model.
-- **Status — Operator-elected reframe, durable here; NOT yet written into the
-  anchor.** Elevating `DYAD.md` §Craft is an **identity act reserved to the
-  Operator** (DYAD.md operating-policy #5); a draft anchor edit is offered for
-  explicit ratification-by-merge rather than landed unilaterally.
+**Two intents (means-end):**
+- **(1) URGENT — the product.** Every dyad carries a **dyad-primer** that teaches
+  its *own operator* efficiently, class-of-one. A runtime capability, reusable
+  across dyads; building it may **delegate** to other dyads.
+- **(2) ENABLER — the Operator's pedagogy mastery.** To build the most efficient
+  primer, the Operator must understand pedagogy — and because (1) may be delegated,
+  (2) is the Operator's **anti-capitulation judge-floor** for it (the ratified
+  judge ⟂ author split, `dyad-operation-skillmap.md` §5): *judge the pedagogy,
+  delegate the runtime.*
+
+**Scope — wu-wei (Operator-directed): start simple; telos = full pedagogy autonomy.**
+- **v0 (now, ~free):** the dyad *already is* the delivery mechanism — the **Agent
+  generates the curriculum-script, the Operator reads and practices it**. No new
+  runtime. (This session is a proto-v0: Agent generates artifacts, Operator
+  falsifies.)
+- **v1:** wire the machinery already built — placement, K/P scoring, the assessment
+  architecture — so the Agent *tailors* to the learner (class-of-one).
+- **vN (telos):** full autonomous adaptive pedagogy — coach-absent, cost-per-job
+  falling under the dyad's own power.
+
+**Delivery model — shared, no 'ractor (Operator-directed).** The Primer needed a
+human **'ractor** (Miranda) to *perform* the AI-generated script to a *child*
+learner. Our dyad-primer drops the ractor: delivery is **shared between the two
+halves — the Agent generates the script, the Operator *reads* it** (instead of
+hearing it performed). This is sound precisely because our learner is a
+**self-directed adult** (Knowles' andragogy) who self-delivers — the ractor was a
+scaffold for a child, unnecessary here. Consequence: the dyad is **self-contained**
+(no third party), which makes the **coach-absent test cleaner** — chiron absent
+*and* no ractor.
+
+**Stream placement:** the dyad-primer is **`ws:harness`** (delivers/measures the
+learner's practice); it *consumes* `ws:curriculum` content (#61/#63/#64) and, at
+vN, delegated `ws:substrate` runtime. The Operator's pedagogy mastery (intent 2) is
+the curriculum-evaluation track (#62) + this reference. Board node: the first
+`ws:harness` node.
+
+**Efficacy bar (raised):** a *platform* is proven by *many* dyads' efficient
+operator-learning — a stronger coach-absent test than one curriculum's graduation;
+connects to external graduation (#11) and the Commons distribution model.
+
+**Anchor status:** elevating `DYAD.md` §Craft to the pedagogy-engine framing is an
+**identity act reserved to the Operator** (operating-policy #5) — still **offered,
+not landed**; the two-intent north-star now sharpens what that edit would say.
 
 ## 8. Sources (verified 2026-07-11)
 

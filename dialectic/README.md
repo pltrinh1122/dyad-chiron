@@ -11,7 +11,11 @@ is still contested; when the question **earns its answer** it moves to `reflect/
   aligned mental model, Operator-directed 2026-07-11): first-principles ontology
   (pedagogy · curriculum · didactics · assessment · constructive alignment), the
   alignment triangle, the dogfood mirror to our own terms, the delivery-vs-intent
-  evaluation lens, and the Operator's *pedagogy-engine* reframe of chiron's output.
+  evaluation lens, and the **dyad-primer north-star** (§7, Operator-confirmed
+  2026-07-11): the two-intent structure (the pedagogy-execution capability as urgent
+  product ⟂ the Operator's pedagogy mastery as its judge-floor), the wu-wei staged
+  scope (v0 Agent-generates/Operator-reads → vN full autonomy), and the shared,
+  ractor-free delivery model.
 
 
 - **`curriculum-topic-classification.md`** — the RATIFIED two-axis classification
