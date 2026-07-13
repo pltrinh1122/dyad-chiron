@@ -5,7 +5,14 @@ open questions held under stress-test. A record lives here only while its questi
 is still contested; when the question **earns its answer** it moves to `reflect/`
 (the settled Reflect output).
 
-**Ratified (co-located during curriculum incubation, not a contest):**
+**Reference / ratified (co-located during curriculum incubation, not a contest):**
+
+- **`pedagogy-foundations.md`** — the established-field pedagogy grounding (the
+  aligned mental model, Operator-directed 2026-07-11): first-principles ontology
+  (pedagogy · curriculum · didactics · assessment · constructive alignment), the
+  alignment triangle, the dogfood mirror to our own terms, the delivery-vs-intent
+  evaluation lens, and the Operator's *pedagogy-engine* reframe of chiron's output.
+
 
 - **`curriculum-topic-classification.md`** — the RATIFIED two-axis classification
   for curriculum topics: **LY** (layer) ⟂ **LV** (level). Canonical home
