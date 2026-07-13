@@ -138,7 +138,11 @@ reusable across dyads for efficient operator-learning.
 - **v0 (now, ~free):** the dyad *already is* the delivery mechanism — the **Agent
   generates the curriculum-script, the Operator reads and practices it**. No new
   runtime. (This session is a proto-v0: Agent generates artifacts, Operator
-  falsifies.)
+  falsifies.) **Dogfooding discipline (Operator-directed 2026-07-11): each
+  dogfooded learning session must include *formative* assessment** — in-flight
+  checks that correct the curriculum/delivery mid-session (Scriven/Bloom §3), not
+  only a terminal summative judgment. (This session's r1→r7 in-band corrections
+  are the pattern.) Build of the primer waits until several such sessions are run.
 - **v1:** wire the machinery already built — placement, K/P scoring, the assessment
   architecture — so the Agent *tailors* to the learner (class-of-one).
 - **vN (telos):** full autonomous adaptive pedagogy — coach-absent, cost-per-job
@@ -164,9 +168,9 @@ the curriculum-evaluation track (#62) + this reference. Board node: the first
 operator-learning — a stronger coach-absent test than one curriculum's graduation;
 connects to external graduation (#11) and the Commons distribution model.
 
-**Anchor status:** elevating `DYAD.md` §Craft to the pedagogy-engine framing is an
-**identity act reserved to the Operator** (operating-policy #5) — still **offered,
-not landed**; the two-intent north-star now sharpens what that edit would say.
+**Anchor status:** `DYAD.md` §Craft **elevated to the pedagogy-engine framing**
+(Operator-directed 2026-07-11) — landed on the branch; the **merge is the
+Operator's identity act** (operating-policy #5), which ratifies it.
 
 ## 8. Sources (verified 2026-07-11)
 
