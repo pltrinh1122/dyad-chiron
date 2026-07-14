@@ -52,6 +52,28 @@ is `dyad-operation-skillmap.md` §7 (this points, does not copy):
 - **The pre-req↔L1 seam for model-knowledge** — generic mechanism-literacy is
   pre-req; fit-falsification + our ratified model is L1.
 
+## 2a. Assessment-closure — validity constraint on the prereq-DAG (Operator-ratified 2026-07-11)
+
+A curriculum's topic DAG is **valid only if it is assessment-closed**: every topic's
+assessment is constructible using only *that topic + its ancestors*. Two clauses, from
+the Lesson-0 topic-ladder stress-test:
+- **(a) forward-knowledge-free** — the assessment requires no knowledge from a
+  *descendant* topic. Sub-skills are assessed in isolation by **supplying** the inputs
+  their descendants would generate (the *supply-the-input* rule; e.g. a verdict-discipline
+  item ships a pre-built probe+outcome so it needn't invoke probe-design).
+- **(b) point-in-time constructible** — the assessment is not intrinsically
+  *longitudinal*, nor a *P-behavior* observable only in live reps. Topics passing (a)
+  but failing (b) are valid yet **longitudinal/live-rep-instrumented** (e.g. calibration
+  measured over the R3 log), gated over time, not by an entry battery.
+
+A topic failing **(a)** is mis-ordered (a DAG error) or mis-scoped; a topic failing
+**(b)** needs a live-rep/longitudinal instrument, not an entry assessment. This is a
+mechanical validity check — **constructive alignment** (`pedagogy-foundations.md` §4)
+applied to the DAG: the assessment must align to the objective using only
+already-available knowledge. It constrains the **prereq-DAG-edges** schema field (§4-B).
+First applied: the falsification topic ladder (`falsification-curriculum.md` §4.0),
+which the lens re-ordered (T4 ∥ T5) and re-instrumented (T6, T7-calibration).
+
 ## 3. Applied grid (illustrative, not exhaustive)
 
 | Curriculum topic / skill | LV | LY |

@@ -175,6 +175,44 @@ Every step is a rep (the craft's fixed constraint) — no exposition lessons.
 Gates are thresholds + trends, all **elected, not yet worn**: they resize on
 first contact with real difficulty (the WIP-N precedent).
 
+### 4.0 Topic decomposition — the new-learner ladder (Operator-directed 2026-07-11, feasibility-tested)
+
+The F-modules below assumed an *advanced* learner (banking most of the path).
+For a **new learner**, the skill decomposes into an **assessment-closed** topic
+ladder of increasing difficulty, foundation-first; each topic is a lesson gated
+by a **prereq assessment** that shows the K-rubric and places the learner
+(**mastered → skip · new → learn · staled → refresh**, once history exists). A
+learner enters at T0 and **tests out** of any topic already held (the
+banking/no-waste intent, r1, realized as per-topic placement).
+
+| # | topic | prereqs | K/P | instrument |
+|---|---|---|---|---|
+| **T0** | Basic logic | — | K | entry battery |
+| **T1** | Falsifiability (testable vs vacuous; survival ≠ proof) | T0 | K | entry battery |
+| **T2** | Evidence & inference (correlation≠causation · confounds · base rates · bias) | T0 | K | entry battery |
+| **T3** | Verdict discipline (axis C) | T1 | K+P | entry battery — *supplies the probe+outcome* |
+| **T4** | Probe design (axis B) | T2, T3 | K+P | entry battery — *supplies the target claim* |
+| **T5** | Target selection (axis A) | T3 | K+P | entry battery |
+| **T6** | Self-application (axis D) | T3, T5 | P | live-rep (specimen for K-proxy) |
+| **T7** | Economy & calibration (axis E) | T4, T6 | P | economy: point-item · **calibration: longitudinal (R3 log)** |
+| **T8** | Integrative rep — *the former "Lesson 0"* | T5, T6, T7 | P | capstone performance |
+
+**Feasibility-test outcomes folded in** (assessment-closure — see
+`curriculum-topic-classification.md`):
+- **T4 ∥ T5 parallelized** — the lens found target selection (T5) assessable
+  without probe-design mastery (T4); A does not depend on B, so both descend
+  from T3 (like T1 ∥ T2). Corrects the F-path's B→A ordering.
+- **Supply-the-input rule** — T3/T4 are assessed in isolation by *providing* the
+  inputs their descendants generate (T3 gets a pre-built probe+outcome; T4 gets
+  the target claim); keeps them forward-knowledge-free.
+- **T6, T7-calibration are longitudinal / P-instruments** (consistent with r4:
+  E cannot be pre-tested; the instrument must run) — gated over the R3 log,
+  not at entry.
+
+The **F0–F5** modules below are retained as the *advanced learner's traversal*
+of this ladder: a learner who tests out of T0–T5 enters at the F-level; F0's
+placement *is* these per-topic prereq assessments, and F1–F5 map to T3–T8.
+
 - **F0 — standardized adaptive placement (r2; this session).**
   **Lesson 0** keeps three roles — the ratification review (third invariant,
   zero extra learning-turns), the first E-R2 distillation (rubric v0, node
