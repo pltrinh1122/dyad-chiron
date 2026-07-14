@@ -74,6 +74,15 @@ already-available knowledge. It constrains the **prereq-DAG-edges** schema field
 First applied: the falsification topic ladder (`falsification-curriculum.md` §4.0),
 which the lens re-ordered (T4 ∥ T5) and re-instrumented (T6, T7-calibration).
 
+**Companion — minimal-prereq (no superfluous edges; Operator raff 2026-07-11):** a
+topic requires only the prereqs it *consumes*; a prereq edge the topic's
+assessment/rep does not use is removed. This is the **dual** of closure — closure
+bars *missing* ancestors, minimal-prereq bars *unused* ones. Together they pin the DAG
+from both sides: every edge is necessary (minimal-prereq) and sufficient (closure).
+First applied: T0's basic-logic dimensions map per-topic (conditional → T1/T3;
+quantificational → T4/T5; validity-vs-soundness → T6 only) rather than gating the whole
+ladder (`falsification-curriculum.md` §4.0).
+
 ## 3. Applied grid (illustrative, not exhaustive)
 
 | Curriculum topic / skill | LV | LY |

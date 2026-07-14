@@ -208,6 +208,17 @@ banking/no-waste intent, r1, realized as per-topic placement).
 - **T6, T7-calibration are longitudinal / P-instruments** (consistent with r4:
   E cannot be pre-tested; the instrument must run) — gated over the R3 log,
   not at entry.
+- **T0 is not monolithic — logic prereqs map per-topic** (Operator raff,
+  2026-07-11): the basic-logic dimensions attach at different topics, so a topic
+  is gated only on the logic it *consumes* — **conditional logic** (modus
+  tollens · affirming-the-consequent) → T1/T3 (*refutation is modus tollens*;
+  *survival ≠ proof is not-affirming-the-consequent*) · **quantificational**
+  (contradictories · necessary/sufficient) → T4/T5 (a counterexample is the
+  claim's contradictory) · **validity vs soundness** → **T6 only** (falsifying a
+  *framing* = attacking an argument's soundness; unused by the T1–T5
+  empirical-claim core). All five are required across the *full* skill; none at a
+  gate that does not use it (minimal-prereq — `curriculum-topic-classification.md`
+  §2a).
 
 The **F0–F5** modules below are retained as the *advanced learner's traversal*
 of this ladder: a learner who tests out of T0–T5 enters at the F-level; F0's
