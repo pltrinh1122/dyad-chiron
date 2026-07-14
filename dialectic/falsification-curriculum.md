@@ -219,6 +219,18 @@ banking/no-waste intent, r1, realized as per-topic placement).
   empirical-claim core). All five are required across the *full* skill; none at a
   gate that does not use it (minimal-prereq — `curriculum-topic-classification.md`
   §2a).
+- **logic-101 (prereq) vs logic-201 (in-action) — ratified** (Operator,
+  2026-07-11): T0 tests **logic-101**, the basic forms (test-out). **logic-201**
+  is the *same forms applied at depth* — constructing a subtly-phrased claim's
+  contradictory · spotting a *disguised* affirming-the-consequent in a real
+  argument · the Duhem-Quine judgment (¬O refutes the claim-**plus-auxiliaries**
+  bundle; *which conjunct do you reject?*). logic-201 is **logic-in-action, not a
+  standalone topic** (Operator-ratified): it is developed *within* T3–T6 as each
+  axis consumes logic at the mastery edge. Consequence: placement out of T0 clears
+  **logic-101 only** — logic-201 is part of the falsification mastery itself, built
+  by climbing, not tested at entry. (K-records track the *slice*: `logic-101 =
+  mastered` ≠ `logic mastered`; staleness is per-slice.) The 101/201-as-LV-metric
+  and uniform-slicing branches stay open — not ratified here.
 
 The **F0–F5** modules below are retained as the *advanced learner's traversal*
 of this ladder: a learner who tests out of T0–T5 enters at the F-level; F0's
