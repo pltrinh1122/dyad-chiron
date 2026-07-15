@@ -104,7 +104,15 @@ not falsifiability; **(2) gameability** — every unfalsifiable item carried an 
 clause and every falsifiable one was bare, so a learner could pass by spotting the *surface
 cue* without doing the falsifiability judgment ("a probe that cannot fail"). Fix: vary
 surface features so the cue is useless (immunizing/sharpening qualifiers on *both* F and U
-claims); the only path to the answer is the intended reasoning. Distinct from closure (which
+claims); the only path to the answer is the intended reasoning. A **third** mode surfaced
+later the same day: **(3) multi-construct entanglement** — the crystal item ("heals illness,
+but only when the patient truly believes") tangled *necessary/sufficient* (T0 — does natural
+healing refute? only if the crystal is claimed *necessary*, but it's claimed *sufficient*),
+*immunization* (T1 — "truly believes" self-seals), and *confounds* (T2 — natural healing is
+an attribution problem, not a refutation). Tangling three topics, it sustained **three**
+defensible reads and measured none cleanly. **Diagnostic tell: high interpretation-variance
+across competent learners = low construct validity** — a good item does not need three turns
+of dispute. Retire such items (as with the ambiguous one). Distinct from closure (which
 governs *what knowledge* an item may require) — this governs *whether the item measures the
 skill at all*.
 
