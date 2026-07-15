@@ -96,6 +96,18 @@ items within one topic may deliberately span *modes* of the concept, e.g. unfals
 by unbounded-domain vs vacuity vs self-sealing; that is coverage within one dimension, not
 orthogonal *axes* — label which you are doing.)
 
+**Construct validity — an item must measure its intended construct (from two caught
+defects, 2026-07-11):** an item is invalid if the learner can answer it *without*
+exercising the target skill. Two failure modes seen live in the falsifiability-101 drill:
+**(1) ambiguity** — "temperature will rise by 2100" tested *reading* (year vs magnitude),
+not falsifiability; **(2) gameability** — every unfalsifiable item carried an immunizing
+clause and every falsifiable one was bare, so a learner could pass by spotting the *surface
+cue* without doing the falsifiability judgment ("a probe that cannot fail"). Fix: vary
+surface features so the cue is useless (immunizing/sharpening qualifiers on *both* F and U
+claims); the only path to the answer is the intended reasoning. Distinct from closure (which
+governs *what knowledge* an item may require) — this governs *whether the item measures the
+skill at all*.
+
 ## 3. Applied grid (illustrative, not exhaustive)
 
 | Curriculum topic / skill | LV | LY |

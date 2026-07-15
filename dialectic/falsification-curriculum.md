@@ -249,6 +249,17 @@ banking/no-waste intent, r1, realized as per-topic placement).
   falsifiability, evidence) are **thin -101 K-prereqs**; the curriculum's weight is
   the **-201 in-action** built across T3–T8 — the K⟂P split (r4) surfacing in the
   topic structure.
+- **falsifiability-201 content surfaced live (Operator rep, 2026-07-11):**
+  **falsifiability is a property of a claim's *content* (does any possible
+  observation refute it?), not its surface grammar.** Qualification cuts *both*
+  ways: **immunizing** (removes possible refutations → *less* falsifiable — "God
+  exists" by definition; "undetectable dragon" by clause) vs **sharpening** (adds
+  refutations → *more* falsifiable — "lowers BP by ≥5 mmHg in adults >60 within 4
+  weeks" forbids more, so more can refute it). "Simple vs qualified" is a surface
+  artifact; the operative variable is immunize-vs-sharpen. (Surfaced when the
+  Operator pattern-matched a gameable drill → generalized → falsified the
+  generalization with "God exists" → uncovered this structure — the full
+  falsification loop, self-driven; P-evidence.)
 
 The **F0–F5** modules below are retained as the *advanced learner's traversal*
 of this ladder: a learner who tests out of T0–T5 enters at the F-level; F0's
