@@ -116,6 +116,40 @@ of dispute. Retire such items (as with the ambiguous one). Distinct from closure
 governs *what knowledge* an item may require) — this governs *whether the item measures the
 skill at all*.
 
+## 2b. Invariants for generating a level-N assessment item (Agent-elected, grounded — pending Operator ratification)
+
+Consolidated from the defects caught live in the falsifiability-101 drill (§2a) — each
+traces to a caught instance (earnedness, not decree). Applies to any level-N topic, not
+just 101. A candidate *item* must satisfy every item-level invariant; a candidate *set* the
+set-level one.
+
+**Item-level (per question):**
+1. **Single-construct** — tests exactly one topic's content. *(The crystal item tangled T0
+   necessary/sufficient + T1 immunization + T2 confound → three defensible reads.)* Check:
+   does any competent read give a *different answer via a different topic's lens*?
+2. **Single-level** — answerable with only level-N content; requires no descendant (N+1)
+   subtlety. *(2b's unbounded-existential; item 4's disguised immunizer — 201 in a 101 gate.)*
+   Check: does the correct call need a subtle/disguised case?
+3. **Unambiguous** — the material has one reasonable parse; tests the construct, not reading.
+   *(2e's "by 2100" — year vs magnitude.)*
+4. **Differential** — requires the topic's *new-over-ancestor* content, not only inherited
+   ancestor content. *(a/c re-tested logic-101, not falsifiability-101.)* Check: answerable
+   using only ancestor content → it tests the *prereq*, not the topic.
+5. **Objective key** — determinate answer under the single intended reading, checkable against
+   a standard (mechanical scoring, no coach judgment). *(r2 — no conferral.)*
+
+**Set-level (per assessment):**
+6. **Mode-covered & cue-decorrelated** — the set spans the construct's *modes*, and **no
+   surface feature predicts the answer** (non-gameable). *(Round 1 was gameable [qualification
+   → U]; Round 2 fixed it by placing immunizing/sharpening qualifiers *and* tone on both F and
+   U claims.)*
+
+**Empirical validity check — the dispute-tell:** if competent learners sustain *divergent
+defensible* reads across multiple turns, the item is invalid (entangled or ambiguous) —
+**retire it, don't argue.** *(The three-turn crystal-item dispute.)*
+
+Status: **Agent-elected from lived defects; pending Operator ratification/refinement.**
+
 ## 3. Applied grid (illustrative, not exhaustive)
 
 | Curriculum topic / skill | LV | LY |
