@@ -326,10 +326,20 @@ without moving a metric is a defect in the curriculum, not in the learner.
 Every skill axis (A–E) carries a **(K, P) score pair**, tracked separately —
 a 5×2 scorecard, never collapsed to a scalar:
 
-- **K — knowledge mastery.** Earned *only* by standardized assessment (the
-  sealed-key batteries): controlled difficulty, fixed ground truth, full
-  denominators. K can be fully earned inside the curriculum — assessment is
-  its complete instrument.
+- **K — knowledge, scored as *fluency* (Operator raff, 2026-07-11 — replaces
+  "mastery").** Earned *only* by standardized assessment (the sealed-key
+  batteries): controlled difficulty, fixed ground truth, full denominators. **K
+  is not binary correct/mastered — it is graded on a fluency scale:** *new*
+  (incorrect) → *correct-but-effortful* (Fitts-Posner **associative** stage;
+  high cognitive load) → *fluent* (**autonomous** stage; automatic, low load).
+  "Mastery" conflated correct with automatic; **fluency is the metric** — only
+  the fluent level is mastery. **Signal:** capture *effort/latency* (re-reads,
+  self-rated load), not just right/wrong — it reads the fluency stage. **Why it
+  matters (cognitive-load theory, Sweller):** a non-fluent prereq *steals working
+  memory* during the downstream skill, so **test-out requires fluency, not mere
+  correctness** — correct-but-effortful routes to a **refresher** (deliberate
+  reps → automaticity), the *same route as `staled`* (fluency decayed). Fluency
+  is per-slice (`falsifiability-101 = correct-not-fluent` ≠ mastered).
 - **P — practice mastery.** Earned *only* by **reps without coaching**: the
   R3 live log during real (non-curriculum) work, self-initiated retro-reps,
   and the coach-absent windows. A coached rep never moves P, however well it
