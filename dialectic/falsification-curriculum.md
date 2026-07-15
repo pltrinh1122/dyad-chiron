@@ -231,6 +231,24 @@ banking/no-waste intent, r1, realized as per-topic placement).
   by climbing, not tested at entry. (K-records track the *slice*: `logic-101 =
   mastered` ≠ `logic mastered`; staleness is per-slice.) The 101/201-as-LV-metric
   and uniform-slicing branches stay open — not ratified here.
+- **falsifiability-101 (prereq) vs falsifiability-201 (in-action)**
+  (Operator-directed, 2026-07-11 — same necessity-for-falsification evaluation
+  applied to T1): **falsifiability-101** (the K-prereq; **T1 *is* its assessment**)
+  = the *concept* (falsifiable ⟺ some observation could refute) · the
+  falsifiable/unfalsifiable distinction at definition level · *survival ≠ proof* ·
+  the refute-not-verify *asymmetry*. **Finding:** survival≠proof and the asymmetry
+  **derive from logic-101** (affirming-the-consequent + modus tollens on empirical
+  claims), so falsifiability-101's genuinely *new* content is thin — the concept
+  itself + recognizing that unfalsifiable claims exist. **falsifiability-201
+  (in-action, distributed)** = discriminating testability in *messy real* claims
+  (T3) · sharpening a not-testable-as-stated claim into a testable one (T3/T4) ·
+  boldness/degrees (T5) · auxiliary-hypothesis / Duhem-Quine handling (T6–T8). So
+  **T1 is the assessment of the falsifiability-101 prereq condition** (parallel to
+  T0 = logic-101), not a standalone lesson.
+- **Emerging shape (observation, not ratified):** the foundation topics (logic,
+  falsifiability, evidence) are **thin -101 K-prereqs**; the curriculum's weight is
+  the **-201 in-action** built across T3–T8 — the K⟂P split (r4) surfacing in the
+  topic structure.
 
 The **F0–F5** modules below are retained as the *advanced learner's traversal*
 of this ladder: a learner who tests out of T0–T5 enters at the F-level; F0's
