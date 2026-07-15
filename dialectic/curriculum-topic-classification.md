@@ -83,6 +83,19 @@ First applied: T0's basic-logic dimensions map per-topic (conditional → T1/T3;
 quantificational → T4/T5; validity-vs-soundness → T6 only) rather than gating the whole
 ladder (`falsification-curriculum.md` §4.0).
 
+**Slice-level closure (from a caught violation, Operator, 2026-07-11):** closure applies
+at the **-101/-201 slice grain**, not just topic grain — a **-101 prereq assessment must
+test only -101 content** (the concept + *unambiguous* discrimination). Importing -201
+subtleties makes the entry gate require the mastery-level knowledge it is meant to
+*precede* — a closure violation one level down. Caught live: the T1 falsifiability-101
+assessment bled falsifiability-201 — item 2b (an **unbounded-existential** discrimination)
+and the **sharpening** move item 2c pulled ("scope 'reason' to 'causal reason'") are
+201-in-action, not 101. Fix: a -101 assessment = concept + clear-cut cases; hold subtle
+modes and any *sharpening* for -201. (Companion caution — **mode-coverage ≠ orthogonality**:
+items within one topic may deliberately span *modes* of the concept, e.g. unfalsifiability
+by unbounded-domain vs vacuity vs self-sealing; that is coverage within one dimension, not
+orthogonal *axes* — label which you are doing.)
+
 ## 3. Applied grid (illustrative, not exhaustive)
 
 | Curriculum topic / skill | LV | LY |
