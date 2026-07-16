@@ -339,18 +339,32 @@ a 5×2 scorecard, never collapsed to a scalar:
 
 - **K — knowledge, scored as *fluency* (Operator raff, 2026-07-11 — replaces
   "mastery").** Earned *only* by standardized assessment (the sealed-key
-  batteries): controlled difficulty, fixed ground truth, full denominators. **K
-  is not binary correct/mastered — it is graded on a fluency scale:** *new*
-  (incorrect) → *correct-but-effortful* (Fitts-Posner **associative** stage;
-  high cognitive load) → *fluent* (**autonomous** stage; automatic, low load).
-  "Mastery" conflated correct with automatic; **fluency is the metric** — only
-  the fluent level is mastery. **Signal:** capture *effort/latency* (re-reads,
-  self-rated load), not just right/wrong — it reads the fluency stage. **Why it
-  matters (cognitive-load theory, Sweller):** a non-fluent prereq *steals working
-  memory* during the downstream skill, so **test-out requires fluency, not mere
-  correctness** — correct-but-effortful routes to a **refresher** (deliberate
-  reps → automaticity), the *same route as `staled`* (fluency decayed). Fluency
-  is per-slice (`falsifiability-101 = correct-not-fluent` ≠ mastered).
+  batteries): controlled difficulty, fixed ground truth, full denominators. **K is graded on the proficiency continuum** (Operator-established
+  2026-07-11): **not-passing → passing → partially-fluent → fluent.**
+  - **not-passing** — cannot generate the correct answer-with-reasoning
+    *unprompted* (below the gate). Diagnostic sub-states: *absent* ·
+    *recognition-only* (recognizes the answer once shown but cannot generate it —
+    routes a targeted refresher; **never counts toward the pass**, per the
+    partial-credit ruling: recognition ≠ the generative construct).
+  - **passing** — generates correct-with-reasoning unprompted, but *effortfully*
+    (Fitts-Posner **associative**; high load). **Clears the gate.**
+  - **partially-fluent** — correct with *reducing* effort (partial automaticity).
+  - **fluent** — correct and *automatic* (**autonomous**; low load).
+
+  **The gate is binary and sits at `passing`: generative correctness is
+  *required*; fluency is *optional*** (Operator-ratified, §2b-7 — supersedes the
+  earlier "test-out requires fluency"). Above the gate, fluency is a graded,
+  *non-gating* climb, read from **effort/latency** (snap vs deliberated), not
+  right/wrong. **Why pursue it anyway (cognitive-load theory, Sweller):** a
+  non-fluent prereq *steals working memory* downstream — so `passing`-but-not-fluent
+  is *offered* (not forced) a **refresher** (deliberate/spaced reps → automaticity),
+  the same route as `staled` (decayed) and `recognition-only`. Per-slice
+  (`logic-101 = fluent`; `falsifiability-101 = passing`).
+  **Learner-visible (Operator, 2026-07-11):** the learner's *position* on this
+  continuum, per slice, is **shown to them** — self-location grounds and motivates
+  (self-efficacy; andragogy's need to know where one stands). Progress visibility
+  is a motivational instrument, not just a score — the observation channel
+  (`DYAD.md` #4) turned on the learner's own proficiency.
 - **P — practice mastery.** Earned *only* by **reps without coaching**: the
   R3 live log during real (non-curriculum) work, self-initiated retro-reps,
   and the coach-absent windows. A coached rep never moves P, however well it
