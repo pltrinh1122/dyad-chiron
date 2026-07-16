@@ -261,6 +261,13 @@ banking/no-waste intent, r1, realized as per-topic placement).
   **evidence-101 is thick** (new empirical content). Thinness = how much a -101 slice
   *derives from its ancestors*; it varies per topic. The constant holds: the
   curriculum's *weight* is the **-201 in-action** across T3–T8 (the K⟂P split, r4).
+- **101/201 characterization — Operator-ratified (2026-07-11): 101 establishes
+  the *floor* and *foundational posture*; 201 assists the *continuing climb*.**
+  101 = the recognition floor **plus the stance/readiness to operate** (not merely
+  knowledge — "posture" ⊇ recognition + the dispositional prereqs, `dyad-operation-
+  skillmap.md` §3-II / the G0 P-prereqs). 201 = the generative, in-action mastery
+  built continuously (probe design · confound-generation · target selection — the
+  abductive-generation family). The gate sits at the floor; the climb is unbounded.
 - **falsifiability-201 content surfaced live (Operator rep, 2026-07-11):**
   **falsifiability is a property of a claim's *content* (does any possible
   observation refute it?), not its surface grammar.** Qualification cuts *both*
