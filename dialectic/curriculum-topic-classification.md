@@ -148,7 +148,17 @@ set-level one.
 defensible* reads across multiple turns, the item is invalid (entangled or ambiguous) —
 **retire it, don't argue.** *(The three-turn crystal-item dispute.)*
 
-Status: **Agent-elected from lived defects; pending Operator ratification/refinement.**
+**Pass-threshold & adjudication (Operator-ratified 2026-07-11):**
+7. **Pass = 3/3 correct-with-reasoning.** A prereq/level-N topic is passed only at
+   **all-correct** on a 3-item assessment (or 3 spaced rounds). **Correctness is required;
+   fluency is optional** (tracked, non-gating — a correct-but-effortful learner passes but is
+   offered a refresher). The AI coach adjudicates each free-response answer against a **standard
+   answer key** (fixed questions + reference responses), which keeps scoring objective (satisfies
+   invariant 5) and defeats guessing (the *reason* is graded, not just the label). *Grounded:
+   3 binary label-only items give a 50% guess-pass — reasoning-graded 3/3 removes it.*
+
+Status: invariants 1–6 **Agent-elected** from lived defects (pending explicit ratification);
+invariant 7 (pass-threshold & standard-key adjudication) **Operator-ratified 2026-07-11**.
 
 ## 3. Applied grid (illustrative, not exhaustive)
 

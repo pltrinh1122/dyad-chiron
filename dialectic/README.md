@@ -23,6 +23,10 @@ is still contested; when the question **earns its answer** it moves to `reflect/
   (Operator-ratified 2026-07-11); the curriculum artifacts apply it. Migrates to the
   curriculum home when that home is created.
 
+- **`falsification-assessment-bank.md`** (opened 2026-07-11) — the fixed question bank +
+  standard answer keys for the AI coach to grade (T0 logic-101, T1 falsifiability-101 so far);
+  every item conforms to the §2b generation invariants; pass = 3/3 correct-with-reasoning.
+
 **Live contests:**
 
 - **`dyad-operation-skillmap.md`** (opened 2026-07-11) — the skill-map for
