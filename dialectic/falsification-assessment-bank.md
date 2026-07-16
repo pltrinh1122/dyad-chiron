@@ -84,6 +84,32 @@ condition). *(simple, U — decorrelates "simple→F")*
 not."* — F or U?
 — **Key:** **F** — a measurable comparison; finding no difference refutes it. *(empirical, F)*
 
+## T2 — evidence-101 (pool; draw 3, pass = 3/3)
+
+Cue-decorrelated (invariant 6): answers are *not* uniformly "flawed" — at least one item
+per assessment is a *sound* inference, so "always spot a flaw" fails. Each key names the
+**operative reason** (the specific evidence concept), which the coach must see in the answer —
+not just the sound/unsound call.
+
+**E-a.** "Ice-cream sales and drownings rise and fall together, so ice cream causes drowning."
+— sound? — **Key:** **Not sound — confound** (a common cause, *hot weather*, raises both).
+The operative reason is the *lurking third variable*, not merely "correlation isn't causation."
+
+**E-b.** "In a *randomized* trial the drug group recovered more than the placebo group, so the
+drug works." — sound? — **Key:** **Sound (reasonably)** — randomization assigns groups
+*impartially*, controlling confounds, so the comparison supports causation. *(the one non-flawed
+item — decorrelates "always flawed")*
+
+**E-c.** "A poll taken *at a gym* finds most respondents exercise daily, so most people exercise
+daily." — sound? — **Key:** **Not sound — selection bias** (the sample self-selected on the very
+trait measured; it is not representative). *(Distinguish from survivor bias — a subtype about
+surviving a filter, e.g. only analyzing planes that returned.)*
+
+**E-d.** "Countries that eat more chocolate win more Nobel Prizes, so chocolate boosts
+intelligence." — sound? — **Key:** **Not sound — confound** (national *wealth* raises both
+chocolate consumption and science funding). *(fresh confound item for re-assessment after E-a is
+seen)*
+
 ---
 
 ## Grading protocol (for the AI coach)

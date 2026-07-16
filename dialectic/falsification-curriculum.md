@@ -245,10 +245,22 @@ banking/no-waste intent, r1, realized as per-topic placement).
   boldness/degrees (T5) · auxiliary-hypothesis / Duhem-Quine handling (T6–T8). So
   **T1 is the assessment of the falsifiability-101 prereq condition** (parallel to
   T0 = logic-101), not a standalone lesson.
-- **Emerging shape (observation, not ratified):** the foundation topics (logic,
-  falsifiability, evidence) are **thin -101 K-prereqs**; the curriculum's weight is
-  the **-201 in-action** built across T3–T8 — the K⟂P split (r4) surfacing in the
-  topic structure.
+- **evidence-101 (prereq) vs evidence-201 (in-action)** (Operator-directed T2,
+  2026-07-11): **evidence-101** (the K-prereq; **T2 assesses it**) = the *concepts*
+  at recognition level — correlation ≠ causation · what a **confound** is · that
+  **controlled comparison** (not co-occurrence) establishes causation · base rate ·
+  selection bias. **Unlike falsifiability-101, evidence-101 is *thick*:** confounds,
+  base rates, and sampling are genuinely-new *empirical* content, **not** derivable
+  from logic-101 (only correlation≠causation partly echoes affirming-the-consequent).
+  **evidence-201 (in-action, distributed)** = *designing* a confound-controlling
+  probe (T4) · judging evidence *quality* for a specific claim (T3–T5) · identifying
+  the actual confounds in a messy real case — **where the crystal's "natural healing"
+  problem always belonged** (a confound/attribution issue, not falsifiability).
+- **Emerging shape, amended (2026-07-11):** foundation-topic -101 slices are **not
+  uniformly thin** — falsifiability-101 was thin (mostly logic-101 specialized), but
+  **evidence-101 is thick** (new empirical content). Thinness = how much a -101 slice
+  *derives from its ancestors*; it varies per topic. The constant holds: the
+  curriculum's *weight* is the **-201 in-action** across T3–T8 (the K⟂P split, r4).
 - **falsifiability-201 content surfaced live (Operator rep, 2026-07-11):**
   **falsifiability is a property of a claim's *content* (does any possible
   observation refute it?), not its surface grammar.** Qualification cuts *both*
