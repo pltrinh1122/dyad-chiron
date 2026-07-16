@@ -160,6 +160,18 @@ defensible* reads across multiple turns, the item is invalid (entangled or ambig
 Status: invariants 1–6 **Agent-elected** from lived defects (pending explicit ratification);
 invariant 7 (pass-threshold & standard-key adjudication) **Operator-ratified 2026-07-11**.
 
+**Materialization (which invariants are ENFORCED vs human-audit).** Prose is level 1; an
+executable `criteria/*.sh` that fails `./check` is level 3. `criteria/curriculum-lint.sh`
+mechanizes the *checkable* invariants on `falsification-assessment-bank.md`: **7** (grading
+declares pass = 3/3 against a standard key), **5** (every topic pool carries ≥3 keyed items),
+**6** (binary topics are not answer-uniform — T1 has both F and U, T2 both Sound and
+Not-sound), and **retired-defect absence** (2e "rise by 2100", the entangled crystal item stay
+out of the active pool). The **judgment-bound** invariants — **1** single-construct, **2**
+single-level, **3** unambiguous, **4** differential — cannot be mechanized; the lint *names*
+them at the end (not silently drops them) and they remain human-audit. A green lint is
+**necessary, never sufficient** (no-self-ratify): it catches regressions, it does not confer
+construct-validity.
+
 ## 3. Applied grid (illustrative, not exhaustive)
 
 | Curriculum topic / skill | LV | LY |
