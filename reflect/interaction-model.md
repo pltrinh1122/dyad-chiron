@@ -234,8 +234,9 @@ below are a *distinct* category — see group C — not macros of this kind.)
      (WIP committed/pushed, nothing orphaned) · **anchor-currency** (DYAD.md not
      drifted from what's loaded) · **`./check`** (acceptance criteria green).
   4. **Read the live state** — the board (`bin/ws` / `ws attend`) + the
-     **resume-pointer** + the **last reflection's banked STARTs**
-     (`reflect/reflections.md`).
+     **resume-pointer** + the **last reflection's banked STARTs** (the newest
+     dated file in `reflect/reflections/`, or the frozen `reflect/reflections.md`
+     archive for sessions through 2026-07-16).
   5. **Seed the goal-frame** — from the `{payload}` on the `d-start:` directive.
   6. **Propose an NBA** — a Next-Best-Action the **Operator's confirmation closes**
      (nothing downstream starts before that closure — intent-before-action).
@@ -259,14 +260,27 @@ below are a *distinct* category — see group C — not macros of this kind.)
 
 ### B. Session disciplines
 
-- **d-reflect** — the **Session-Close Discipline**. Its home is
-  **[`reflect/reflections.md`](./reflections.md)** — CSS + SH, including the
-  2026-07-09 **evidence-bar + no-miss default** (a Should-Have must clear a
-  verbatim-quote-AND-concrete-cost bar; "no miss this session" is a first-class
-  expected default). *Point, don't copy:* the discipline lives there; this is the
-  vocabulary entry that points to it. **Settled scope (Operator-ratified
-  2026-07-09):** **session-wide by default**; `d-reflect: #N` = reflect on that
-  node's arc specifically.
+- **d-reflect** — the **Session-Close Discipline**. Its home is the
+  **[`reflect/reflections/`](./reflections/)** directory — each session banks its
+  reflection as its **own dated file** `reflect/reflections/<date>-<slug>.md` (one
+  file per session-thread; the **directory listing IS the index** — no stored index
+  artifact, and a generated `bin/ws reflections` render is **deferred** until
+  browsing friction). New reflections **never tail-append a shared file**, so
+  parallel threads never collide on reflections. The reflection **format** — CSS +
+  SH, including the 2026-07-09 **evidence-bar + no-miss default** (a Should-Have
+  must clear a verbatim-quote-AND-concrete-cost bar; "no miss this session" is a
+  first-class expected default) — is single-homed in the archive header and
+  described by **[`reflect/reflections/README.md`](./reflections/README.md)**.
+  *Point, don't copy:* the discipline lives there; this is the vocabulary entry that
+  points to it. **Settled scope (Operator-ratified 2026-07-09):**
+  **session-wide by default**; `d-reflect: #N` = reflect on that node's arc
+  specifically.
+  - **Frozen archive (#67, Operator-directed 2026-07-16).** The prior monolith
+    **[`reflect/reflections.md`](./reflections.md)** stands **frozen** as the archive
+    of sessions **2026-07-07 … 2026-07-16** — it receives **no further appends** and
+    its sections are **not** migrated. Freezing (not migrating) dissolves the
+    transition cost: the shared tail-append region was the *only* cross-thread
+    conflict surface, and new-files-only removes it with no cutover window.
 
 ### C. Mode-prefixes
 
