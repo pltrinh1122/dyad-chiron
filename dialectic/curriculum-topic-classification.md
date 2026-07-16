@@ -154,8 +154,14 @@ defensible* reads across multiple turns, the item is invalid (entangled or ambig
    fluency is optional** (tracked, non-gating — a correct-but-effortful learner passes but is
    offered a refresher). The AI coach adjudicates each free-response answer against a **standard
    answer key** (fixed questions + reference responses), which keeps scoring objective (satisfies
-   invariant 5) and defeats guessing (the *reason* is graded, not just the label). *Grounded:
-   3 binary label-only items give a 50% guess-pass — reasoning-graded 3/3 removes it.*
+   invariant 5) and defeats guessing (the *reason* is graded, not just the label). *Grounded
+   (refined 2026-07-16, `pedagogy-foundations.md` §8.5):* the guard is the **reasoning-requirement
+   itself**, not the item-count. `0.5^n` guards only the *zero-knowledge* guesser — who fails the
+   gate anyway; the real threat is the **near-master with a k-item gap**, who passes an all-correct
+   *label-only* gate at `0.5^k` (**50% at a one-item gap** — a coin flip at the very margin the gate
+   must discriminate). Reason-grading — not item-count — collapses that: you cannot coin-flip the
+   *operative reason* on your blind spot. Any fallback to **label-only** items thus needs a companion
+   guard (attempt-limit / N spaced rounds).
 
 Status: invariants 1–6 **Agent-elected** from lived defects (pending explicit ratification);
 invariant 7 (pass-threshold & standard-key adjudication) **Operator-ratified 2026-07-11**.

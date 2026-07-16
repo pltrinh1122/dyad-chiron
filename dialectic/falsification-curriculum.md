@@ -372,7 +372,11 @@ a 5×2 scorecard, never collapsed to a scalar:
 
   **The gate is binary and sits at `passing`: generative correctness is
   *required*; fluency is *optional*** (Operator-ratified, §2b-7 — supersedes the
-  earlier "test-out requires fluency"). Above the gate, fluency is a graded,
+  earlier "test-out requires fluency"). *(Engine-general architecture — the single
+  hard-gate, the `assessor`⟂`preceptor` (summative⟂formative) role split, fluency as
+  pure learner-disposition signal, the 3-band fluency scale that de-conflates this
+  4-state continuum's gate from its fluency, concurrent grading, and the 100/200
+  course-series: `pedagogy-foundations.md` §8, ratified 2026-07-16.)* Above the gate, fluency is a graded,
   *non-gating* climb, read from **effort/latency** (snap vs deliberated), not
   right/wrong. **Why pursue it anyway (cognitive-load theory, Sweller):** a
   non-fluent prereq *steals working memory* downstream — so `passing`-but-not-fluent
