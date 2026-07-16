@@ -178,14 +178,16 @@ operating-policy invariant (intent-alignment before action):
   `reflect/`; breaches forge invariants (see
   `reflect/intent-before-action.md`).
 
-## Directive vocabulary: d-sense · d-land · d-start · d-reflect · riff/raff (lifecycle #16, 2026-07-07; completed #31, 2026-07-09)
+## Directive vocabulary: d-sense · d-land · d-start · d-reflect · riff/raff · todo/idea (lifecycle #16, 2026-07-07; completed #31, 2026-07-09; capture directives #60, 2026-07-16)
 
 The vocabulary is **axis-separated within the section** (#21, *codified there*):
-three co-located but non-conflated groups — **lifecycle macros** (act on a node's
+four co-located but non-conflated groups — **lifecycle macros** (act on a node's
 life: sense · land · the session frame) ⟂ **session disciplines** (the open/close
 retro rituals) ⟂ **mode-prefixes** (set the *discussion mode*, not a lifecycle
-action). Co-located so the whole vocabulary reads in one place; separated so the
-categories don't get conflated into one flat list.
+action) ⟂ **capture directives** (fast intake — fire a new node mid-workflow
+without paying a Sense's interrupting turns). Co-located so the whole vocabulary
+reads in one place; separated so the categories don't get conflated into one flat
+list.
 
 **Audit note (fork 2, resolved):** `d-start` · `d-sense` · `d-land` are directive
 **macros composed from the primitives** (direct + ratify), **not new primitives** —
@@ -232,8 +234,9 @@ below are a *distinct* category — see group C — not macros of this kind.)
      (WIP committed/pushed, nothing orphaned) · **anchor-currency** (DYAD.md not
      drifted from what's loaded) · **`./check`** (acceptance criteria green).
   4. **Read the live state** — the board (`bin/ws` / `ws attend`) + the
-     **resume-pointer** + the **last reflection's banked STARTs**
-     (`reflect/reflections.md`).
+     **resume-pointer** + the **last reflection's banked STARTs** (the newest
+     dated file in `reflect/reflections/`, or the frozen `reflect/reflections.md`
+     archive for sessions through 2026-07-16).
   5. **Seed the goal-frame** — from the `{payload}` on the `d-start:` directive.
   6. **Propose an NBA** — a Next-Best-Action the **Operator's confirmation closes**
      (nothing downstream starts before that closure — intent-before-action).
@@ -257,14 +260,27 @@ below are a *distinct* category — see group C — not macros of this kind.)
 
 ### B. Session disciplines
 
-- **d-reflect** — the **Session-Close Discipline**. Its home is
-  **[`reflect/reflections.md`](./reflections.md)** — CSS + SH, including the
-  2026-07-09 **evidence-bar + no-miss default** (a Should-Have must clear a
-  verbatim-quote-AND-concrete-cost bar; "no miss this session" is a first-class
-  expected default). *Point, don't copy:* the discipline lives there; this is the
-  vocabulary entry that points to it. **Settled scope (Operator-ratified
-  2026-07-09):** **session-wide by default**; `d-reflect: #N` = reflect on that
-  node's arc specifically.
+- **d-reflect** — the **Session-Close Discipline**. Its home is the
+  **[`reflect/reflections/`](./reflections/)** directory — each session banks its
+  reflection as its **own dated file** `reflect/reflections/<date>-<slug>.md` (one
+  file per session-thread; the **directory listing IS the index** — no stored index
+  artifact, and a generated `bin/ws reflections` render is **deferred** until
+  browsing friction). New reflections **never tail-append a shared file**, so
+  parallel threads never collide on reflections. The reflection **format** — CSS +
+  SH, including the 2026-07-09 **evidence-bar + no-miss default** (a Should-Have
+  must clear a verbatim-quote-AND-concrete-cost bar; "no miss this session" is a
+  first-class expected default) — is single-homed in the archive header and
+  described by **[`reflect/reflections/README.md`](./reflections/README.md)**.
+  *Point, don't copy:* the discipline lives there; this is the vocabulary entry that
+  points to it. **Settled scope (Operator-ratified 2026-07-09):**
+  **session-wide by default**; `d-reflect: #N` = reflect on that node's arc
+  specifically.
+  - **Frozen archive (#67, Operator-directed 2026-07-16).** The prior monolith
+    **[`reflect/reflections.md`](./reflections.md)** stands **frozen** as the archive
+    of sessions **2026-07-07 … 2026-07-16** — it receives **no further appends** and
+    its sections are **not** migrated. Freezing (not migrating) dissolves the
+    transition cost: the shared tail-append region was the *only* cross-thread
+    conflict surface, and new-files-only removes it with no cutover window.
 
 ### C. Mode-prefixes
 
@@ -278,6 +294,64 @@ composed from direct + ratify. (Operator-coined + ratified 2026-07-09.)
 - **`raff:`** — **converge**: steer toward convergence, recommend, and drive to a
   pick/decision (crisp forks are fine here). Naming the mode prevents both failure
   modes — premature convergence killing a riff, endless divergence wasting a raff.
+
+### D. Capture directives
+
+A **distinct category** — *fast intake*. These do **not** act on an existing
+node's life (group A), are **not** an open/close ritual (group B), and are **not** a
+discussion mode (group C): they **create** a node from an Operator payload fired
+mid-workflow, without paying the interrupting turns of a Sense. (Operator-directed
+2026-07-10, d-start; the two forks — *one directive* · *new 4th vocabulary
+category* — were ruled in this session's chat-based d-sense, node #60.)
+
+- **`todo:` / `idea:`** — **one directive** (`idea:` is an **alias**, not a second
+  directive). On `todo: {payload}` (or `idea: {payload}`) the main agent **offloads
+  the payload to a sub-agent and immediately continues** its current work; the
+  sub-agent nodifies the payload as a `ws:<stream>, status:clarify` node and
+  **stops there**. The idea↔todo distinction is **not** modeled by two directives —
+  it **rides the guessed `ws:<stream>` label**, settled later by a d-sense when the
+  node is pulled off the queue.
+
+  **Non-interruption contract.** On `todo:`/`idea:`, the main agent dispatches the
+  capture sub-agent and continues; **the Operator pays zero interrupting turns**.
+  This is the **non-interruption** guarantee of #20's four orthogonal guarantees
+  (integrity · liveness · observability · non-interruption — see §*Resilient
+  headless execution*; *pointed, not copied*), applied **inbound**: Operator-capture
+  is the inbound analog of #20's sub-agent-side carve-out (which is outbound).
+
+  **Capture ⟂ falsify invariant.** The capture sub-agent seeds a `status:clarify`
+  node from the payload and **STOPS at clarify** — it does **not** run a d-sense,
+  does **not** converge, does **not** self-ratify (`no-self-ratify`; DYAD.md #5's
+  third invariant — **new nodes enter clarify**). The falsification is a **later
+  d-sense**, run when the node is pulled off the queue. Capture is the *fast
+  intake*, **NOT** a d-sense — the two are separate acts on separate axes.
+
+  **Sub-agent capture brief (single home).** Mirrors the #20 dispatch-brief
+  template (§*Resilient headless execution*); single-homed here, reused when firing
+  a `todo:`/`idea:` capture:
+
+  > You are a **capture sub-agent** of dyad-chiron. Your entire commission is to
+  > nodify one Operator payload fired mid-workflow (`todo:`/`idea: {payload}`) and
+  > **STOP** — you do **NOT** run a d-sense, do **NOT** converge, do **NOT**
+  > self-ratify.
+  >
+  > - Create the node with `bin/gh issue create` (the carve-out pattern), labelled
+  >   `ws:<stream>,status:clarify`.
+  > - **Intent:** a **stub** written from the `{payload}` — the Operator's words as
+  >   the seed intent, **not** elaborated into a converged Sense.
+  > - **`ws:<stream>`:** your **best guess** from the payload (the idea↔todo split
+  >   rides this label; a later d-sense settles it). Domain model:
+  >   `reflect/ws-domain-classification.md`.
+  > - **Context:** `captured mid-workflow, {date}`.
+  > - **Leave the node in `status:clarify`; do not converge**, do not d-land. A
+  >   later d-sense falsifies it when it is pulled off the queue (capture ⟂ falsify).
+  > - Report the created node's link and **STOP**.
+
+  **Mechanism (Agent-elected, don't-over-build).** Capture **reuses `bin/gh issue
+  create`** (the carve-out pattern; #20 · #51-`intake` is the external dyad-to-dyad
+  analog). A dedicated **`bin/ws capture` helper is deferred** — mirroring d-start's
+  deferred mechanical spine — until hand-run friction proves a script would remove
+  it.
 
 ## Resilient headless execution — carve-out recovery + scope decomposition (#20)
 
