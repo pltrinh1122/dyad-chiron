@@ -27,6 +27,14 @@ is still contested; when the question **earns its answer** it moves to `reflect/
   standard answer keys for the AI coach to grade (T0 logic-101, T1 falsifiability-101 so far);
   every item conforms to the §2b generation invariants; pass = 3/3 correct-with-reasoning.
 
+**Learner state (dogfood ledger):**
+
+- **`k-record.md`** (opened 2026-07-16) — the pedagogy engine's durable memory of a
+  learner's proficiency (`gate` = the only hard record ⟂ `fluency` = disposition
+  signal), per-slice, read by `chiron.assessor`/`chiron.preceptor` to avoid
+  re-teaching, route refreshers, and (next rung) detect staleness. Grounded in
+  `pedagogy-foundations.md` §8; migrates to the `ws:harness` home when created.
+
 **Live contests:**
 
 - **`dyad-operation-skillmap.md`** (opened 2026-07-11) — the skill-map for
