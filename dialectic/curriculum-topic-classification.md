@@ -52,6 +52,132 @@ is `dyad-operation-skillmap.md` §7 (this points, does not copy):
 - **The pre-req↔L1 seam for model-knowledge** — generic mechanism-literacy is
   pre-req; fit-falsification + our ratified model is L1.
 
+## 2a. Assessment-closure — validity constraint on the prereq-DAG (Operator-ratified 2026-07-11)
+
+A curriculum's topic DAG is **valid only if it is assessment-closed**: every topic's
+assessment is constructible using only *that topic + its ancestors*. Two clauses, from
+the Lesson-0 topic-ladder stress-test:
+- **(a) forward-knowledge-free** — the assessment requires no knowledge from a
+  *descendant* topic. Sub-skills are assessed in isolation by **supplying** the inputs
+  their descendants would generate (the *supply-the-input* rule; e.g. a verdict-discipline
+  item ships a pre-built probe+outcome so it needn't invoke probe-design).
+- **(b) point-in-time constructible** — the assessment is not intrinsically
+  *longitudinal*, nor a *P-behavior* observable only in live reps. Topics passing (a)
+  but failing (b) are valid yet **longitudinal/live-rep-instrumented** (e.g. calibration
+  measured over the R3 log), gated over time, not by an entry battery.
+
+A topic failing **(a)** is mis-ordered (a DAG error) or mis-scoped; a topic failing
+**(b)** needs a live-rep/longitudinal instrument, not an entry assessment. This is a
+mechanical validity check — **constructive alignment** (`pedagogy-foundations.md` §4)
+applied to the DAG: the assessment must align to the objective using only
+already-available knowledge. It constrains the **prereq-DAG-edges** schema field (§4-B).
+First applied: the falsification topic ladder (`falsification-curriculum.md` §4.0),
+which the lens re-ordered (T4 ∥ T5) and re-instrumented (T6, T7-calibration).
+
+**Companion — minimal-prereq (no superfluous edges; Operator raff 2026-07-11):** a
+topic requires only the prereqs it *consumes*; a prereq edge the topic's
+assessment/rep does not use is removed. This is the **dual** of closure — closure
+bars *missing* ancestors, minimal-prereq bars *unused* ones. Together they pin the DAG
+from both sides: every edge is necessary (minimal-prereq) and sufficient (closure).
+First applied: T0's basic-logic dimensions map per-topic (conditional → T1/T3;
+quantificational → T4/T5; validity-vs-soundness → T6 only) rather than gating the whole
+ladder (`falsification-curriculum.md` §4.0).
+
+**Slice-level closure (from a caught violation, Operator, 2026-07-11):** closure applies
+at the **-101/-201 slice grain**, not just topic grain — a **-101 prereq assessment must
+test only -101 content** (the concept + *unambiguous* discrimination). Importing -201
+subtleties makes the entry gate require the mastery-level knowledge it is meant to
+*precede* — a closure violation one level down. Caught live: the T1 falsifiability-101
+assessment bled falsifiability-201 — item 2b (an **unbounded-existential** discrimination)
+and the **sharpening** move item 2c pulled ("scope 'reason' to 'causal reason'") are
+201-in-action, not 101. Fix: a -101 assessment = concept + clear-cut cases; hold subtle
+modes and any *sharpening* for -201. (Companion caution — **mode-coverage ≠ orthogonality**:
+items within one topic may deliberately span *modes* of the concept, e.g. unfalsifiability
+by unbounded-domain vs vacuity vs self-sealing; that is coverage within one dimension, not
+orthogonal *axes* — label which you are doing.)
+
+**Construct validity — an item must measure its intended construct (from two caught
+defects, 2026-07-11):** an item is invalid if the learner can answer it *without*
+exercising the target skill. Two failure modes seen live in the falsifiability-101 drill:
+**(1) ambiguity** — "temperature will rise by 2100" tested *reading* (year vs magnitude),
+not falsifiability; **(2) gameability** — every unfalsifiable item carried an immunizing
+clause and every falsifiable one was bare, so a learner could pass by spotting the *surface
+cue* without doing the falsifiability judgment ("a probe that cannot fail"). Fix: vary
+surface features so the cue is useless (immunizing/sharpening qualifiers on *both* F and U
+claims); the only path to the answer is the intended reasoning. A **third** mode surfaced
+later the same day: **(3) multi-construct entanglement** — the crystal item ("heals illness,
+but only when the patient truly believes") tangled *necessary/sufficient* (T0 — does natural
+healing refute? only if the crystal is claimed *necessary*, but it's claimed *sufficient*),
+*immunization* (T1 — "truly believes" self-seals), and *confounds* (T2 — natural healing is
+an attribution problem, not a refutation). Tangling three topics, it sustained **three**
+defensible reads and measured none cleanly. **Diagnostic tell: high interpretation-variance
+across competent learners = low construct validity** — a good item does not need three turns
+of dispute. Retire such items (as with the ambiguous one). Distinct from closure (which
+governs *what knowledge* an item may require) — this governs *whether the item measures the
+skill at all*.
+
+## 2b. Invariants for generating a level-N assessment item (Agent-elected, grounded — pending Operator ratification)
+
+Consolidated from the defects caught live in the falsifiability-101 drill (§2a) — each
+traces to a caught instance (earnedness, not decree). Applies to any level-N topic, not
+just 101. A candidate *item* must satisfy every item-level invariant; a candidate *set* the
+set-level one.
+
+**Item-level (per question):**
+1. **Single-construct** — tests exactly one topic's content. *(The crystal item tangled T0
+   necessary/sufficient + T1 immunization + T2 confound → three defensible reads.)* Check:
+   does any competent read give a *different answer via a different topic's lens*?
+2. **Single-level** — answerable with only level-N content; requires no descendant (N+1)
+   subtlety. *(2b's unbounded-existential; item 4's disguised immunizer — 201 in a 101 gate.)*
+   Check: does the correct call need a subtle/disguised case?
+3. **Unambiguous** — the material has one reasonable parse; tests the construct, not reading.
+   *(2e's "by 2100" — year vs magnitude.)*
+4. **Differential** — requires the topic's *new-over-ancestor* content, not only inherited
+   ancestor content. *(a/c re-tested logic-101, not falsifiability-101.)* Check: answerable
+   using only ancestor content → it tests the *prereq*, not the topic.
+5. **Objective key** — determinate answer under the single intended reading, checkable against
+   a standard (mechanical scoring, no coach judgment). *(r2 — no conferral.)*
+
+**Set-level (per assessment):**
+6. **Mode-covered & cue-decorrelated** — the set spans the construct's *modes*, and **no
+   surface feature predicts the answer** (non-gameable). *(Round 1 was gameable [qualification
+   → U]; Round 2 fixed it by placing immunizing/sharpening qualifiers *and* tone on both F and
+   U claims.)*
+
+**Empirical validity check — the dispute-tell:** if competent learners sustain *divergent
+defensible* reads across multiple turns, the item is invalid (entangled or ambiguous) —
+**retire it, don't argue.** *(The three-turn crystal-item dispute.)*
+
+**Pass-threshold & adjudication (Operator-ratified 2026-07-11):**
+7. **Pass = 3/3 correct-with-reasoning.** A prereq/level-N topic is passed only at
+   **all-correct** on a 3-item assessment (or 3 spaced rounds). **Correctness is required;
+   fluency is optional** (tracked, non-gating — a correct-but-effortful learner passes but is
+   offered a refresher). The AI coach adjudicates each free-response answer against a **standard
+   answer key** (fixed questions + reference responses), which keeps scoring objective (satisfies
+   invariant 5) and defeats guessing (the *reason* is graded, not just the label). *Grounded
+   (refined 2026-07-16, `pedagogy-foundations.md` §8.5):* the guard is the **reasoning-requirement
+   itself**, not the item-count. `0.5^n` guards only the *zero-knowledge* guesser — who fails the
+   gate anyway; the real threat is the **near-master with a k-item gap**, who passes an all-correct
+   *label-only* gate at `0.5^k` (**50% at a one-item gap** — a coin flip at the very margin the gate
+   must discriminate). Reason-grading — not item-count — collapses that: you cannot coin-flip the
+   *operative reason* on your blind spot. Any fallback to **label-only** items thus needs a companion
+   guard (attempt-limit / N spaced rounds).
+
+Status: invariants 1–6 **Agent-elected** from lived defects (pending explicit ratification);
+invariant 7 (pass-threshold & standard-key adjudication) **Operator-ratified 2026-07-11**.
+
+**Materialization (which invariants are ENFORCED vs human-audit).** Prose is level 1; an
+executable `criteria/*.sh` that fails `./check` is level 3. `criteria/curriculum-lint.sh`
+mechanizes the *checkable* invariants on `falsification-assessment-bank.md`: **7** (grading
+declares pass = 3/3 against a standard key), **5** (every topic pool carries ≥3 keyed items),
+**6** (binary topics are not answer-uniform — T1 has both F and U, T2 both Sound and
+Not-sound), and **retired-defect absence** (2e "rise by 2100", the entangled crystal item stay
+out of the active pool). The **judgment-bound** invariants — **1** single-construct, **2**
+single-level, **3** unambiguous, **4** differential — cannot be mechanized; the lint *names*
+them at the end (not silently drops them) and they remain human-audit. A green lint is
+**necessary, never sufficient** (no-self-ratify): it catches regressions, it does not confer
+construct-validity.
+
 ## 3. Applied grid (illustrative, not exhaustive)
 
 | Curriculum topic / skill | LV | LY |

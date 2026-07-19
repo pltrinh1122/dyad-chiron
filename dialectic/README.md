@@ -23,6 +23,25 @@ is still contested; when the question **earns its answer** it moves to `reflect/
   (Operator-ratified 2026-07-11); the curriculum artifacts apply it. Migrates to the
   curriculum home when that home is created.
 
+- **`falsification-assessment-bank.md`** (opened 2026-07-11) — the fixed question bank +
+  standard answer keys for the AI coach to grade (T0 logic-101, T1 falsifiability-101 so far);
+  every item conforms to the §2b generation invariants; pass = 3/3 correct-with-reasoning.
+
+**Learner state (dogfood ledger):**
+
+- **`k-record.md`** (opened 2026-07-16) — the pedagogy engine's durable memory of a
+  learner's proficiency (`gate` = the only hard record ⟂ `fluency` = disposition
+  signal), per-slice, read by `chiron.assessor`/`chiron.preceptor` to avoid
+  re-teaching, route refreshers, and (next rung) detect staleness. Grounded in
+  `pedagogy-foundations.md` §8; migrates to the `ws:harness` home when created.
+
+- **`learner-mode.md`** (opened 2026-07-16) — the codified learner-mode experience
+  (SPEC): the two-mode help-ON⟂help-OFF split, role-purity + log-don't-fix, and the
+  assessment-UI protocol (orient → select → fresh blind items → administer help-OFF →
+  gate → fluency → auto-write → route). The v0→v1 assessment-first codification; its
+  mechanical shell is `bin/learn`, its ledger `k-record.md`, its guard
+  `criteria/k-record.sh`.
+
 **Live contests:**
 
 - **`dyad-operation-skillmap.md`** (opened 2026-07-11) — the skill-map for

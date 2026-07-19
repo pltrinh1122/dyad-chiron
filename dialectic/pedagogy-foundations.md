@@ -172,7 +172,123 @@ connects to external graduation (#11) and the Commons distribution model.
 (Operator-directed 2026-07-11) — landed on the branch; the **merge is the
 Operator's identity act** (operating-policy #5), which ratifies it.
 
-## 8. Sources (verified 2026-07-11)
+## 8. The engine's runtime architecture — roles, gate, naming (Operator-ratified 2026-07-16)
+
+> Provenance (DYAD.md #5): a design arc across this session (chat). The
+> assessment/role architecture the engine (§7) instantiates — it *grounds* §5's
+> falsification-specific K/fluency depth (`falsification-curriculum.md`) in a role
+> vocabulary and a single-gate discipline. The naming scheme (§8.6) is a
+> repo-systematic convention, candidate for `DYAD.md` promotion once repo-general.
+
+### 8.1 The runtime role triad — the learner-facing interface
+
+The engine exposes exactly **three** capabilities *toward a learner*, mapping 1:1
+to the instructional cycle and grounded in the canon (§3):
+
+| capability | function | canon |
+|---|---|---|
+| `chiron.tutor` | deliver the lesson (K-transfer), class-of-one | the Primer (§7); Knowles 1:1 |
+| `chiron.assessor` | render the **PASS/NOT-PASS** gate | Scriven **summative** |
+| `chiron.preceptor` | emit the **fluency signal**, supervise practice | Scriven **formative**; preceptorship (adult, practice-embedded, *fading* supervision) |
+
+**`assessor` ⟂ `preceptor` = summative ⟂ formative.** The enforcement/signal split
+(§8.2) was derived independently and lands *exactly* on Scriven's distinction — the
+two load-bearing roles are canon, not invented. `preceptor` (chosen over `coach`
+for andragogy-adjacency + education-exclusivity) **never gates**: its spec is
+*signal, not enforcement*; the evaluative half is carved into `assessor`, so its one
+liability (a clinical preceptor traditionally also signs off) is defined away.
+
+**Curriculum design is NOT a runtime role** — it is a build-time meta-capability
+(the chiron dyad + Operator co-authoring curricula), outside the interface. The
+interface is only what a *learner* touches.
+
+### 8.2 The single hard-gate — one enforcement point, everywhere
+
+**The only hard gate is `PASS/NOT-PASS` (correctness), at every level:** 100-level
+(recognition + a *produced candidate* — the L2 floor), 200-level (generation — L3),
+graduation (`PASS/NOT-PASS` on the coach-free **P-rep**).
+
+**Fluency has zero gating power — it is pure learner-disposition (signal).** The
+engine measures and reports it; the *learner* decides (refresh, advance, attempt
+graduation under-fluent). This is the engine invariant applied to pacing: *the
+engine never acts for the learner.* The ratified **minimum-K-for-P** (§9 rep 1) is
+**not** a separate fluency gate — it surfaces *as* a `NOT-PASS` on the P-rep (an
+under-fluent learner simply fails the coach-free rep). One gate suffices everywhere;
+fluency's causal effect is already priced into a PASS/NOT-PASS wherever it matters.
+
+### 8.3 The 100/200 course-series — a climb with a graduation threshold inside it
+
+The `-101/-201` slices generalize into **course levels**:
+- **100-level** (`logic_101`, …): the **floor** — recognition + a produced
+  candidate. *Coached; the coach absorbs latency, so fluency is genuinely optional.*
+- **200-level** (`…_201, …_202, …_2NN`): the **climb** — generation (L3), a numbered
+  sequence of increasing depth. Scaffolding **fades** across the series (Vygotsky),
+  so fluency ramps *lever → load-bearing*, course by course.
+- **Graduation** is a **threshold *within* the 200-series** — where coach-free
+  becomes *self-sustaining* — not its terminus. Courses past it (`_2NN`) are the
+  **self-directed continuing climb** (the anchor's *self-sustaining mastery*).
+
+*(Underscore slugs are the ratified go-forward, §8.6; existing docs still use the
+hyphen — `logic-101` — pending a parked downstream migration.)*
+
+### 8.4 Concurrent grading — one sitting, two outputs, a routing tuple
+
+A sitting emits **both** the certificate and the next-step as a tuple
+`(PASS/NOT-PASS, fluency-band)` — a *routing signal*, not two loose numbers:
+
+| result | routes (advisory — the learner disposes) |
+|---|---|
+| PASS · fluent | → next course / done |
+| PASS · not-fluent | → *offered* refresh before climbing (staleness-risk) — learner's call |
+| NOT-PASS | → re-learn (fluency moot) |
+
+- **Fluency is conditional on correctness** — you can only be *fluent at what you got
+  right*; a fast-**wrong** answer is miscalibration, not fluency (scored over the
+  correct subset only). Without this, a fast guesser reads as "fluent."
+- **Fluency scale — 3 bands:** `not-fluent (0%)` · `partially-fluent (in-between)` ·
+  `fluent (100%)`, measuring **automaticity**. This *separates* the axes the §5
+  4-state continuum conflated: the **gate** is `PASS/NOT-PASS` (the old
+  not-passing/passing), **fluency** is this 3-band quality scale on top.
+- **Effort-channel measurement** (answer-form: clean-first-pass vs hedge/revision; +
+  self-report of re-reads). **Completion-time deferred** — it re-imports an
+  untimed-vs-timed tension (correctness wants untimed; speed wants timed), later
+  handled by a two-phase sitting. So the current grade reads the *low-effort* face of
+  automaticity, not the *speed* face (honest narrowing).
+
+### 8.5 The guessing-guard is the reasoning-requirement, not the item-count
+
+A `PASS/NOT-PASS` gate defeats guessing **because it is reason-graded**, not by
+item-count arithmetic. `0.5^n` (n independent binary items) measures the *wrong*
+opponent — the **zero-knowledge guesser**, who fails the gate anyway. The guard that
+matters is against the **near-master with a genuine k-item gap**, who passes an
+all-correct binary gate at `0.5^k` — **50% at a one-item gap**, a coin flip *exactly*
+at the margin a mastery gate must discriminate. Reason-grading collapses that toward
+zero: a one-gap learner cannot coin-flip the *operative reason* on their blind spot.
+**Corollary:** any topic that falls back to **label-only** items needs a companion
+guard (attempt-limit, or must-pass across N spaced rounds) — there `0.5^k` plus
+retake-compounding bites in full. (Refines `curriculum-topic-classification.md` §2b-7:
+the guard is the reasoning-requirement; item-count is the weaker, wrong-opponent one.)
+
+### 8.6 Naming — the 2×2 separator ontology (ratified 2026-07-16)
+
+Four separators, each carrying exactly one meaning — a 2×2 over {within-token,
+between-entity} × {two registers/relations}:
+
+|  | joins words into **one** token | relates **two** entities |
+|---|---|---|
+| register / relation | `_` code-slug · `-` readable-name | `.` member-of · `:` classified-as |
+| example | `logic_101` · `dyad-chiron` | `chiron.preceptor` · `ws:curriculum` |
+
+- **`_` snake** — a *referenceable identifier/slug* (course codes; grep/awk-safe as a
+  `\w` char, so slugs stay atomic in `criteria/*.sh`).
+- **`-` kebab** — a *readable name* (filenames, dyad identities).
+- **`.` dot** — *member access*: a role/capability **of** a dyad (`chiron.tutor`) —
+  object.method semantics; roles are **always dyad-qualified**.
+- **`:` colon** — a *classification label*, family:value (`ws:`, `status:`, `lock:`).
+
+`dyad-` stays reserved for **dyad identities**; roles never use it (double-prefix).
+
+## 9. Sources (verified 2026-07-11)
 
 - Pedagogy / didactics / curriculum — [Pedagogy (Wikipedia)](https://en.wikipedia.org/wiki/Pedagogy) · [Pedagogy or Didactics? (Educational Evidence)](https://educationalevidence.com/en/pedagogy-or-didactics/)
 - Constructive alignment (Biggs) — [Wikipedia](https://en.wikipedia.org/wiki/Constructive_alignment)

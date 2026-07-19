@@ -132,6 +132,25 @@ into three competences: **judge ⟂ diagnose ⟂ author.**
   intent+invariants. **Judge-without-author ≠ capitulation iff judgment is
   competent** — so the anti-capitulation skill *is falsification* (#61 aimed at
   the substrate object; loop closure).
+  - **Judging itself splits: recognition-validation ⟂ generative-validation**
+    (Operator raff + falsify, 2026-07-11). *Recognition-validation* — evaluate
+    the work the Agent **presented** against known patterns (recognize a
+    confound, an unfalsifiable claim, a defect). Sufficient for routine
+    validation, and the **prereq floor** (you can start operating on it). But
+    *recognition validates only what was presented* — it **cannot catch what the
+    Agent failed to generate** (the blind spot). *Generative-validation* — produce
+    a counterexample / severe probe the Agent did *not* — is what catches blind
+    spots, and it is **required for non-capitulation**: recognition-only
+    validation *capitulates to the Agent's generative coverage*. Evidence (lived,
+    this session): the Operator's highest-value validation moves were **generated**
+    (the "God exists" counterexample, the gameable-drill exploit the coach
+    authored blind, the "natural-healing" alternative) — recognition alone would
+    have passed the coach's blind spots. So the *judge* role is **recognition at
+    the floor, generation at the non-capitulation ceiling**; the curriculum's job
+    is the recognition→generation climb (the -101 recognize / -201 generate split,
+    `falsification-curriculum.md` §4.0). Corollary: `validation only requires
+    recognition` is **true for routine validation, false for non-capitulating
+    validation.**
 - **Diagnose-to-report — the triage floor.** Notice + localize + describe;
   escalation path already exists (`bin/ws intake`, the inbound dyad-to-dyad
   falsification request).

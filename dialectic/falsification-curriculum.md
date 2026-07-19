@@ -175,6 +175,115 @@ Every step is a rep (the craft's fixed constraint) — no exposition lessons.
 Gates are thresholds + trends, all **elected, not yet worn**: they resize on
 first contact with real difficulty (the WIP-N precedent).
 
+### 4.0 Topic decomposition — the new-learner ladder (Operator-directed 2026-07-11, feasibility-tested)
+
+The F-modules below assumed an *advanced* learner (banking most of the path).
+For a **new learner**, the skill decomposes into an **assessment-closed** topic
+ladder of increasing difficulty, foundation-first; each topic is a lesson gated
+by a **prereq assessment** that shows the K-rubric and places the learner
+(**mastered → skip · new → learn · staled → refresh**, once history exists). A
+learner enters at T0 and **tests out** of any topic already held (the
+banking/no-waste intent, r1, realized as per-topic placement).
+
+| # | topic | prereqs | K/P | instrument |
+|---|---|---|---|---|
+| **T0** | Basic logic | — | K | entry battery |
+| **T1** | Falsifiability (testable vs vacuous; survival ≠ proof) | T0 | K | entry battery |
+| **T2** | Evidence & inference (correlation≠causation · confounds · base rates · bias) | T0 | K | entry battery |
+| **T3** | Verdict discipline (axis C) | T1 | K+P | entry battery — *supplies the probe+outcome* |
+| **T4** | Probe design (axis B) | T2, T3 | K+P | entry battery — *supplies the target claim* |
+| **T5** | Target selection (axis A) | T3 | K+P | entry battery |
+| **T6** | Self-application (axis D) | T3, T5 | P | live-rep (specimen for K-proxy) |
+| **T7** | Economy & calibration (axis E) | T4, T6 | P | economy: point-item · **calibration: longitudinal (R3 log)** |
+| **T8** | Integrative rep — *the former "Lesson 0"* | T5, T6, T7 | P | capstone performance |
+
+**Feasibility-test outcomes folded in** (assessment-closure — see
+`curriculum-topic-classification.md`):
+- **T4 ∥ T5 parallelized** — the lens found target selection (T5) assessable
+  without probe-design mastery (T4); A does not depend on B, so both descend
+  from T3 (like T1 ∥ T2). Corrects the F-path's B→A ordering.
+- **Supply-the-input rule** — T3/T4 are assessed in isolation by *providing* the
+  inputs their descendants generate (T3 gets a pre-built probe+outcome; T4 gets
+  the target claim); keeps them forward-knowledge-free.
+- **T6, T7-calibration are longitudinal / P-instruments** (consistent with r4:
+  E cannot be pre-tested; the instrument must run) — gated over the R3 log,
+  not at entry.
+- **T0 is not monolithic — logic prereqs map per-topic** (Operator raff,
+  2026-07-11): the basic-logic dimensions attach at different topics, so a topic
+  is gated only on the logic it *consumes* — **conditional logic** (modus
+  tollens · affirming-the-consequent) → T1/T3 (*refutation is modus tollens*;
+  *survival ≠ proof is not-affirming-the-consequent*) · **quantificational**
+  (contradictories · necessary/sufficient) → T4/T5 (a counterexample is the
+  claim's contradictory) · **validity vs soundness** → **T6 only** (falsifying a
+  *framing* = attacking an argument's soundness; unused by the T1–T5
+  empirical-claim core). All five are required across the *full* skill; none at a
+  gate that does not use it (minimal-prereq — `curriculum-topic-classification.md`
+  §2a).
+- **logic-101 (prereq) vs logic-201 (in-action) — ratified** (Operator,
+  2026-07-11): T0 tests **logic-101**, the basic forms (test-out). **logic-201**
+  is the *same forms applied at depth* — constructing a subtly-phrased claim's
+  contradictory · spotting a *disguised* affirming-the-consequent in a real
+  argument · the Duhem-Quine judgment (¬O refutes the claim-**plus-auxiliaries**
+  bundle; *which conjunct do you reject?*). logic-201 is **logic-in-action, not a
+  standalone topic** (Operator-ratified): it is developed *within* T3–T6 as each
+  axis consumes logic at the mastery edge. Consequence: placement out of T0 clears
+  **logic-101 only** — logic-201 is part of the falsification mastery itself, built
+  by climbing, not tested at entry. (K-records track the *slice*: `logic-101 =
+  mastered` ≠ `logic mastered`; staleness is per-slice.) The 101/201-as-LV-metric
+  and uniform-slicing branches stay open — not ratified here.
+- **falsifiability-101 (prereq) vs falsifiability-201 (in-action)**
+  (Operator-directed, 2026-07-11 — same necessity-for-falsification evaluation
+  applied to T1): **falsifiability-101** (the K-prereq; **T1 *is* its assessment**)
+  = the *concept* (falsifiable ⟺ some observation could refute) · the
+  falsifiable/unfalsifiable distinction at definition level · *survival ≠ proof* ·
+  the refute-not-verify *asymmetry*. **Finding:** survival≠proof and the asymmetry
+  **derive from logic-101** (affirming-the-consequent + modus tollens on empirical
+  claims), so falsifiability-101's genuinely *new* content is thin — the concept
+  itself + recognizing that unfalsifiable claims exist. **falsifiability-201
+  (in-action, distributed)** = discriminating testability in *messy real* claims
+  (T3) · sharpening a not-testable-as-stated claim into a testable one (T3/T4) ·
+  boldness/degrees (T5) · auxiliary-hypothesis / Duhem-Quine handling (T6–T8). So
+  **T1 is the assessment of the falsifiability-101 prereq condition** (parallel to
+  T0 = logic-101), not a standalone lesson.
+- **evidence-101 (prereq) vs evidence-201 (in-action)** (Operator-directed T2,
+  2026-07-11): **evidence-101** (the K-prereq; **T2 assesses it**) = the *concepts*
+  at recognition level — correlation ≠ causation · what a **confound** is · that
+  **controlled comparison** (not co-occurrence) establishes causation · base rate ·
+  selection bias. **Unlike falsifiability-101, evidence-101 is *thick*:** confounds,
+  base rates, and sampling are genuinely-new *empirical* content, **not** derivable
+  from logic-101 (only correlation≠causation partly echoes affirming-the-consequent).
+  **evidence-201 (in-action, distributed)** = *designing* a confound-controlling
+  probe (T4) · judging evidence *quality* for a specific claim (T3–T5) · identifying
+  the actual confounds in a messy real case — **where the crystal's "natural healing"
+  problem always belonged** (a confound/attribution issue, not falsifiability).
+- **Emerging shape, amended (2026-07-11):** foundation-topic -101 slices are **not
+  uniformly thin** — falsifiability-101 was thin (mostly logic-101 specialized), but
+  **evidence-101 is thick** (new empirical content). Thinness = how much a -101 slice
+  *derives from its ancestors*; it varies per topic. The constant holds: the
+  curriculum's *weight* is the **-201 in-action** across T3–T8 (the K⟂P split, r4).
+- **101/201 characterization — Operator-ratified (2026-07-11): 101 establishes
+  the *floor* and *foundational posture*; 201 assists the *continuing climb*.**
+  101 = the recognition floor **plus the stance/readiness to operate** (not merely
+  knowledge — "posture" ⊇ recognition + the dispositional prereqs, `dyad-operation-
+  skillmap.md` §3-II / the G0 P-prereqs). 201 = the generative, in-action mastery
+  built continuously (probe design · confound-generation · target selection — the
+  abductive-generation family). The gate sits at the floor; the climb is unbounded.
+- **falsifiability-201 content surfaced live (Operator rep, 2026-07-11):**
+  **falsifiability is a property of a claim's *content* (does any possible
+  observation refute it?), not its surface grammar.** Qualification cuts *both*
+  ways: **immunizing** (removes possible refutations → *less* falsifiable — "God
+  exists" by definition; "undetectable dragon" by clause) vs **sharpening** (adds
+  refutations → *more* falsifiable — "lowers BP by ≥5 mmHg in adults >60 within 4
+  weeks" forbids more, so more can refute it). "Simple vs qualified" is a surface
+  artifact; the operative variable is immunize-vs-sharpen. (Surfaced when the
+  Operator pattern-matched a gameable drill → generalized → falsified the
+  generalization with "God exists" → uncovered this structure — the full
+  falsification loop, self-driven; P-evidence.)
+
+The **F0–F5** modules below are retained as the *advanced learner's traversal*
+of this ladder: a learner who tests out of T0–T5 enters at the F-level; F0's
+placement *is* these per-topic prereq assessments, and F1–F5 map to T3–T8.
+
 - **F0 — standardized adaptive placement (r2; this session).**
   **Lesson 0** keeps three roles — the ratification review (third invariant,
   zero extra learning-turns), the first E-R2 distillation (rubric v0, node
@@ -247,10 +356,38 @@ without moving a metric is a defect in the curriculum, not in the learner.
 Every skill axis (A–E) carries a **(K, P) score pair**, tracked separately —
 a 5×2 scorecard, never collapsed to a scalar:
 
-- **K — knowledge mastery.** Earned *only* by standardized assessment (the
-  sealed-key batteries): controlled difficulty, fixed ground truth, full
-  denominators. K can be fully earned inside the curriculum — assessment is
-  its complete instrument.
+- **K — knowledge, scored as *fluency* (Operator raff, 2026-07-11 — replaces
+  "mastery").** Earned *only* by standardized assessment (the sealed-key
+  batteries): controlled difficulty, fixed ground truth, full denominators. **K is graded on the proficiency continuum** (Operator-established
+  2026-07-11): **not-passing → passing → partially-fluent → fluent.**
+  - **not-passing** — cannot generate the correct answer-with-reasoning
+    *unprompted* (below the gate). Diagnostic sub-states: *absent* ·
+    *recognition-only* (recognizes the answer once shown but cannot generate it —
+    routes a targeted refresher; **never counts toward the pass**, per the
+    partial-credit ruling: recognition ≠ the generative construct).
+  - **passing** — generates correct-with-reasoning unprompted, but *effortfully*
+    (Fitts-Posner **associative**; high load). **Clears the gate.**
+  - **partially-fluent** — correct with *reducing* effort (partial automaticity).
+  - **fluent** — correct and *automatic* (**autonomous**; low load).
+
+  **The gate is binary and sits at `passing`: generative correctness is
+  *required*; fluency is *optional*** (Operator-ratified, §2b-7 — supersedes the
+  earlier "test-out requires fluency"). *(Engine-general architecture — the single
+  hard-gate, the `assessor`⟂`preceptor` (summative⟂formative) role split, fluency as
+  pure learner-disposition signal, the 3-band fluency scale that de-conflates this
+  4-state continuum's gate from its fluency, concurrent grading, and the 100/200
+  course-series: `pedagogy-foundations.md` §8, ratified 2026-07-16.)* Above the gate, fluency is a graded,
+  *non-gating* climb, read from **effort/latency** (snap vs deliberated), not
+  right/wrong. **Why pursue it anyway (cognitive-load theory, Sweller):** a
+  non-fluent prereq *steals working memory* downstream — so `passing`-but-not-fluent
+  is *offered* (not forced) a **refresher** (deliberate/spaced reps → automaticity),
+  the same route as `staled` (decayed) and `recognition-only`. Per-slice
+  (`logic-101 = fluent`; `falsifiability-101 = passing`).
+  **Learner-visible (Operator, 2026-07-11):** the learner's *position* on this
+  continuum, per slice, is **shown to them** — self-location grounds and motivates
+  (self-efficacy; andragogy's need to know where one stands). Progress visibility
+  is a motivational instrument, not just a score — the observation channel
+  (`DYAD.md` #4) turned on the learner's own proficiency.
 - **P — practice mastery.** Earned *only* by **reps without coaching**: the
   R3 live log during real (non-curriculum) work, self-initiated retro-reps,
   and the coach-absent windows. A coached rep never moves P, however well it
