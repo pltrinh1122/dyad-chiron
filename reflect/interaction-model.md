@@ -178,14 +178,15 @@ operating-policy invariant (intent-alignment before action):
   `reflect/`; breaches forge invariants (see
   `reflect/intent-before-action.md`).
 
-## Directive vocabulary: d-sense · d-land · d-start · d-reflect · riff/raff (lifecycle #16, 2026-07-07; completed #31, 2026-07-09)
+## Directive vocabulary: d-sense · d-land · d-start · d-reflect · d-rub · riff/raff (lifecycle #16, 2026-07-07; completed #31, 2026-07-09; d-rub adopted from dyad-touchstone 2026-07-16)
 
 The vocabulary is **axis-separated within the section** (#21, *codified there*):
-three co-located but non-conflated groups — **lifecycle macros** (act on a node's
+four co-located but non-conflated groups — **lifecycle macros** (act on a node's
 life: sense · land · the session frame) ⟂ **session disciplines** (the open/close
 retro rituals) ⟂ **mode-prefixes** (set the *discussion mode*, not a lifecycle
-action). Co-located so the whole vocabulary reads in one place; separated so the
-categories don't get conflated into one flat list.
+action) ⟂ **Validate-family** (set the *verification depth* of an ask — adopted
+from dyad-touchstone). Co-located so the whole vocabulary reads in one place;
+separated so the categories don't get conflated into one flat list.
 
 **Audit note (fork 2, resolved):** `d-start` · `d-sense` · `d-land` are directive
 **macros composed from the primitives** (direct + ratify), **not new primitives** —
@@ -278,6 +279,34 @@ composed from direct + ratify. (Operator-coined + ratified 2026-07-09.)
 - **`raff:`** — **converge**: steer toward convergence, recommend, and drive to a
   pick/decision (crisp forks are fine here). Naming the mode prevents both failure
   modes — premature convergence killing a riff, endless divergence wasting a raff.
+
+### D. Validate-family (adopted from dyad-touchstone, 2026-07-16)
+
+A **distinct axis** — not a lifecycle action, not a discussion-mode, but the
+*verification depth* an ask should run at. Referenced and adapted onto chiron's
+substrate from `dyad-touchstone` (its `DYAD.md` + `dialectic/rub-protocol.md`);
+Operator-directed 2026-07-16 (*"reference and adopt dyad-touchstone's d-rub moniker
+and discipline for our own use"*). Not a macro composed from the primitives.
+
+- **`d-rub`** — the **Validate-family job**: one token, **escalating rungs**, with
+  **Agent-determined depth** (which rung fires is chosen by *checking actual state*,
+  not by which word was typed — mirrors `d-land`'s Agent-determined scope):
+  1. **Ground** — establish against reality *by execution* (run it, don't assert it).
+  2. **Read** — orient, report state, *do not act* — most asks stop here.
+  3. **Triangulate** — derive independently, then compare results.
+  4. **Rub** — attack a *stated* move to try to break it — **bounded to that
+     target**, not the whole situation.
+  Firing the **Rub** rung **pre-authorizes the Operator to bear re-alignment** — the
+  in-moment exception to alignment-before-action (DYAD.md's third invariant): the
+  Operator has invited the attack, so the Agent may contest the *stated move*
+  without first re-aligning. Preserves the **fact-check ⟂ attack** boundary and
+  guards against unbounded "falsify everything" (over-guard) by framing caution as
+  *escalation-depth* rather than an all-or-nothing choice. (Examining the Agent's
+  own cognition is out of scope here.) **Relation to chiron's vocabulary:** distinct
+  from `riff:`/`raff:`, which set discussion-*mode* not verification-*depth*. Read
+  retroactively, this session's bare **"falsify"** asks were the **Rub** rung, and
+  the **"d-rub: durable on main"** ask was **Read → Ground** (orient, then verify by
+  execution: git state + `./check`).
 
 ## Resilient headless execution — carve-out recovery + scope decomposition (#20)
 

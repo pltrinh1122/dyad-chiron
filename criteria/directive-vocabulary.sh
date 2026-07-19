@@ -14,8 +14,8 @@ cd "$repo"
 model="reflect/interaction-model.md"
 
 # --- the section header names the full vocabulary ---------------------------------------------
-assert "section header names the full vocabulary (d-sense · d-land · d-start · d-reflect · riff/raff)" \
-  grep -qE '^## Directive vocabulary:.*d-sense.*d-land.*d-start.*d-reflect.*riff/raff' "$model"
+assert "section header names the full vocabulary (d-sense · d-land · d-start · d-reflect · d-rub · riff/raff)" \
+  grep -qE '^## Directive vocabulary:.*d-sense.*d-land.*d-start.*d-reflect.*d-rub.*riff/raff' "$model"
 
 # --- A. lifecycle macros: d-start is homed here, beside d-sense/d-land -------------------------
 assert "d-start entry present"                 grep -qF '**d-start**' "$model"
@@ -48,8 +48,17 @@ assert "raff: mode-prefix documented"          grep -qF '`raff:`' "$model"
 assert "mode-prefixes marked a distinct (non-macro) category" \
   bash -c 'grep -qF "distinct category" "'"$model"'" || grep -qF "Mode-prefixes" "'"$model"'"'
 
-# --- axis-separation: three groups co-located but not conflated --------------------------------
-assert "vocabulary axis-separated into the three groups" \
-  bash -c 'grep -qF "Lifecycle macros" "'"$model"'" && grep -qF "Session disciplines" "'"$model"'" && grep -qF "Mode-prefixes" "'"$model"'"'
+# --- D. Validate-family: d-rub, adopted from dyad-touchstone (a distinct axis) -----------------
+assert "d-rub entry present"                        grep -qF '**`d-rub`**' "$model"
+assert "d-rub credits the dyad-touchstone lineage"  grep -qF 'dyad-touchstone' "$model"
+assert "d-rub documents the escalating rungs (incl. Triangulate)" \
+  bash -c 'grep -qF "escalating rungs" "'"$model"'" && grep -qF "Triangulate" "'"$model"'"'
+assert "d-rub records Agent-determined depth"       grep -qF 'Agent-determined depth' "$model"
+assert "d-rub Rub-rung pre-authorizes re-alignment" \
+  grep -qF 'pre-authorizes the Operator to bear re-alignment' "$model"
+
+# --- axis-separation: four groups co-located but not conflated ---------------------------------
+assert "vocabulary axis-separated into the four groups" \
+  bash -c 'grep -qF "Lifecycle macros" "'"$model"'" && grep -qF "Session disciplines" "'"$model"'" && grep -qF "Mode-prefixes" "'"$model"'" && grep -qF "Validate-family" "'"$model"'"'
 
 assert_done
