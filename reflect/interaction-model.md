@@ -178,15 +178,16 @@ operating-policy invariant (intent-alignment before action):
   `reflect/`; breaches forge invariants (see
   `reflect/intent-before-action.md`).
 
-## Directive vocabulary: d-sense · d-land · d-start · d-reflect · d-rub · riff/raff (lifecycle #16, 2026-07-07; completed #31, 2026-07-09; d-rub adopted from dyad-touchstone 2026-07-16)
+## Directive vocabulary: d-sense · d-land · d-start · d-reflect · d-rub · riff/raff · todo/idea (lifecycle #16, 2026-07-07; completed #31, 2026-07-09; capture directives #60, 2026-07-16; d-rub #69, 2026-07-16)
 
 The vocabulary is **axis-separated within the section** (#21, *codified there*):
 four co-located but non-conflated groups — **lifecycle macros** (act on a node's
-life: sense · land · the session frame) ⟂ **session disciplines** (the open/close
-retro rituals) ⟂ **mode-prefixes** (set the *discussion mode*, not a lifecycle
-action) ⟂ **Validate-family** (set the *verification depth* of an ask — adopted
-from dyad-touchstone). Co-located so the whole vocabulary reads in one place;
-separated so the categories don't get conflated into one flat list.
+life: sense · land · the session frame) ⟂ **session disciplines** (reflect on the
+work = d-reflect · validate a claim/state = d-rub) ⟂ **mode-prefixes** (set the
+*discussion mode*, not a lifecycle action) ⟂ **capture directives** (fast intake —
+fire a new node mid-workflow without paying a Sense's interrupting turns). Co-located so the whole vocabulary
+reads in one place; separated so the categories don't get conflated into one flat
+list.
 
 **Audit note (fork 2, resolved):** `d-start` · `d-sense` · `d-land` are directive
 **macros composed from the primitives** (direct + ratify), **not new primitives** —
@@ -233,8 +234,9 @@ below are a *distinct* category — see group C — not macros of this kind.)
      (WIP committed/pushed, nothing orphaned) · **anchor-currency** (DYAD.md not
      drifted from what's loaded) · **`./check`** (acceptance criteria green).
   4. **Read the live state** — the board (`bin/ws` / `ws attend`) + the
-     **resume-pointer** + the **last reflection's banked STARTs**
-     (`reflect/reflections.md`).
+     **resume-pointer** + the **last reflection's banked STARTs** (the newest
+     dated file in `reflect/reflections/`, or the frozen `reflect/reflections.md`
+     archive for sessions through 2026-07-16).
   5. **Seed the goal-frame** — from the `{payload}` on the `d-start:` directive.
   6. **Propose an NBA** — a Next-Best-Action the **Operator's confirmation closes**
      (nothing downstream starts before that closure — intent-before-action).
@@ -258,14 +260,108 @@ below are a *distinct* category — see group C — not macros of this kind.)
 
 ### B. Session disciplines
 
-- **d-reflect** — the **Session-Close Discipline**. Its home is
-  **[`reflect/reflections.md`](./reflections.md)** — CSS + SH, including the
-  2026-07-09 **evidence-bar + no-miss default** (a Should-Have must clear a
-  verbatim-quote-AND-concrete-cost bar; "no miss this session" is a first-class
-  expected default). *Point, don't copy:* the discipline lives there; this is the
-  vocabulary entry that points to it. **Settled scope (Operator-ratified
-  2026-07-09):** **session-wide by default**; `d-reflect: #N` = reflect on that
-  node's arc specifically.
+B holds **two** disciplines, separated by what they act on: **d-reflect** *reflects
+on the work* (the session-close ritual) ⟂ **d-rub** *validates a claim or state*
+(the escalating Validate discipline). Both are session-time disciplines — one
+banks the session's lessons, the other checks a claim against reality — so they
+co-locate here; they are not conflated, and neither is a lifecycle act on a node
+(group A). (B's descriptor was widened from "open/close retro rituals" to
+*session disciplines broadly* when d-rub was adopted, #69, 2026-07-16.)
+
+- **d-reflect** — the **Session-Close Discipline**. Its home is the
+  **[`reflect/reflections/`](./reflections/)** directory — each session banks its
+  reflection as its **own dated file** `reflect/reflections/<date>-<slug>.md` (one
+  file per session-thread; the **directory listing IS the index** — no stored index
+  artifact, and a generated `bin/ws reflections` render is **deferred** until
+  browsing friction). New reflections **never tail-append a shared file**, so
+  parallel threads never collide on reflections. The reflection **format** — CSS +
+  SH, including the 2026-07-09 **evidence-bar + no-miss default** (a Should-Have
+  must clear a verbatim-quote-AND-concrete-cost bar; "no miss this session" is a
+  first-class expected default) — is single-homed in the archive header and
+  described by **[`reflect/reflections/README.md`](./reflections/README.md)**.
+  *Point, don't copy:* the discipline lives there; this is the vocabulary entry that
+  points to it. **Settled scope (Operator-ratified 2026-07-09):**
+  **session-wide by default**; `d-reflect: #N` = reflect on that node's arc
+  specifically.
+  - **Frozen archive (#67, Operator-directed 2026-07-16).** The prior monolith
+    **[`reflect/reflections.md`](./reflections.md)** stands **frozen** as the archive
+    of sessions **2026-07-07 … 2026-07-16** — it receives **no further appends** and
+    its sections are **not** migrated. Freezing (not migrating) dissolves the
+    transition cost: the shared tail-append region was the *only* cross-thread
+    conflict surface, and new-files-only removes it with no cutover window.
+
+- **d-rub** — the **Validate discipline**: one Operator token that fires a
+  Validate-family ask (orient to state · verify a claim · corroborate an answer ·
+  attack a stated move), where the **Agent escalates to the depth the ask actually
+  needs** — not the depth the word pre-declares. **Mapped, not ported** from
+  dyad-touchstone (`library/d-rub/PLAYBOOK.md` + `dialectic/rub-protocol.md`,
+  `github.com/pltrinh1122/dyad-touchstone`) — the lineage is like d-start ← dyad-bond:
+  the discipline is re-derived onto chiron's own mechanisms, which already ran it
+  *unconsolidated*; d-rub is the umbrella token that names them as one job.
+  Operator-directed 2026-07-16 (`d-rub:` + *"reference and adopt dyad-touchstone's
+  repo"*); both forks ruled — **home = group B · fidelity = map onto chiron's
+  mechanisms** (#69).
+
+  **The four rungs — one job, escalating rigor: Ground → Read → Triangulate → Rub.**
+  1. **Ground** — establish a claim or assumption against reality *by execution*:
+     run the actual command, check the actual state; never narrate from memory or a
+     stale cache. The floor every heavier rung rests on.
+  2. **Read** — orient: report the re-derived state; **do not act**. The lightest
+     rung; most asks stop here.
+  3. **Triangulate** — reach the same answer *two independent ways* and compare;
+     used when a single grounding pass doesn't earn enough confidence, or when
+     corroboration itself is the point.
+  4. **Rub** — attack a **stated** move or claim; try to break it. **Bounded to
+     that target**, never the whole situation. Firing this rung pre-authorizes the
+     Operator to bear re-alignment (a *solicited* contest defuses rationalization-
+     defense).
+
+  **Agent-determined depth (the core rule):** depth is *matched to the ask, this
+  run* — a plain status check stops at Read; "is this actually true?" needs Ground;
+  "does this survive attack?" walks to Rub. It is Agent-selected by checking the
+  state the ask concerns, **not fixed by which word was typed** (mirrors d-land's
+  own *"scope is Agent-determined by checking state, not by which word was typed"*).
+
+  **Name-the-rung(s) — the transparency invariant:** the Agent **names which
+  rung(s) it actually ran**, so the escalation stays reviewable. A claim asserted
+  after a rub cites a *this-run streak*, not a cached shine — the same role a
+  provenance tag serves for d-reflect.
+
+  **Mapped onto chiron's existing mechanisms (map-not-port — no parallel machinery):**
+  - **Rub ≡ the `falsify` primitive** (§2's Validate-family move: reject with
+    grounds). `falsify` **stays the underlying G0 primitive the Rub rung invokes** —
+    d-rub does not replace it, it names the rung that fires it.
+  - **Ground ≡ earnedness / `./check`** — establish against reality by execution;
+    chiron's acceptance-criteria gate is the grounding-by-execution mechanism.
+  - **Read ≡ the CQRS generated-views** — the observation channel (DYAD.md #4:
+    `bin/ws`'s generated DAG/pointer render, the Observe kanban); orient and report
+    re-derived state without acting.
+  - **Triangulate ≡ new** — the one genuinely new rung: reach an answer on **two
+    independent substrates** and compare (e.g. working-tree `grep` ∥ full-history
+    `git` history). Chiron carries no prior mechanism for it; d-rub introduces it.
+
+  **Two boundaries preserved from the source (do not erode):**
+  - **Fact-check vs. attack.** Verifying a stated claim against its source is
+    **Ground+Read, *not* Rub** — it does not need the whole ladder. "Which marker"
+    became "how far did this ask escalate": same distinction, reframed as depth
+    within one job.
+  - **The anxiety-grain over-guard.** Even the *full* ladder stays scoped to the
+    **stated** target; the unbounded "falsify everything" reading is never licensed.
+    Escalation-depth is not permission to attack unbidden — and **`introspect:` /
+    self-cognition is out of scope**: examining the Agent's own cognition is not a
+    d-rub move (no external substrate to query — its output is self-report, not a
+    grounded verdict).
+
+  **Honest status — adopted, efficacy earns through wear-in.** d-rub is adopted;
+  its efficacy is **not** stamped. Touchstone's own claim — that one Agent-escalated
+  token improves coverage *and* ergonomics more than it costs — is carried as
+  **un-refuted, *not* verified**: whether the Agent escalates to the *right* depth
+  **unbidden**, and whether plain-orientation feels heavier than a bare read, have
+  not run to a verdict. Per earnedness / `no-self-ratify`, we **carry the claim, do
+  not stamp it** — it re-tests each session d-rub is used. **Live proof, first
+  chiron firing:** `d-rub: "i merged PR #64"` ran **Ground+Read** and caught a
+  counterfeit reference (#64 absent in dyad-chiron; #68 was the real merge) — the
+  discipline working on its first firing here.
 
 ### C. Mode-prefixes
 
@@ -280,33 +376,63 @@ composed from direct + ratify. (Operator-coined + ratified 2026-07-09.)
   pick/decision (crisp forks are fine here). Naming the mode prevents both failure
   modes — premature convergence killing a riff, endless divergence wasting a raff.
 
-### D. Validate-family (adopted from dyad-touchstone, 2026-07-16)
+### D. Capture directives
 
-A **distinct axis** — not a lifecycle action, not a discussion-mode, but the
-*verification depth* an ask should run at. Referenced and adapted onto chiron's
-substrate from `dyad-touchstone` (its `DYAD.md` + `dialectic/rub-protocol.md`);
-Operator-directed 2026-07-16 (*"reference and adopt dyad-touchstone's d-rub moniker
-and discipline for our own use"*). Not a macro composed from the primitives.
+A **distinct category** — *fast intake*. These do **not** act on an existing
+node's life (group A), are **not** an open/close ritual (group B), and are **not** a
+discussion mode (group C): they **create** a node from an Operator payload fired
+mid-workflow, without paying the interrupting turns of a Sense. (Operator-directed
+2026-07-10, d-start; the two forks — *one directive* · *new 4th vocabulary
+category* — were ruled in this session's chat-based d-sense, node #60.)
 
-- **`d-rub`** — the **Validate-family job**: one token, **escalating rungs**, with
-  **Agent-determined depth** (which rung fires is chosen by *checking actual state*,
-  not by which word was typed — mirrors `d-land`'s Agent-determined scope):
-  1. **Ground** — establish against reality *by execution* (run it, don't assert it).
-  2. **Read** — orient, report state, *do not act* — most asks stop here.
-  3. **Triangulate** — derive independently, then compare results.
-  4. **Rub** — attack a *stated* move to try to break it — **bounded to that
-     target**, not the whole situation.
-  Firing the **Rub** rung **pre-authorizes the Operator to bear re-alignment** — the
-  in-moment exception to alignment-before-action (DYAD.md's third invariant): the
-  Operator has invited the attack, so the Agent may contest the *stated move*
-  without first re-aligning. Preserves the **fact-check ⟂ attack** boundary and
-  guards against unbounded "falsify everything" (over-guard) by framing caution as
-  *escalation-depth* rather than an all-or-nothing choice. (Examining the Agent's
-  own cognition is out of scope here.) **Relation to chiron's vocabulary:** distinct
-  from `riff:`/`raff:`, which set discussion-*mode* not verification-*depth*. Read
-  retroactively, this session's bare **"falsify"** asks were the **Rub** rung, and
-  the **"d-rub: durable on main"** ask was **Read → Ground** (orient, then verify by
-  execution: git state + `./check`).
+- **`todo:` / `idea:`** — **one directive** (`idea:` is an **alias**, not a second
+  directive). On `todo: {payload}` (or `idea: {payload}`) the main agent **offloads
+  the payload to a sub-agent and immediately continues** its current work; the
+  sub-agent nodifies the payload as a `ws:<stream>, status:clarify` node and
+  **stops there**. The idea↔todo distinction is **not** modeled by two directives —
+  it **rides the guessed `ws:<stream>` label**, settled later by a d-sense when the
+  node is pulled off the queue.
+
+  **Non-interruption contract.** On `todo:`/`idea:`, the main agent dispatches the
+  capture sub-agent and continues; **the Operator pays zero interrupting turns**.
+  This is the **non-interruption** guarantee of #20's four orthogonal guarantees
+  (integrity · liveness · observability · non-interruption — see §*Resilient
+  headless execution*; *pointed, not copied*), applied **inbound**: Operator-capture
+  is the inbound analog of #20's sub-agent-side carve-out (which is outbound).
+
+  **Capture ⟂ falsify invariant.** The capture sub-agent seeds a `status:clarify`
+  node from the payload and **STOPS at clarify** — it does **not** run a d-sense,
+  does **not** converge, does **not** self-ratify (`no-self-ratify`; DYAD.md #5's
+  third invariant — **new nodes enter clarify**). The falsification is a **later
+  d-sense**, run when the node is pulled off the queue. Capture is the *fast
+  intake*, **NOT** a d-sense — the two are separate acts on separate axes.
+
+  **Sub-agent capture brief (single home).** Mirrors the #20 dispatch-brief
+  template (§*Resilient headless execution*); single-homed here, reused when firing
+  a `todo:`/`idea:` capture:
+
+  > You are a **capture sub-agent** of dyad-chiron. Your entire commission is to
+  > nodify one Operator payload fired mid-workflow (`todo:`/`idea: {payload}`) and
+  > **STOP** — you do **NOT** run a d-sense, do **NOT** converge, do **NOT**
+  > self-ratify.
+  >
+  > - Create the node with `bin/gh issue create` (the carve-out pattern), labelled
+  >   `ws:<stream>,status:clarify`.
+  > - **Intent:** a **stub** written from the `{payload}` — the Operator's words as
+  >   the seed intent, **not** elaborated into a converged Sense.
+  > - **`ws:<stream>`:** your **best guess** from the payload (the idea↔todo split
+  >   rides this label; a later d-sense settles it). Domain model:
+  >   `reflect/ws-domain-classification.md`.
+  > - **Context:** `captured mid-workflow, {date}`.
+  > - **Leave the node in `status:clarify`; do not converge**, do not d-land. A
+  >   later d-sense falsifies it when it is pulled off the queue (capture ⟂ falsify).
+  > - Report the created node's link and **STOP**.
+
+  **Mechanism (Agent-elected, don't-over-build).** Capture **reuses `bin/gh issue
+  create`** (the carve-out pattern; #20 · #51-`intake` is the external dyad-to-dyad
+  analog). A dedicated **`bin/ws capture` helper is deferred** — mirroring d-start's
+  deferred mechanical spine — until hand-run friction proves a script would remove
+  it.
 
 ## Resilient headless execution — carve-out recovery + scope decomposition (#20)
 
