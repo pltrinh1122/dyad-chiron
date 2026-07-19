@@ -35,6 +35,13 @@ is still contested; when the question **earns its answer** it moves to `reflect/
   re-teaching, route refreshers, and (next rung) detect staleness. Grounded in
   `pedagogy-foundations.md` §8; migrates to the `ws:harness` home when created.
 
+- **`learner-mode.md`** (opened 2026-07-16) — the codified learner-mode experience
+  (SPEC): the two-mode help-ON⟂help-OFF split, role-purity + log-don't-fix, and the
+  assessment-UI protocol (orient → select → fresh blind items → administer help-OFF →
+  gate → fluency → auto-write → route). The v0→v1 assessment-first codification; its
+  mechanical shell is `bin/learn`, its ledger `k-record.md`, its guard
+  `criteria/k-record.sh`.
+
 **Live contests:**
 
 - **`dyad-operation-skillmap.md`** (opened 2026-07-11) — the skill-map for

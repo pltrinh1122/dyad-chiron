@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# bin/learn — learner-mode entry: the thin mechanical shell (dialectic/learner-mode.md;
+# pedagogy-foundations.md §8). Reads the K-record ledger and orients the session —
+# what's mastered, what's due for a spaced re-test, what's next. It does NOT deliver or
+# grade: the Agent runs the actual rep by following dialectic/learner-mode.md (help OFF,
+# fresh blind items, gate + fluency, auto-write). This shell only consults state.
+set -euo pipefail
+here="$(cd "$(dirname "$0")" && pwd)"; repo="$(cd "$here/.." && pwd)"
+kr="$repo/dialectic/k-record.md"
+spec="$repo/dialectic/learner-mode.md"
+[ -f "$kr" ] || { echo "bin/learn: no K-record at $kr" >&2; exit 1; }
+
+echo "== learner-mode — your standing (dialectic/k-record.md) =="
+echo
+awk -F'|' '
+  $2 ~ /`/ {
+    for (i=1;i<=NF;i++){ gsub(/^ +| +$/,"",$i); gsub(/`/,"",$i) }
+    slice=$2; gate=$3; flu=$4; earned=$5; dur=$7; lever=$8
+    if (gate=="PASS" && dur=="verified")      tag="[solid]"
+    else if (gate=="PASS")                     tag="[PASS · spaced re-test due]"
+    else                                       tag="[to-earn]"
+    printf "  %-30s %-9s fluency=%-18s earned=%-12s %s\n", slice, gate, flu, earned, tag
+    if (lever!="—" && lever!="-" && lever!="") printf "      refresher-lever: %s\n", lever
+  }
+' "$kr"
+
+echo
+echo "== next =="
+echo "  · [spaced re-test due] = durability unverified — a fresh blind re-test upgrades it."
+echo "  · To run a rep, follow the assessment protocol in dialectic/learner-mode.md:"
+echo "    the Agent generates fresh blind items, grades the gate, reads fluency, records."
+if [ -f "$spec" ]; then echo "  · spec: dialectic/learner-mode.md"; else echo "  · (spec dialectic/learner-mode.md missing)"; fi
