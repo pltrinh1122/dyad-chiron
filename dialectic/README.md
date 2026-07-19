@@ -42,6 +42,16 @@ is still contested; when the question **earns its answer** it moves to `reflect/
   mechanical shell is `bin/learn`, its ledger `k-record.md`, its guard
   `criteria/k-record.sh`.
 
+**Evaluation findings (logged, awaiting disposition):**
+
+- **`learner-mode-navigation.md`** (opened 2026-07-19) — the evaluation finding from
+  entering learner-mode against the Operator's navigation invariant (know where you
+  are ⟂ know what's next; curriculum-nav ⟂ ui-nav). Verdict: the invariant fails on
+  both axes (`bin/learn` shows only attempted slices, not the T0–T8 ladder /
+  next-available; the "next" block is a doc-pointer with no mode signal). A
+  `ws:harness` defect note — **logged, not fixed** (Operator-dispositioned
+  evaluate-only); the fix (compute the map in `bin/learn`) awaits a `dispose→execute`.
+
 **Live contests:**
 
 - **`dyad-operation-skillmap.md`** (opened 2026-07-11) — the skill-map for
