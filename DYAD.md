@@ -278,6 +278,57 @@ Canonicalized as they stabilize; this stub grows, it does not ossify.
   separate orthogonal concerns into independent axes; an apparent tradeoff is
   often a conflation artifact.
 
+**The claim→constraint vocabulary (Operator-ratified 2026-07-19).** How a claim
+hardens into an enforced rule, and the kinds of must-hold. **Accessible by design** —
+novice learners are the audience, so the everyday word is primary and the formal one
+noted beside it. Paired verifier: `criteria/glossary.sh`.
+
+*The descriptive line — a claim and its provisional form:*
+
+- **falsifiable statement** — a claim with a conceivable refuter (Popper);
+  descriptive; fails by being **falsified**.
+- **falsifiable default** — a falsifiable statement the Agent *proposes* as the
+  working answer; defeasible; fails by being **overturned**.
+
+*A requirement decomposes into two atoms (the node model, #5):*
+
+- **requirement** — a work-unit / node = a **goal** + its **constraint(s)**.
+- **goal** — what you aim to **achieve** (teleological); fails by being **missed**
+  (incomplete — a miss, not a breach).
+- **constraint** — what must **hold** while achieving it; fails by being
+  **violated / breached**. Formal synonym: **invariant** (a constraint that holds
+  across all states). *Miss ⟂ breach:* a goal is a target you can miss; a constraint
+  is a rule you can break.
+
+*A constraint (= invariant), by what it governs:*
+
+- **principle** — a constraint on **how we operate** (development · design ·
+  governance · process): TDD, axis-separation, no-self-ratify.
+- **given** — a constraint that is a **truth of the subject**, taken as fixed
+  (Popper-safe — *given*, not claimed as proven Truth): "a falsifiable claim must
+  have a refuter"; the laws of logic.
+- **form** — a constraint on an **artifact's structure**: a node must carry
+  Intent · Acceptance · Context · Delivery.
+
+*Below the must-hold line:*
+
+- **heuristic** — a *preferred* operating guide, **not** a constraint (no
+  breach-consequence): DRY, YAGNI; fails by being **deviated from**. Hardens into a
+  **principle** by crossing the must-hold line (ratify) + earning a verifier.
+
+**Lifecycle:** falsifiable statement → falsifiable default → *[ratify + must-force]*
+→ **constraint (invariant)** → **{principle · given · form}** by what it governs →
+**earned** when it ships its paired verifier.
+
+**Diagnostic tests:** (1) *norm or claim?* must + breach-consequence → **constraint**;
+else statement/default. (2) *governs what?* how-we-work → **principle** · a
+subject-truth → **given** · an artifact's-form → **form**. (3) *must-hold or
+preferred?* breach = failure → **constraint** · deviation-fine → **heuristic**.
+
+**Layman one-liners:** a **principle** is how you *work* · a **given** is what's *so*
+in the subject · a **form** is what a thing must *contain* · a **goal** is what you
+*aim at* · a **constraint** is what must *hold*.
+
 ## Design principles
 
 Reflexes distilled from chiron's own practice — realized, not decreed ahead of
