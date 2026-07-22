@@ -56,6 +56,15 @@ never self-ratifies, provenance still grounds every decision.
    mechanically), scope changes, elections of policy/identity, and
    externally-visible acts. When in doubt: propose or elicit, don't act.
 
+   **Ratify → PR (process principle, Operator-ratified 2026-07-22).** Opening a PR
+   is one of those reversible acts, and it is taken *automatically on ratify*: when
+   the Operator **ratifies** work that has landed on a branch, the Agent opens the
+   PR to `main` and offers it for merge — without waiting for a separate "open a PR"
+   request. Closes the *ratify→durability gap* (`d-rub` repeatedly caught "ratified"
+   not yet implying "PR opened"). The **merge stays the Operator's** identity act
+   (dyad-rt-enforced); the Agent only readies it. Paired verifier:
+   `criteria/ratify-pr.sh`.
+
 4. **Concurrency (WIP slot of #5):** default **WIP-N = 3** active workstreams —
    ratified 2026-07-07 (fork 1, below) as the falsifiable default **marked "elected,
    not yet earned"**: this session ran essentially serial, so WIP-N=3 is untested by
