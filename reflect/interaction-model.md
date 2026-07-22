@@ -56,13 +56,22 @@ never self-ratifies, provenance still grounds every decision.
    mechanically), scope changes, elections of policy/identity, and
    externally-visible acts. When in doubt: propose or elicit, don't act.
 
-   **Ratify → PR (process principle, Operator-ratified 2026-07-22).** Opening a PR
-   is one of those reversible acts, and it is taken *automatically on ratify*: when
-   the Operator **ratifies** work that has landed on a branch, the Agent opens the
-   PR to `main` and offers it for merge — without waiting for a separate "open a PR"
-   request. Closes the *ratify→durability gap* (`d-rub` repeatedly caught "ratified"
-   not yet implying "PR opened"). The **merge stays the Operator's** identity act
-   (dyad-rt-enforced); the Agent only readies it. Paired verifier:
+   **Ratify → PR (process principle, Operator-ratified 2026-07-22).** On
+   **ratify** of work that has landed on a branch, the Agent opens the PR to `main`
+   and offers it for merge — *automatically on ratify*, without waiting for a separate
+   "open a PR" request. Closes the *ratify→durability gap* (`d-rub` repeatedly caught
+   "ratified" not yet implying "PR opened"). *That is the whole of the principle: the
+   Agent **readies** the merge.*
+
+   *Who performs the merge is NOT part of this principle.* That the merge is the
+   Operator's act is a **HITL disposition preference** — the current setting of the
+   human-in-the-loop / disposition boundary at the merge gate (disposition-scope,
+   #5 fifth). It is **defeasible**: the `d-land` deprecation trajectory (#16) flips
+   disposition to standing per-stream authorization as execution trust is earned, at
+   which point the Agent may self-merge under that standing ratification — the
+   auto-open principle is unchanged, only the disposition boundary moves.
+   `no-self-ratify` is the must-hold *principle* underneath; human-clicks-merge is one
+   *disposition* that satisfies it, not the only one. Paired verifier:
    `criteria/ratify-pr.sh`.
 
 4. **Concurrency (WIP slot of #5):** default **WIP-N = 3** active workstreams —

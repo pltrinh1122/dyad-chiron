@@ -13,6 +13,12 @@ assert "interaction-model exists"                         test -f "$m"
 assert "Ratify→PR process principle documented"           grep -qF 'Ratify → PR (process principle' "$m"
 assert "principle: PR opened automatically on ratify"     grep -qiF 'automatically on ratify' "$m"
 assert "principle: names the ratify→durability gap"       grep -qF 'ratify→durability gap' "$m"
-assert "principle: merge stays the Operator's act"        grep -qF "merge stays the Operator's" "$m"
+# the merge-disposition is NOT the principle — it is a HITL disposition preference (defeasible),
+# classified separately per the glossary (§8) + disposition-scope (#5 fifth). Guard the distinction.
+assert "merge-disposition classified a HITL disposition preference (not the principle)" \
+  grep -qF 'HITL disposition preference' "$m"
+assert "merge-disposition marked defeasible (deprecation trajectory)" \
+  grep -qF 'defeasible' "$m"
+assert "no-self-ratify named as the must-hold principle underneath"   grep -qF 'must-hold *principle* underneath' "$m"
 
 assert_done
