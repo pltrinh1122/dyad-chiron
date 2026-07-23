@@ -38,9 +38,26 @@ the learner-experience a *faithful* evaluation instrument (judge ⟂ author).
 Mechanical steps are `bin/learn` + the auto-write; the **judgment** steps (generate,
 grade, read fluency) are the Agent following this contract.
 
-1. **Orient** *(mechanical — `bin/learn`)*. Read `k-record.md`; show the learner's
-   standing — mastered slices, slices **due for a spaced re-test** (`durability:
-   unverified` or aged), and next-available slices.
+1. **Orient** *(mechanical — `bin/learn`)*. Render the learner-mode-invariant on both
+   axes (node #74) from state alone — the output *by itself* answers *where am I?* ⟂
+   *what can I do next?*, no spec-read required:
+   - **Sub-mode contract (static).** State on entry that this is the codified
+     **assessment-UI — help OFF** (`chiron.assessor` + `chiron.preceptor`): no hints,
+     no feedback between items (a hint contaminates the gate). The help-ON learning-UI
+     (`chiron.tutor`) is the separate, uncodified sub-mode. This is a
+     **static contract declaration**, not live-mode detection.
+   - **The full ladder (where am I?).** Render the **entire T0–T8 ladder** — derived by
+     parsing the curriculum topic table (`falsification-curriculum.md` §4.0) and
+     **joining** it against `k-record.md` (single source of truth — no separate
+     manifest) — with per-slice **state**: `mastered` (PASS ∧ durability verified) ·
+     **`re-test-due`** (PASS ∧ durability unverified/aged) · **`available-now`** (¬PASS ∧
+     all prereqs PASS) · **`locked`** (¬PASS ∧ a prereq not yet PASS — **naming the
+     unmet prereq**). If the §4.0 parse does not yield the full T0–T8 shape, **fail
+     loud** rather than render a partial ladder (guard against silent table drift).
+   - **Concrete next-choices (what's next?).** List the specific `available-now` slice(s)
+     and **how to start a rep** (the prompt that runs the assessment) — plus any
+     `re-test-due` slices a fresh blind re-test would upgrade. Concrete choices, **not** a
+     pointer to this spec.
 2. **Select + prereq-check.** Learner picks a slice. Confirm its prereqs are `PASS` in
    the K-record (a topic's assessment uses only ancestors' knowledge — §2a closure).
 3. **Generate blind items** *(judgment — Agent)*. The learner has seen the bank, so

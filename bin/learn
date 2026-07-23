@@ -1,32 +1,149 @@
 #!/usr/bin/env bash
 # bin/learn — learner-mode entry: the thin mechanical shell (dialectic/learner-mode.md;
-# pedagogy-foundations.md §8). Reads the K-record ledger and orients the session —
-# what's mastered, what's due for a spaced re-test, what's next. It does NOT deliver or
-# grade: the Agent runs the actual rep by following dialectic/learner-mode.md (help OFF,
-# fresh blind items, gate + fluency, auto-write). This shell only consults state.
+# pedagogy-foundations.md §8). Orients the session on TWO axes (the learner-mode-invariant,
+# node #74):
+#   · curriculum-nav ("where am I?") — renders the full T0–T8 ladder with per-slice state,
+#     derived by parsing the curriculum topic table (dialectic/falsification-curriculum.md
+#     §4.0) and JOINING it against the K-record ledger (dialectic/k-record.md). Single source
+#     of truth — no separate manifest. (Operator mechanism disposition, #74.)
+#   · ui-nav ("what can I do next?") — the `== next ==` block lists concrete next-choices
+#     (the available-now slices + how to start a rep), and entry states the active sub-mode.
+#
+# It does NOT deliver or grade: the Agent runs the actual rep by following
+# dialectic/learner-mode.md (help OFF, fresh blind items, gate + fluency, auto-write).
+# This shell only CONSULTS state.
+#
+# State-mapping (Agent-dispositioned, #74; earnedness — displays earned state, never confers):
+#   PASS ∧ durability=verified            → mastered
+#   PASS ∧ durability=unverified/aged     → re-test-due
+#   ¬PASS ∧ all prereqs PASS              → available-now
+#   ¬PASS ∧ some prereq not PASS          → locked  (names the unmet prereq)
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"; repo="$(cd "$here/.." && pwd)"
 kr="$repo/dialectic/k-record.md"
+curr="$repo/dialectic/falsification-curriculum.md"
 spec="$repo/dialectic/learner-mode.md"
-[ -f "$kr" ] || { echo "bin/learn: no K-record at $kr" >&2; exit 1; }
+[ -f "$kr" ]   || { echo "bin/learn: no K-record at $kr" >&2; exit 1; }
+[ -f "$curr" ] || { echo "bin/learn: no curriculum at $curr" >&2; exit 1; }
 
-echo "== learner-mode — your standing (dialectic/k-record.md) =="
-echo
-awk -F'|' '
-  $2 ~ /`/ {
-    for (i=1;i<=NF;i++){ gsub(/^ +| +$/,"",$i); gsub(/`/,"",$i) }
-    slice=$2; gate=$3; flu=$4; earned=$5; dur=$7; lever=$8
-    if (gate=="PASS" && dur=="verified")      tag="[solid]"
-    else if (gate=="PASS")                     tag="[PASS · spaced re-test due]"
-    else                                       tag="[to-earn]"
-    printf "  %-30s %-9s fluency=%-18s earned=%-12s %s\n", slice, gate, flu, earned, tag
-    if (lever!="—" && lever!="-" && lever!="") printf "      refresher-lever: %s\n", lever
+# ── Parse §4.0 topic table: emit  Tn <TAB> topic <TAB> prereqCSV  (section-scoped) ───────────
+curr_rows="$(awk '
+  /^### 4\.0 / { inseg=1; next }
+  inseg && /^## /  { inseg=0 }
+  inseg && /^\| \*\*T[0-9]/ {
+    id=$0; sub(/^\| \*\*/,"",id); sub(/\*\*.*/,"",id)          # T0
+    n=split($0, f, "|")
+    topic=f[3]; gsub(/^ +| +$/,"",topic)
+    pre=f[4]; csv=""
+    while (match(pre, /T[0-9]/)) {
+      t=substr(pre,RSTART,RLENGTH)
+      csv=(csv=="" ? t : csv "," t)
+      pre=substr(pre,RSTART+RLENGTH)
+    }
+    printf "%s\t%s\t%s\n", id, topic, csv
   }
-' "$kr"
+' "$curr")"
 
+# ── Parse-guard: fail loud unless the parse yields the full, contiguous T0–T8 shape ──────────
+got_ids="$(printf '%s\n' "$curr_rows" | cut -f1 | sort -u | paste -sd, -)"
+if [ "$got_ids" != "T0,T1,T2,T3,T4,T5,T6,T7,T8" ]; then
+  echo "bin/learn: PARSE-GUARD — §4.0 topic table did not yield the full T0–T8 ladder." >&2
+  echo "  parsed: [${got_ids:-<none>}]  (expected T0..T8)" >&2
+  echo "  the curriculum table (dialectic/falsification-curriculum.md §4.0) has drifted;" >&2
+  echo "  refusing to render a partial ladder. Fix the table or this parser." >&2
+  exit 2
+fi
+
+# ── Join in bash assoc arrays ────────────────────────────────────────────────────────────────
+declare -A TOPIC PRE GATE DUR
+while IFS=$'\t' read -r id topic csv; do
+  [ -n "$id" ] || continue
+  TOPIC[$id]="$topic"; PRE[$id]="$csv"
+done <<< "$curr_rows"
+
+# K-record: emit  Tn <TAB> gate <TAB> durability  (join key = the (Tn) tag in the slice cell)
+while IFS=$'\t' read -r id gate dur; do
+  [ -n "$id" ] || continue
+  GATE[$id]="$gate"; DUR[$id]="$dur"
+done <<< "$(awk -F'|' '
+  $2 ~ /`/ {
+    slice=$2; gate=$3; dur=$7
+    gsub(/`/,"",slice)
+    if (!match(slice, /T[0-9]/)) next
+    id=substr(slice,RSTART,RLENGTH)
+    gsub(/^ +| +$/,"",gate)
+    gsub(/[^A-Za-z-]/,"",gate)                                 # PASS | NOT-PASS
+    gsub(/[^a-z-]/,"",dur)                                     # verified|unverified|aged
+    printf "%s\t%s\t%s\n", id, gate, dur
+  }' "$kr")"
+
+state_of() {   # $1=id → sets globals ST (state) and NOTE (human note)
+  local id="$1" g="${GATE[$1]:-}" d="${DUR[$1]:-}" p unmet=""
+  if [ "$g" = "PASS" ] && [ "$d" = "verified" ]; then
+    ST="mastered"; NOTE="durability verified"
+  elif [ "$g" = "PASS" ]; then
+    ST="re-test-due"; NOTE="PASS but durability ${d:-unverified} — a fresh blind re-test upgrades it"
+  else
+    for p in ${PRE[$id]//,/ }; do
+      [ "${GATE[$p]:-}" = "PASS" ] || unmet="${unmet:+$unmet }$p"
+    done
+    if [ -z "$unmet" ]; then
+      ST="available-now"; NOTE="prereqs PASS — ready for a blind assessment"
+    else
+      ST="locked"; NOTE="blocked on: $unmet (must PASS first)"
+    fi
+  fi
+}
+
+# ── Render: entry sub-mode contract ──────────────────────────────────────────────────────────
+echo "== learner-mode — assessment-UI (help OFF) =="
 echo
-echo "== next =="
-echo "  · [spaced re-test due] = durability unverified — a fresh blind re-test upgrades it."
-echo "  · To run a rep, follow the assessment protocol in dialectic/learner-mode.md:"
-echo "    the Agent generates fresh blind items, grades the gate, reads fluency, records."
-if [ -f "$spec" ]; then echo "  · spec: dialectic/learner-mode.md"; else echo "  · (spec dialectic/learner-mode.md missing)"; fi
+echo "  SUB-MODE (static contract): you are in the codified assessment-UI —"
+echo "    chiron.assessor + chiron.preceptor, HELP OFF. No hints, no worked"
+echo "    examples, no feedback between items — a hint contaminates the gate."
+echo "    Blind fresh items · gate (PASS/NOT-PASS) + fluency signal · recorded."
+echo "  (The help-ON learning-UI, chiron.tutor, is the separate sub-mode — not"
+echo "   codified yet; entry here is assessment, so help is OFF.)"
+echo
+
+# ── Render: the T0–T8 ladder (where am I?) ───────────────────────────────────────────────────
+echo "== your path — the T0–T8 ladder (falsification-curriculum.md §4.0 ⋈ k-record.md) =="
+echo
+printf "  %-5s  %-14s  %-40s  %s\n" "slice" "state" "topic" "note"
+printf "  %-5s  %-14s  %-40s  %s\n" "----" "-----" "-----" "----"
+avail=(); retest=()
+for id in T0 T1 T2 T3 T4 T5 T6 T7 T8; do
+  state_of "$id"
+  topic="${TOPIC[$id]}"; [ "${#topic}" -gt 40 ] && topic="${topic:0:37}..."
+  printf "  %-5s  %-14s  %-40s  %s\n" "$id" "$ST" "$topic" "$NOTE"
+  [ "$ST" = "available-now" ] && avail+=("$id")
+  [ "$ST" = "re-test-due" ]   && retest+=("$id")
+done
+echo
+echo "  legend:  mastered = PASS · durability verified   |   re-test-due = PASS · durability unverified/aged"
+echo "           available-now = prereqs PASS, not yet earned   |   locked = a prereq not yet PASS"
+
+# ── Render: concrete next-choices (what can I do next?) ──────────────────────────────────────
+echo
+echo "== next — concrete choices (pick one; then ask the Agent to run it) =="
+echo
+if [ "${#avail[@]}" -gt 0 ]; then
+  echo "  AVAILABLE NOW (prereqs PASS — earn these next):"
+  for id in "${avail[@]}"; do
+    echo "    · $id — ${TOPIC[$id]}"
+    echo "        start:  say  \"chiron, assess $id\"  (or \"run a blind rep on $id\")"
+    echo "        → the Agent draws fresh blind items, grades the gate, reads fluency, records."
+  done
+else
+  echo "  AVAILABLE NOW: none — every unlocked slice is either mastered or blocked."
+fi
+if [ "${#retest[@]}" -gt 0 ]; then
+  echo
+  echo "  RE-TEST DUE (already PASS; a fresh blind re-test upgrades durability → verified):"
+  for id in "${retest[@]}"; do
+    echo "    · $id — ${TOPIC[$id]}   —  say  \"chiron, re-test $id\""
+  done
+fi
+echo
+echo "  Locked slices unlock automatically once their named prereq reaches PASS."
+if [ -f "$spec" ]; then echo "  full protocol (reference, not required to start): dialectic/learner-mode.md"; fi
