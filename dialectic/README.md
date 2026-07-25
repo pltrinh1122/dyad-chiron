@@ -42,6 +42,21 @@ is still contested; when the question **earns its answer** it moves to `reflect/
   mechanical shell is `bin/learn`, its ledger `k-record.md`, its guard
   `criteria/k-record.sh`.
 
+**Telos instrumentation (per-rep economy):**
+
+- **`turn-counting-rule.md`** (opened 2026-07-22) — the durable **SPEC** defining
+  *one learning-turn* sharply enough that two independent counters agree (node #7):
+  the round-trip boundary (R1/R2/R3), the Agent-block counting primitive, the
+  learner-in-curriculum exclusions, and the cardinal-within ⟂ ordinal-across (#47)
+  scope boundary. Governs the ledger below. Makes the craft_telos falsifiable.
+
+- **`turn-ledger.md`** (opened 2026-07-22) — the per-rep **RECORD** of learning-turn
+  economy (turns-per-rep, so the declining-turns trend is observable), node #7. Its
+  own artifact — **per-rep *economy*** ⟂ the K-record's **per-slice *mastery***. The
+  two-counter agreement bar (`agree = yes`) gates an earned `turns` value; guarded by
+  `criteria/turn-ledger.sh`. Currently schema-seeded with no rep row — AC #3 (real-rep
+  agreement) honestly marked not-yet-earnable pending a logged rep.
+
 **Evaluation findings (logged, awaiting disposition):**
 
 - **`learner-mode-navigation.md`** (opened 2026-07-19) — the evaluation finding from
