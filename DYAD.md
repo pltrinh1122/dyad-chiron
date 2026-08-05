@@ -368,3 +368,24 @@ Distilled from three lived instances (derivation:
 Chiron-local for now; flagged as a candidate Commons-form contribution once
 proven across more instances (proposal deferred — see
 `reflect/axis-separation.md`).
+
+### Paired-verifier
+
+**Every artifact that asserts an *earnable* claim ships with its verifier** —
+**test ↔ code**, **linter ↔ non-code** — co-present and passing at commit. The
+verifier covers the claim's *mechanizable* properties; judgment-bound ones stay
+**named** human-audit. Verifiers **bottom out in execution** (a check self-grounds by
+running), not in a further pair — the regress has a base case. A claim without a
+passing check is *conferred, not earned* (the craft value, one level down).
+
+- **The register:** `criteria/pairs.md` — every earnable claim → its home → its
+  verifier. One artifact may carry many verifiers.
+- **Self-enforcing:** `criteria/paired-verifier.sh` (the principle's own pair) checks
+  the register is **complete** (every `criteria/*.sh` is registered — a new check
+  without a row fails `./check`) and **honest** (every registered home + verifier
+  exists). The one direction it can't mechanize — that *every earnable artifact* is
+  listed — is named, not dropped, and stays human-audit.
+
+*Realized 2026-07-22:* every artifact this enterprise landed already deposited a
+check; this principle names the reflex and makes it self-enforcing (Operator-ratified
+"pay debt A now").
