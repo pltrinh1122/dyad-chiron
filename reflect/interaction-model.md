@@ -170,6 +170,18 @@ predicted** ("we won't know later until it becomes later"). "Soon" is therefore 
   triggers archival. (This is why #11 was reopened this session: its intent is live
   and its premise unmet-not-invalidated; the earlier "horizon/unscheduled = later"
   reading was retired.)
+- **Deferral discipline — every blocked/waiting node names its resume condition
+  (work-lifecycle principle, Operator-ratified 2026-08-07).** The unmet precondition
+  that keeps a node alive must be stated **explicitly**, as the trigger that resumes
+  it — either **`Blocked-by: #refs`** (an open node-dependency — resumes when the dep
+  closes) or **`Resume-when: <world-condition>`** (a stated external event — resumes
+  when it occurs; this is the form the `Blocked-by`-only model couldn't express). No
+  node defers on an *implicit* "later": **an unstated resume condition is
+  indistinguishable from abandonment** — a node no one knows how to resume is *lost
+  work, not tracked work*. (The workstream form of the glossary's goal/constraint
+  split: a deferred **goal** without a resume trigger is a dropped goal.) Documentation
+  guard: `criteria/defer-resume.sh`; the live-board enforcement rides the label layer
+  (offline checks skip live labels — honest limit), with `d-rub` as the catch.
 - **Generalizes the #16 staleness gate** from *convergence* to *intent + premise*: the
   timestamped-convergence reground (a dep closing after convergence → back to
   clarify) is the convergence-scoped instance of the same rule.

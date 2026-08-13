@@ -28,4 +28,5 @@
 | the Projects-v2 self-healing sync | bin/ws | activity-board-project |
 | the learner-mode-invariant nav (T0–T8 ladder + concrete next) | bin/learn | learn-navigation |
 | the learning-turn ledger well-formedness (two-counter agreement) | dialectic/turn-ledger.md | turn-ledger |
+| the deferral-discipline invariant (blocked node names its resume condition) | reflect/interaction-model.md | defer-resume |
 | the paired-verifier principle + this register | DYAD.md | paired-verifier |
